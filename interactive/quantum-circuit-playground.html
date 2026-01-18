@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- Theme Persistence (MUST load before CSS) -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
+	<title>Quantum JavaScript (Q.js)</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta name="description" content="Quantum computing in your browser.">
+	<meta name="copyright" content="Stewart Smith 2019–2020">
+	<meta name="keywords" content="
+			Q, Q.js, Q-js, Qjs, quantum JavaScript,
+			quantum, quantum physics, quantum mechanics, superposition,
+			quantum computer, quantum computer programming, quantum computing, QC, 
+			quantum simulator, quantum computer simulator, 
+			qubit, qbit, gate, Hadamard, Bloch, Bloch Sphere,
+			Web, Web site, website, Web browser, browser, HTML, HTML5, JavaScript, ES6, CSS,
+			Chrome, Firefox, Safari, Opera, Brave, Edge, WebKit, Blink, Gecko, Mozilla,
+			Stewart Smith, Stewart, Stew, Stuart, Steven, Steve, Stewdio, stewartsmith, stew_rtsmith, @stew_rtsmith,
+			Moar, Moar Technologies Corp, MTC,
+			Google, IBM, Microsoft, Amazon, NASA, DWave, D-Wave,
+			Quil, OpenQASM,
+				ProjectQ, Qiskit, 
+				Quantum Development Kit, Cirq, Strawberry Fields, t|ket>,
+				QCL, Quantum pseudocode, Q#, Q|SI>, Q language, qGCL, QFC, QML, LIQUi|>, Quipper,
+			Stanford CS 269 Q: Quantum Computer Programming">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@stew_rtsmith">
+	<meta name="twitter:creator" content="@stew_rtsmith">
+	<meta name="twitter:title" content="Quantum JavaScript (Q.js)">
+	<meta name="twitter:description" content="Quantum computing in your browser.">
+	<meta name="twitter:image" content="https://quantumjavascript.app/assets/Q-website-preview.jpg">
+
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Quantum JavaScript (Q.js)">
+	<meta property="og:description" content="Quantum computing in your browser.">
+	<meta property="og:image" content="https://quantumjavascript.app/assets/Q-website-preview.jpg">
+	<meta property="og:url" content="https://quantumjavascript.app/">
+
+	<link rel="canonical" href="https://quantumjavascript.app/">
+	<link href="../libraries/q.js/assets/Q-favicon-064.png" rel="icon" type="image/png">
+	<link href="../libraries/q.js/assets/Q-favicon-144.png" rel="apple-touch-icon">
+
+	<link rel="stylesheet" href="../libraries/q.js/Q/Q.css">
+	<link rel="stylesheet" href="../libraries/q.js/Q/Q-Circuit-Editor.css">
+	<link rel="stylesheet" href="../libraries/q.js/assets/documentation.css">
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<style>
+		:root,
+		[data-theme="light"] {
+			--bg-primary: #faf8f3;
+			--bg-card: #fffdfb;
+			--text-primary: #2b281f;
+			--text-secondary: #6b5e4f;
+			--border-subtle: rgba(212, 197, 169, 0.3);
+			--color-green: #16a34a;
+		}
+
+		[data-theme="dark"] {
+			--bg-primary: #1c1a16;
+			--bg-card: #32291d;
+			--text-primary: #f5f1e8;
+			--text-secondary: #c9b898;
+			--border-subtle: rgba(212, 197, 169, 0.15);
+			--color-green: #16a34a;
+		}
+
+		.nav-bar {
+			background: var(--bg-card);
+			border-bottom: 1px solid var(--border-subtle);
+			padding: 0.5rem 1rem;
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+		}
+
+		.nav-bar a {
+			color: var(--text-secondary);
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 0.3rem;
+			font-size: 0.9rem;
+			transition: color 0.2s;
+		}
+
+		.nav-bar a:hover {
+			color: var(--color-green);
+		}
+
+		.nav-separator {
+			color: var(--text-secondary);
+			opacity: 0.3;
+		}
+
+		/* Page Layout */
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 2rem;
+		}
+
+		.page-header {
+			text-align: center;
+			margin-bottom: 3rem;
+			padding-bottom: 2rem;
+			border-bottom: 1px solid var(--border-subtle);
+		}
+
+		.page-header h1 {
+			font-size: 2.5rem;
+			font-weight: 600;
+			color: var(--text-primary);
+			margin-bottom: 0.75rem;
+		}
+
+		.page-header p {
+			font-size: 1.125rem;
+			color: var(--text-secondary);
+			max-width: 700px;
+			margin: 0 auto;
+		}
+
+		/* Info Cards */
+		.info-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.5rem;
+			margin-bottom: 3rem;
+		}
+
+		.info-card {
+			background: var(--bg-card);
+			border: 1px solid var(--border-subtle);
+			border-radius: 12px;
+			padding: 1.5rem;
+			transition: all 0.2s;
+		}
+
+		.info-card:hover {
+			border-color: var(--color-green);
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
+		}
+
+		.info-card h3 {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			font-size: 1.125rem;
+			font-weight: 600;
+			color: var(--text-primary);
+			margin-bottom: 0.5rem;
+		}
+
+		.info-card p {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+			line-height: 1.5;
+		}
+
+		/* Section */
+		.section {
+			margin-bottom: 3rem;
+		}
+
+		.section-title {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			font-size: 1.75rem;
+			font-weight: 600;
+			color: var(--text-primary);
+			margin-bottom: 1.5rem;
+		}
+
+		.section-intro {
+			color: var(--text-secondary);
+			font-size: 1rem;
+			margin-bottom: 2rem;
+			line-height: 1.6;
+		}
+
+		.playground-section {
+			background: var(--bg-card);
+			border: 1px solid var(--border-subtle);
+			border-radius: 12px;
+			padding: 2rem;
+		}
+
+		/* Q.js Circuit Styling (from lesson 4) */
+		.qjs-circuit {
+			background: #fff;
+			border-radius: 8px;
+			padding: 1rem;
+			margin: 1rem auto;
+			width: fit-content;
+			max-width: 100%;
+		}
+
+		/* Hide the JavaScript console reference text */
+		.Q-circuit > p {
+			display: none !important;
+		}
+
+		/* Ensure proper z-index stacking for wires to be visible */
+		.Q-circuit-board-background {
+			z-index: 0;
+		}
+
+		.Q-circuit-board-foreground {
+			z-index: 1;
+		}
+
+		/* Fix stacking effect visibility */
+		.Q-circuit-palette {
+			position: relative;
+			isolation: isolate;
+		}
+
+		/* Remove scrollbars and center circuit */
+		.Q-circuit-board-container {
+			overflow: visible !important;
+			max-height: none !important;
+			display: flex !important;
+			justify-content: center !important;
+		}
+
+		/* Style results output */
+		#example-report {
+			font-family: 'Courier New', monospace;
+			font-size: 0.9rem;
+			line-height: 1.6;
+			margin: 0;
+		}
+
+		@media (max-width: 768px) {
+			.info-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+
+	<script src="https://www.googletagmanager.com/gtag/js" async></script>
+	<script src="../libraries/q.js/assets/ga.js"></script> <!-- Load Q.js -->
+	<script src="../libraries/q.js/Q/Q.js"></script>
+	<script src="../libraries/q.js/Q/Q-ComplexNumber.js"></script>
+	<script src="../libraries/q.js/Q/Q-Matrix.js"></script>
+	<script src="../libraries/q.js/Q/Q-Qubit.js"></script>
+	<script src="../libraries/q.js/Q/Q-Gate.js"></script>
+	<script src="../libraries/q.js/Q/Q-History.js"></script>
+	<script src="../libraries/q.js/Q/Q-Circuit.js"></script>
+	<script src="../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
+	<script src="../libraries/q.js/assets/navigation.js"></script>
+
+</head>
+
+<body>
+	<!-- Navigation -->
+	<div class="nav-bar">
+		<a href="../index.html">
+			<i data-lucide="home" style="width:16px;height:16px;"></i>
+			Home
+		</a>
+		<span class="nav-separator">/</span>
+		<a href="../playground.html">
+			<i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+			Playground
+		</a>
+		<span class="nav-separator">/</span>
+		<span style="color: var(--text-primary); font-weight: 500; font-size: 0.9rem;">Quantum Circuit Builder</span>
+	</div>
+
+	<main class="container">
+		<!-- Page Header -->
+		<div class="page-header">
+			<h1>Quantum Circuit Builder</h1>
+			<p>Build and simulate quantum circuits with drag-and-drop gates. Explore superposition, entanglement, and quantum algorithms in real-time.</p>
+		</div>
+
+		<!-- Info Cards -->
+		<div class="info-grid">
+			<div class="info-card">
+				<h3>
+					<i data-lucide="zap" style="width:18px;height:18px;color:var(--color-green)"></i>
+					Drag & Drop
+				</h3>
+				<p>Drag quantum gates from the palette onto the circuit to build your algorithms</p>
+			</div>
+			<div class="info-card">
+				<h3>
+					<i data-lucide="activity" style="width:18px;height:18px;color:var(--color-green)"></i>
+					Live Simulation
+				</h3>
+				<p>Watch probability results update in real-time as you modify your circuit</p>
+			</div>
+			<div class="info-card">
+				<h3>
+					<i data-lucide="cpu" style="width:18px;height:18px;color:var(--color-green)"></i>
+					Quantum Gates
+				</h3>
+				<p>Experiment with Hadamard, Pauli, CNOT, and other essential quantum gates</p>
+			</div>
+		</div>
+
+		<!-- Circuit Playground -->
+		<section class="section">
+			<h2 class="section-title">
+				<i data-lucide="circuit-board" style="width:24px;height:24px;color:var(--color-green)"></i>
+				Interactive Circuit Editor
+			</h2>
+
+			<div class="playground-section">
+				<p class="section-intro">
+					Drag gates from the palette below onto the circuit. Tap and drag tiles to rearrange. Watch the probability results update automatically.
+				</p>
+
+				<div class="qjs-circuit">
+					<div class="Q-circuit-palette"></div>
+					<div id="example"></div>
+
+					<h4 style="margin-top: 2rem; margin-bottom: 0.5rem; color: var(--text-primary);">Live Probability Results</h4>
+					<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+						Edit the circuit above and watch the probability results update in real-time.
+					</p>
+					<pre style="background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle);"><samp id="example-report" for="example"></samp></pre>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		// Create gate palette (from lesson 4 playground)
+		Array
+			.from(document.querySelectorAll('.Q-circuit-palette'))
+			.forEach(function (el) {
+				Q.Circuit.Editor.createPalette(el)
+			})
+
+		// Initialize circuit on page load (3 qubits, 7 moments)
+		window.addEventListener('DOMContentLoaded', function () {
+			const circuit = new Q.Circuit(3, 7)
+			circuit.name = 'example'
+			const domEl = document.getElementById('example')
+			if (domEl) {
+				circuit.sort$()
+				circuit.toDom(domEl)
+				circuit.evaluate$()
+			}
+		})
+
+		// Update circuit parts helper function
+		function updateCircuitParts(circuit) {
+			const reportEl = document.getElementById(circuit.name + '-report')
+			if (reportEl) reportEl.innerText = circuit.report$()
+		}
+
+		// Update when circuit is modified via GUI
+		function updatePlaygroundFromDom(circuit) {
+			circuit.evaluate$()
+		}
+
+		// Event listener: evaluation completed
+		window.addEventListener('Q.Circuit.evaluate completed', function (event) {
+			const circuit = event.detail.circuit
+			updateCircuitParts(circuit)
+		})
+
+		// Event listener: GUI altered circuit
+		window.addEventListener('Q gui altered circuit', function (event) {
+			updatePlaygroundFromDom(event.detail.circuit)
+		})
+	</script>
+	<script>
+		lucide.createIcons();
+	</script>
+</body>
+
+</html>

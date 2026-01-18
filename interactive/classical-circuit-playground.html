@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Theme Persistence -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circuit Playground - quantumstuff.org</title>
+    <meta name="description" content="Interactive classical circuit playground - Build and test logic circuits with drag-and-drop gates">
+    <meta name="keywords" content="circuit simulator, logic gates, classical computing, interactive, AND, OR, NOT, XOR">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- C.js Library CSS -->
+    <link rel="stylesheet" href="../libraries/c.js/C.css">
+    <link rel="stylesheet" href="../libraries/c.js/C-Circuit-Editor.css">
+    <link rel="stylesheet" href="../libraries/c.js/C-AnimatedBeam.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* =============== Theme Variables =============== */
+        :root,
+        [data-theme="light"] {
+            --color-green: #16a34a;
+            --color-green-dark: #15803d;
+            --color-amber: #fbbf24;
+            --color-sand: #d4c5a9;
+            --bg-primary: #faf8f3;
+            --bg-secondary: #f0ebe0;
+            --bg-card: #fffdfb;
+            --bg-highlight: rgba(251, 191, 36, 0.08);
+            --text-primary: #2b281f;
+            --text-secondary: #6b5e4f;
+            --border-subtle: rgba(212, 197, 169, 0.3);
+            --border-accent: rgba(34, 197, 94, 0.25);
+        }
+
+        [data-theme="dark"] {
+            --color-green: #16a34a;
+            --color-green-dark: #16a34a;
+            --color-amber: #fbbf24;
+            --color-sand: #d4c5a9;
+            --bg-primary: #1c1a16;
+            --bg-secondary: #2b281f;
+            --bg-card: #32291d;
+            --bg-highlight: rgba(212, 197, 169, 0.08);
+            --text-primary: #f5f1e8;
+            --text-secondary: #c9b898;
+            --border-subtle: rgba(212, 197, 169, 0.15);
+            --border-accent: rgba(34, 197, 94, 0.3);
+        }
+
+        /* =============== Reset =============== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* C.js elements need content-box */
+        .C-circuit,
+        .C-circuit *,
+        .C-circuit-palette,
+        .C-circuit-palette * {
+            box-sizing: content-box !important;
+        }
+
+        /* Keep border-box for wires */
+        .C-circuit-register-wire,
+        .C-circuit-register-wire *,
+        .C-circuit-wire-animated,
+        .C-circuit-wire-animated::after {
+            box-sizing: border-box !important;
+        }
+
+        /* =============== Base Styles =============== */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* =============== Header =============== */
+        /* Navigation bar */
+        .nav-bar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-bar a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-bar a:hover {
+            color: var(--color-green);
+        }
+
+        .nav-separator {
+            color: var(--text-secondary);
+            opacity: 0.3;
+        }
+
+        /* =============== Main Content =============== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .page-header h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* =============== Cards =============== */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* =============== Info Grid =============== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .info-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* =============== Circuit Playground =============== */
+        .playground-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-intro {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .palette-wrapper {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .palette-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .circuit-wrapper {
+            background: white;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        /* C.js Overrides - Minimal and targeted */
+        .C-circuit-board-background {
+            z-index: 0 !important;
+        }
+
+        .C-circuit-board-foreground {
+            z-index: 1 !important;
+        }
+
+        .C-circuit-register-wire {
+            height: 2px !important;
+            background-color: hsl(210, 15%, 70%) !important;
+        }
+
+        /* Hide console reference text */
+        .C-circuit>p {
+            display: none !important;
+        }
+
+        /* Fix gate palette stacking */
+        .C-circuit-palette>div {
+            overflow: visible !important;
+        }
+
+        .C-circuit-palette .C-circuit-operation-tile::before,
+        .C-circuit-palette .C-circuit-operation-tile::after {
+            z-index: -1 !important;
+        }
+
+        .C-circuit-palette .C-circuit-operation-tile {
+            z-index: 0 !important;
+        }
+
+        /* =============== Gate Reference =============== */
+        .gate-reference {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .gate-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .gate-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .gate-list li:last-child {
+            border-bottom: none;
+        }
+
+        .gate-list strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* =============== Footer Navigation =============== */
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--color-green);
+            color: white;
+            border-color: var(--color-green);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn-prev {
+            margin-right: auto;
+        }
+
+        .nav-btn-next {
+            margin-left: auto;
+        }
+
+        /* =============== Footer =============== */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .footer-content a {
+            color: var(--color-green);
+            text-decoration: none;
+        }
+
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* =============== Responsive =============== */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .playground-section,
+            .gate-reference {
+                padding: 1.5rem;
+            }
+
+            .circuit-wrapper {
+                padding: 1rem;
+                overflow-x: auto;
+            }
+
+            .nav-footer {
+                flex-direction: column;
+            }
+
+            .nav-btn-prev,
+            .nav-btn-next {
+                margin: 0;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="../index.html">
+            <i data-lucide="home" style="width:16px;height:16px;"></i>
+            Home
+        </a>
+        <span class="nav-separator">/</span>
+        <a href="../playground.html">
+            <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+            Playground
+        </a>
+        <span class="nav-separator">/</span>
+        <span style="color: var(--text-primary); font-weight: 500; font-size: 0.9rem;">Classical Circuit Playground</span>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Circuit Playground</h1>
+            <p>Build and test classical logic circuits with an interactive drag-and-drop interface. Experiment with gates and watch signals flow in real-time.</p>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>
+                    <i data-lucide="zap" style="width:18px;height:18px;color:var(--color-green)"></i>
+                    Drag & Drop
+                </h3>
+                <p>Drag gates from the palette onto the circuit board to build your logic</p>
+            </div>
+            <div class="info-card">
+                <h3>
+                    <i data-lucide="play" style="width:18px;height:18px;color:var(--color-green)"></i>
+                    Real-time Simulation
+                </h3>
+                <p>Click RUN to see signal propagation with animated beams</p>
+            </div>
+            <div class="info-card">
+                <h3>
+                    <i data-lucide="rotate-ccw" style="width:18px;height:18px;color:var(--color-green)"></i>
+                    Experiment Freely
+                </h3>
+                <p>Toggle inputs, modify circuits, and test different configurations</p>
+            </div>
+        </div>
+
+        <!-- Circuit Playground -->
+        <section class="section">
+            <h2 class="section-title">
+                <i data-lucide="cpu" style="width:24px;height:24px;color:var(--color-green)"></i>
+                Interactive Circuit Builder
+            </h2>
+
+            <div class="playground-section">
+                <p class="section-intro">
+                    Drag gates from the palette below onto the circuit board. Click on input bits to toggle them between 0 and 1. Press the <strong>RUN</strong> button to evaluate your circuit and watch the signal flow!
+                </p>
+
+                <!-- Gate Palette -->
+                <div class="palette-wrapper">
+                    <div class="palette-label">Available Gates</div>
+                    <div id="palette-container"></div>
+                </div>
+
+                <!-- Circuit Board -->
+                <div class="circuit-wrapper">
+                    <div id="circuit-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gate Reference -->
+        <section class="section">
+            <h2 class="section-title">
+                <i data-lucide="book-open" style="width:24px;height:24px;color:var(--color-green)"></i>
+                Gate Reference
+            </h2>
+
+            <div class="gate-reference">
+                <ul class="gate-list">
+                    <li><strong>NOT (¬)</strong> - Flips the bit (0→1, 1→0)</li>
+                    <li><strong>AND (∧)</strong> - Outputs 1 only if BOTH inputs are 1</li>
+                    <li><strong>OR (∨)</strong> - Outputs 1 if AT LEAST ONE input is 1</li>
+                    <li><strong>NAND (λ)</strong> - Opposite of AND (outputs 0 only if both inputs are 1)</li>
+                    <li><strong>NOR (∇)</strong> - Opposite of OR (outputs 1 only if both inputs are 0)</li>
+                    <li><strong>XOR (⊕)</strong> - Outputs 1 if inputs are DIFFERENT</li>
+                    <li><strong>XNOR (⊙)</strong> - Outputs 1 if inputs are the SAME</li>
+                    <li><strong>BUFFER (▷)</strong> - Passes the input through unchanged</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="nav-footer">
+            <a href="../tutorials/basics/lessons/lesson2.html" class="nav-btn nav-btn-prev">
+                <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+                Back to Lessons
+            </a>
+            <a href="../index.html" class="nav-btn nav-btn-next">
+                Home
+                <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+            </a>
+        </nav>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>
+                Built with <a href="https://github.com/hasarinduperera/c.js" target="_blank">C.js</a> - Classical Circuit Simulator<br>
+                Part of <a href="../index.html">quantumstuff.org</a> learning platform
+            </p>
+        </div>
+    </footer>
+
+    <!-- C.js Scripts -->
+    <script src="../libraries/c.js/C.js"></script>
+    <script src="../libraries/c.js/C-Bit.js"></script>
+    <script src="../libraries/c.js/C-Gate.js"></script>
+    <script src="../libraries/c.js/C-History.js"></script>
+    <script src="../libraries/c.js/C-Circuit.js"></script>
+    <script src="../libraries/c.js/C-AnimatedBeam.js"></script>
+    <script src="../libraries/c.js/C-Circuit-Editor.js"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Initialize C.js Circuit Playground
+        console.log('=== Circuit Playground ===');
+
+        // Create gate palette
+        const paletteEl = C.Circuit.Editor.createPalette();
+        document.getElementById('palette-container').appendChild(paletteEl);
+
+        // Create interactive circuit (4 wires, 10 columns for plenty of room)
+        const circuit = new C.Circuit(4, 10);
+        circuit.bits[0] = C.Bit.ONE;
+        circuit.bits[1] = C.Bit.ZERO;
+        circuit.bits[2] = C.Bit.ONE;
+        circuit.bits[3] = C.Bit.ZERO;
+
+        // Add a sample gate to show how it works
+        circuit.set$('NOT', 2, 1);
+
+        circuit.toDom(document.getElementById('circuit-container'));
+
+        // Make circuit available in console for advanced users
+        window.circuit = circuit;
+
+        console.log('Circuit playground ready! Access via: window.circuit');
+    </script>
+</body>
+
+</html>

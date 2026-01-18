@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The X Gate - quantumstuff.org</title>
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Q.js Library CSS -->
+    <link rel="stylesheet" href="../../../libraries/q.js/Q/Q.css">
+    <link rel="stylesheet" href="../../../libraries/q.js/Q/Q-Circuit-Editor.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* White container for Q.js circuit (matching classical circuit style) */
+        .qjs-circuit {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem auto;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        /* Hide the JavaScript console reference text */
+        .Q-circuit > p {
+            display: none !important;
+        }
+
+        /* Ensure proper z-index stacking for wires to be visible */
+        .Q-circuit-board-background {
+            z-index: 0;
+        }
+
+        .Q-circuit-board-foreground {
+            z-index: 1;
+        }
+
+        /* Fix stacking effect visibility */
+        .Q-circuit-palette {
+            position: relative;
+            isolation: isolate;
+        }
+
+        /* Remove scrollbars and center circuit */
+        .Q-circuit-board-container {
+            overflow: visible !important;
+            max-height: none !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        /* Style results output */
+        #playground-report {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .qjs-circuit .truth-table {
+            margin: 2rem 0;
+        }
+
+        .qjs-circuit .truth-table pre {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Amplitude visualization styles */
+        .amplitude-visualizations {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .amplitude-viz-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .amplitude-viz-box h4 {
+            margin: 0 0 1rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .timeline-canvas {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+
+        .waveform-canvas {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+
+        .viz-legend {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .viz-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .viz-legend-color {
+            width: 16px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .amplitude-visualizations {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <div class="header-content">
+            <a href="../../../index.html" class="logo">quantumstuff</a>
+            <div class="progress-track">
+                <div class="progress-step completed"></div>
+                <div class="progress-step completed"></div>
+                <div class="progress-step completed"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+                    <i data-lucide="sun" style="width:18px;height:18px"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Foundations</div>
+                <nav class="sidebar-nav">
+                    <a href="lesson1.html" class="sidebar-link">1. Welcome to Quantum Computing</a>
+                    <a href="lesson2.html" class="sidebar-link">2. Classical Computing Foundations</a>
+                    <a href="lesson3.html" class="sidebar-link">3. Qubits and Superposition</a>
+                    <a href="lesson4.html" class="sidebar-link active">4. The X Gate</a>
+                    <a href="lesson5.html" class="sidebar-link">5. The Hadamard Gate</a>
+                    <a href="lesson6.html" class="sidebar-link">6. Multiple Qubits</a>
+                    <a href="lesson7.html" class="sidebar-link">7. The CNOT Gate</a>
+                    <a href="lesson8.html" class="sidebar-link">8. Entanglement and Quantum Power</a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="content" id="main-content">
+            <header class="lesson-header">
+                <div class="lesson-meta">
+                    <span class="lesson-number">Lesson 4</span>
+                    <span>15 min read</span>
+                </div>
+                <h1>The X Gate</h1>
+                <p class="subtitle">Master the quantum NOT gate—your first step into manipulating quantum states with
+                    gates.</p>
+            </header>
+
+            <section class="section">
+                <h2 class="section-title">About This Lesson</h2>
+                <ul>
+                    <li>Learn how the X gate flips quantum states</li>
+                    <li>Understand X gate behavior on basis states</li>
+                    <li>Explore what happens when X acts on superposition</li>
+                    <li>Discover the reversibility of quantum gates</li>
+                </ul>
+                <p><strong>Prerequisites:</strong> Lessons 1-3. Understanding of qubits and superposition.</p>
+            </section>
+
+            <section class="section" id="basics">
+                <h2 class="section-title">The X Gate: Quantum NOT</h2>
+                <p>In the previous lesson, you learned that qubits can exist in <strong>superposition</strong>—being in both |0⟩ and |1⟩ simultaneously. But how do we <strong>manipulate</strong> qubits? How do we create superposition, flip states, or perform computations?</p>
+                <p style="margin-top: 1rem;">The answer: <strong>quantum gates</strong>! Just like classical computers use logic gates (AND, OR, NOT), quantum computers use quantum gates to transform qubit states.</p>
+                <p style="margin-top: 1rem;">Let's start with the simplest one: <span class="term" data-tooltip="Quantum NOT gate - flips |0⟩↔|1⟩"><strong>The X gate</strong></span>—the quantum version of the classical NOT gate. It flips a qubit: |0⟩ becomes |1⟩, and |1⟩ becomes |0⟩.</p>
+
+                <div class="callout">
+                    <div class="callout-title">
+                        <i data-lucide="info" style="width:16px;height:16px"></i>
+                        Key Concept: Deterministic Flip
+                    </div>
+                    <p>Unlike measurement (which is probabilistic), the X gate is <strong>deterministic</strong>. Apply
+                        X to |0⟩ and you <em>always</em> get |1⟩. No randomness!</p>
+                </div>
+
+                <div class="demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="flip-horizontal" style="width:18px;height:18px"></i>
+                        </div>
+                        <span class="demo-title">Interactive: X Gate on Basis States</span>
+                    </div>
+                    <div class="demo-content">
+                        <p style="margin-bottom: 1rem;">Try applying X to |0⟩ or |1⟩. Drag an X gate onto the circuit!</p>
+                        <div class="qjs-circuit">
+                            <div class='Q-circuit-palette'></div>
+                            <div id="x-basis"></div>
+                            <div class="amplitude-visualizations">
+                                <div class="amplitude-viz-box">
+                                    <h4>Amplitude Timeline</h4>
+                                    <canvas id="x-basis-timeline" class="timeline-canvas"></canvas>
+                                    <div class="viz-legend">
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #10b981;"></div>
+                                            <span>|0⟩ amplitude</span>
+                                        </div>
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #3b82f6;"></div>
+                                            <span>|1⟩ amplitude</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="amplitude-viz-box">
+                                    <h4>Current State Waveform</h4>
+                                    <canvas id="x-basis-waveform" class="waveform-canvas"></canvas>
+                                    <div class="viz-legend">
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #10b981;"></div>
+                                            <span>Real part</span>
+                                        </div>
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #f59e0b;"></div>
+                                            <span>Imaginary part</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="truth-table">
+                                <h4>Result probabilities</h4>
+                                <pre><samp id="x-basis-report"></samp></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <details class="advanced-section type-math">
+                    <summary>🔬 For Advanced Learners: The Pauli Matrices</summary>
+                    <div class="advanced-content">
+                        <p>The X gate is one of three fundamental gates called the <strong>Pauli matrices</strong>, named after physicist Wolfgang Pauli. These three gates are the quantum building blocks:</p>
+
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">The Three Pauli Gates</h4>
+                        <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+                            <p style="margin-bottom: 0.75rem;"><strong>X (<span class="term" data-tooltip="Also called X gate or bit flip">Pauli-X</span>):</strong> Bit flip</p>
+                            <div style="margin-left: 1rem; margin-bottom: 1rem;">
+                                X = [0  1]<br>
+                                    [1  0]
+                            </div>
+
+                            <p style="margin-bottom: 0.75rem;"><strong>Y (Pauli-Y):</strong> Bit and phase flip (you'll learn about this in advanced courses)</p>
+                            <div style="margin-left: 1rem; margin-bottom: 1rem;">
+                                Y = [0  -i]<br>
+                                    [i   0]
+                            </div>
+
+                            <p style="margin-bottom: 0.75rem;"><strong>Z (Pauli-Z):</strong> Phase flip (keeps |0⟩, negates |1⟩)</p>
+                            <div style="margin-left: 1rem;">
+                                Z = [1   0]<br>
+                                    [0  -1]
+                            </div>
+                        </div>
+
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Key Properties</h4>
+                        <ul>
+                            <li><strong>Hermitian:</strong> Each Pauli matrix is its own conjugate transpose (X† = X)</li>
+                            <li><strong>Unitary:</strong> X·X† = I (identity matrix)</li>
+                            <li><strong>Self-inverse:</strong> X² = I (applying twice returns to original state)</li>
+                            <li><strong>Traceless:</strong> Sum of diagonal elements = 0</li>
+                        </ul>
+
+                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
+                            <p style="margin: 0; color: var(--text-secondary);"><strong>Why it matters:</strong> The Pauli matrices form a complete basis for describing single-qubit operations. Any single-qubit gate can be expressed as a combination of Pauli matrices and rotations!</p>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section class="section" id="superposition">
+                <h2 class="section-title">X Gate on Superposition</h2>
+                <p>What happens when you apply X to a qubit in superposition?</p>
+                <p>Consider |+⟩ = (1/√2)|0⟩ + (1/√2)|1⟩. The X gate swaps the amplitudes—but for equal superposition,
+                    measurements show the same 50/50 distribution!</p>
+
+                <div class="demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="git-branch" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Interactive: X Gate on Superposition</span>
+                    </div>
+                    <div class="demo-content">
+                        <p style="margin-bottom: 1rem;">Build an H-X circuit. H creates superposition, then X swaps the amplitudes!</p>
+                        <div class="qjs-circuit">
+                            <div class='Q-circuit-palette'></div>
+                            <div id="x-superposition"></div>
+                            <div class="amplitude-visualizations">
+                                <div class="amplitude-viz-box">
+                                    <h4>Amplitude Timeline</h4>
+                                    <canvas id="x-superposition-timeline" class="timeline-canvas"></canvas>
+                                    <div class="viz-legend">
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #10b981;"></div>
+                                            <span>|0⟩ amplitude</span>
+                                        </div>
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #3b82f6;"></div>
+                                            <span>|1⟩ amplitude</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="amplitude-viz-box">
+                                    <h4>Current State Waveform</h4>
+                                    <canvas id="x-superposition-waveform" class="waveform-canvas"></canvas>
+                                    <div class="viz-legend">
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #10b981;"></div>
+                                            <span>Real part</span>
+                                        </div>
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #f59e0b;"></div>
+                                            <span>Imaginary part</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="truth-table">
+                                <h4>Result probabilities</h4>
+                                <pre><samp id="x-superposition-report"></samp></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="workflow" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Experiment: Different Circuits</span>
+                    </div>
+                    <div class="demo-content">
+                        <p style="margin-bottom: 1rem;">Try different combinations: X, H→X, X→X, or X→H→X. Experiment!</p>
+                        <div class="qjs-circuit">
+                            <div class='Q-circuit-palette'></div>
+                            <div id="x-experiments"></div>
+                            <div class="amplitude-visualizations">
+                                <div class="amplitude-viz-box">
+                                    <h4>Amplitude Timeline</h4>
+                                    <canvas id="x-experiments-timeline" class="timeline-canvas"></canvas>
+                                    <div class="viz-legend">
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #10b981;"></div>
+                                            <span>|0⟩ amplitude</span>
+                                        </div>
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #3b82f6;"></div>
+                                            <span>|1⟩ amplitude</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="amplitude-viz-box">
+                                    <h4>Current State Waveform</h4>
+                                    <canvas id="x-experiments-waveform" class="waveform-canvas"></canvas>
+                                    <div class="viz-legend">
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #10b981;"></div>
+                                            <span>Real part</span>
+                                        </div>
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #f59e0b;"></div>
+                                            <span>Imaginary part</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="truth-table">
+                                <h4>Result probabilities</h4>
+                                <pre><samp id="x-experiments-report"></samp></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="reversibility">
+                <h2 class="section-title">Multiple X Gates: Reversibility</h2>
+                <p>Quantum gates are <span class="term" data-tooltip="Can undo the operation"><strong>reversible</strong></span>. The X gate is its own inverse: X · X = I (identity).
+                </p>
+                <p>Flip a qubit twice, and you're back where you started!</p>
+
+                <div class="demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="repeat" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Interactive: X Applied Multiple Times</span>
+                    </div>
+                    <div class="demo-content">
+                        <p style="margin-bottom: 1rem;">Apply multiple X gates. Try 2, 3, 4, or 5 X gates and observe the pattern!</p>
+                        <div class="qjs-circuit">
+                            <div class='Q-circuit-palette'></div>
+                            <div id="x-reversibility"></div>
+                            <div class="amplitude-visualizations">
+                                <div class="amplitude-viz-box">
+                                    <h4>Amplitude Timeline</h4>
+                                    <canvas id="x-reversibility-timeline" class="timeline-canvas"></canvas>
+                                    <div class="viz-legend">
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #10b981;"></div>
+                                            <span>|0⟩ amplitude</span>
+                                        </div>
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #3b82f6;"></div>
+                                            <span>|1⟩ amplitude</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="amplitude-viz-box">
+                                    <h4>Current State Waveform</h4>
+                                    <canvas id="x-reversibility-waveform" class="waveform-canvas"></canvas>
+                                    <div class="viz-legend">
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #10b981;"></div>
+                                            <span>Real part</span>
+                                        </div>
+                                        <div class="viz-legend-item">
+                                            <div class="viz-legend-color" style="background: #f59e0b;"></div>
+                                            <span>Imaginary part</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="truth-table">
+                                <h4>Result probabilities</h4>
+                                <pre><samp id="x-reversibility-report"></samp></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    <div class="callout-title">
+                        <i data-lucide="sparkles" style="width:16px;height:16px"></i>
+                        Why Reversibility Matters
+                    </div>
+                    <p>Reversibility is a fundamental requirement of quantum mechanics—information cannot be destroyed
+                        in quantum operations (until measurement).</p>
+                </div>
+
+                <details class="advanced-section type-math">
+                    <summary>🔬 For Advanced Learners: Eigenvalues and Eigenstates</summary>
+                    <div class="advanced-content">
+                        <p>An <strong>eigenstate</strong> of a gate is a special quantum state that the gate "keeps in place" - it only changes by a multiplicative factor (the <strong>eigenvalue</strong>).</p>
+
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">X Gate Eigenstates</h4>
+                        <p>For the X gate, the eigenstates are |+⟩ and |−⟩:</p>
+                        <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace;">
+                            X|+⟩ = +1 · |+⟩   (eigenvalue: +1)<br>
+                            X|−⟩ = −1 · |−⟩   (eigenvalue: −1)
+                        </div>
+                        <p>When you apply X to |+⟩, the state stays |+⟩ (eigenvalue +1 means no change). When you apply X to |−⟩, the state stays |−⟩ but picks up a minus sign (eigenvalue −1 means phase flip).</p>
+
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Why Eigenvalues Matter</h4>
+                        <ul>
+                            <li><strong>Measurement outcomes:</strong> When you measure an observable (like energy), you always get one of its eigenvalues</li>
+                            <li><strong>Gate composition:</strong> Understanding eigenvalues helps predict what happens when gates are combined</li>
+                            <li><strong>Quantum algorithms:</strong> Many algorithms (like quantum phase estimation) rely on eigenvalue extraction</li>
+                        </ul>
+
+                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
+                            <p style="margin: 0; color: var(--text-secondary);"><strong>Mathematical note:</strong> For any matrix M, eigenstates |v⟩ and eigenvalues λ satisfy: M|v⟩ = λ|v⟩. The eigenvalues of the X gate are +1 and −1, corresponding to the eigenstates |+⟩ and |−⟩.</p>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section class="section" id="playground-section">
+                <h2 class="section-title">Interactive Circuit Playground</h2>
+                <p>Build your own quantum circuits! Drag gates from the palette below onto the circuit board. Click <strong>RUN</strong> to evaluate your circuit and see the quantum state probabilities.</p>
+
+                <div class="demo" id="playground-demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="wrench" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Q.js Circuit Builder</span>
+                    </div>
+                    <div class="demo-content">
+                        <div class="qjs-circuit">
+                            <div class='Q-circuit-palette'></div>
+                            <div id="playground"></div>
+                            <div class="truth-table">
+                                <h4>Result probabilities</h4>
+                                <pre><samp id="playground-report"></samp></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    <div class="callout-title">
+                        <i data-lucide="info" style="width:16px;height:16px"></i>
+                        Try These Experiments
+                    </div>
+                    <ul>
+                        <li><strong>Single X gate:</strong> Apply X to |0⟩ - should give 100% |1⟩</li>
+                        <li><strong>Double X gates:</strong> Apply X twice - returns to |0⟩ (reversibility!)</li>
+                        <li><strong>H then X:</strong> Create superposition with H, then flip with X</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Learning Checkpoint -->
+            <div class="callout" style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
+                <div class="callout-title">
+                    <i data-lucide="check-circle" style="width:16px;height:16px"></i>
+                    ✓ Learning Checkpoint
+                </div>
+                <p style="margin-bottom: 0.75rem;"><strong>Before moving on, can you:</strong></p>
+                <ul class="checklist" style="list-style: none; padding-left: 0;">
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain what the X gate does?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Predict X|+⟩ = ?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Understand why X·X = I (self-inverse)?</li>
+                </ul>
+                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>X gate mastered! Ready for the powerful H gate?</em></p>
+            </div>
+
+            <!-- Quick Reference Card -->
+            <section class="section" id="quick-reference">
+                <h2 class="section-title">📋 Quick Reference Card</h2>
+                <div style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">X Gate Cheat Sheet</h3>
+
+                    <div style="display: grid; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">X Gate Operations</h4>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr style="background: var(--bg-secondary);">
+                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Input State</th>
+                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Output State</th>
+                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Description</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|0⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|1⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Flip 0 to 1</td>
+                                </tr>
+                                <tr style="background: var(--bg-secondary);">
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|1⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|0⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Flip 1 to 0</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>α|0⟩ + β|1⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>α|1⟩ + β|0⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Swap amplitudes</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div>
+                            <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">Key Properties</h4>
+                            <ul style="font-size: 0.9375rem; margin: 0;">
+                                <li><strong>Self-inverse:</strong> X·X = I (applying X twice returns to original state)</li>
+                                <li><strong>Deterministic:</strong> Always flips the computational basis states</li>
+                                <li><strong>Reversible:</strong> No information is lost</li>
+                                <li><strong>Preserves superposition:</strong> Just swaps the amplitudes</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-green);">
+                            <p style="margin: 0; font-size: 0.9375rem;"><strong>💡 Remember:</strong> X is the quantum NOT gate—it's like the classical NOT but works on superpositions too!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="section" id="glossary">
+                <h2 class="section-title">Glossary</h2>
+                <dl class="term-list">
+                    <dt>X Gate</dt>
+                    <dd><strong>Definition:</strong> The quantum NOT gate—flips |0⟩ to |1⟩ and vice versa</dd>
+
+                    <dt>Pauli X</dt>
+                    <dd><strong>Definition:</strong> Another name for the X gate, part of the Pauli gate family</dd>
+
+                    <dt>Bit Flip</dt>
+                    <dd><strong>Definition:</strong> An operation that swaps 0 and 1</dd>
+
+                    <dt>Self-Inverse</dt>
+                    <dd><strong>Definition:</strong> A gate that undoes itself: X·X = I (applying twice returns to original state)</dd>
+
+                    <dt>Reversibility</dt>
+                    <dd><strong>Definition:</strong> Quantum gates never destroy information—you can always undo them</dd>
+
+                    <dt>Deterministic</dt>
+                    <dd><strong>Definition:</strong> Always produces the same output for a given input (X always flips)</dd>
+
+                    <dt>Identity (I)</dt>
+                    <dd><strong>Definition:</strong> The "do nothing" gate—leaves the state unchanged</dd>
+                </dl>
+            </section>
+
+            <section class="section quiz-section" id="quiz">
+                <h2 class="section-title">Test Your Understanding</h2>
+
+                <div class="quiz-question" data-question="1">
+                    <p class="question-text"><strong>Q1:</strong> What does the X gate do to |0⟩?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q1" value="a"><span>Keeps it as
+                                |0⟩</span></label>
+                        <label class="option"><input type="radio" name="q1" value="b"><span>Flips it to
+                                |1⟩</span></label>
+                        <label class="option"><input type="radio" name="q1" value="c"><span>Creates
+                                superposition</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-1"></div>
+                </div>
+
+                <div class="quiz-question" data-question="2">
+                    <p class="question-text"><strong>Q2:</strong> What is X · X (X applied twice)?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q2" value="a"><span>Returns to original
+                                state</span></label>
+                        <label class="option"><input type="radio" name="q2" value="b"><span>Flips state</span></label>
+                        <label class="option"><input type="radio" name="q2" value="c"><span>Random result</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-2"></div>
+                </div>
+
+                <div class="quiz-question" data-question="3">
+                    <p class="question-text"><strong>Q3:</strong> Is the X gate deterministic or probabilistic?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q3" value="a"><span>Deterministic (same output
+                                for same input)</span></label>
+                        <label class="option"><input type="radio" name="q3" value="b"><span>Probabilistic (random
+                                output)</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-3"></div>
+                </div>
+
+                <button class="btn-primary" onclick="checkAnswersL4(this)">Check Answers</button>
+                <div id="quiz-score" class="quiz-result"></div>
+            </section>
+
+            <nav class="nav-footer">
+                <a href="lesson3.html" class="nav-btn nav-btn-prev">← Previous</a>
+                <a href="lesson5.html" class="nav-btn nav-btn-next">Next: H Gate →</a>
+            </nav>
+        </main>
+
+        <aside class="toc">
+            <div class="toc-title">On This Page</div>
+            <nav class="toc-list">
+                <a href="#basics" class="toc-link">X Gate Basics</a>
+                <a href="#superposition" class="toc-link">X on Superposition</a>
+                <a href="#reversibility" class="toc-link">Reversibility</a>
+                <a href="#playground-section" class="toc-link">Circuit Playground</a>
+                <a href="#quiz" class="toc-link">Quiz</a>
+            </nav>
+        </aside>
+    </div>
+
+    <!-- Q.js Library -->
+    <script src="../../../libraries/q.js/Q/Q.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-ComplexNumber.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Matrix.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Qubit.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Gate.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-History.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Circuit.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
+
+    <script src="../js/quantum-utils.js"></script>
+    <script src="../js/lesson4.js"></script>
+    <script>
+
+// Create gate palettes (EXACT copy from playground.html)
+Array
+.from( document.querySelectorAll( '.Q-circuit-palette' ))
+.forEach( function( el ){
+    Q.Circuit.Editor.createPalette( el )
+})
+
+// Initialize circuits on page load
+window.addEventListener( 'DOMContentLoaded', function(){
+    // X gate on basis states circuit (1 qubit, 7 moments)
+    const xBasisCircuit = new Q.Circuit( 1, 7 )
+    xBasisCircuit.name = 'x-basis'
+    const xBasisDomEl = document.getElementById( 'x-basis' )
+    if( xBasisDomEl ){
+        xBasisCircuit.sort$()
+        xBasisCircuit.toDom( xBasisDomEl )
+        xBasisCircuit.evaluate$()
+    }
+
+    // X gate on superposition circuit (1 qubit, 7 moments)
+    const xSuperCircuit = new Q.Circuit( 1, 7 )
+    xSuperCircuit.name = 'x-superposition'
+    const xSuperDomEl = document.getElementById( 'x-superposition' )
+    if( xSuperDomEl ){
+        xSuperCircuit.sort$()
+        xSuperCircuit.toDom( xSuperDomEl )
+        xSuperCircuit.evaluate$()
+    }
+
+    // X gate experiments circuit (1 qubit, 7 moments)
+    const xExpCircuit = new Q.Circuit( 1, 7 )
+    xExpCircuit.name = 'x-experiments'
+    const xExpDomEl = document.getElementById( 'x-experiments' )
+    if( xExpDomEl ){
+        xExpCircuit.sort$()
+        xExpCircuit.toDom( xExpDomEl )
+        xExpCircuit.evaluate$()
+    }
+
+    // X gate reversibility circuit (1 qubit, 7 moments for multiple X gates)
+    const xRevCircuit = new Q.Circuit( 1, 7 )
+    xRevCircuit.name = 'x-reversibility'
+    const xRevDomEl = document.getElementById( 'x-reversibility' )
+    if( xRevDomEl ){
+        xRevCircuit.sort$()
+        xRevCircuit.toDom( xRevDomEl )
+        xRevCircuit.evaluate$()
+    }
+
+    // Main playground circuit (3 qubits, 7 moments)
+    const circuit = new Q.Circuit( 3, 7 )
+    circuit.name = 'playground'
+    const domEl = document.getElementById( 'playground' )
+    if( domEl ){
+        circuit.sort$()
+        circuit.toDom( domEl )
+        circuit.evaluate$()
+    }
+})
+
+// Update circuit parts helper function (EXACT copy from playground.html)
+function updateCircuitParts( circuit ){
+
+    const reportEl = document.getElementById( circuit.name +'-report' )
+    if( reportEl ) reportEl.innerText = circuit.report$()
+
+    // Update amplitude visualization
+    renderAmplitudes( circuit )
+}
+
+// Store timeline history for each circuit
+const circuitTimelines = {}
+
+// Initialize timeline for a circuit
+function initTimeline(circuitName) {
+    if (!circuitTimelines[circuitName]) {
+        circuitTimelines[circuitName] = {
+            steps: [],
+            amp0: [],
+            amp1: []
+        }
+    }
+}
+
+// Add current state to timeline
+function addToTimeline(circuit) {
+    initTimeline(circuit.name)
+    const timeline = circuitTimelines[circuit.name]
+
+    const matrixRows = circuit.matrix && circuit.matrix.rows
+    if (!matrixRows || !matrixRows.length) return
+
+    const amp0 = matrixRows[0][0]
+    const amp1 = matrixRows[1][0]
+
+    const mag0 = Math.sqrt(amp0.real * amp0.real + amp0.imaginary * amp0.imaginary)
+    const mag1 = Math.sqrt(amp1.real * amp1.real + amp1.imaginary * amp1.imaginary)
+
+    timeline.steps.push(timeline.steps.length)
+    timeline.amp0.push(mag0)
+    timeline.amp1.push(mag1)
+
+    // Keep only last 10 steps
+    if (timeline.steps.length > 10) {
+        timeline.steps.shift()
+        timeline.amp0.shift()
+        timeline.amp1.shift()
+    }
+}
+
+// Draw timeline canvas
+function drawTimeline(circuit) {
+    const canvas = document.getElementById(circuit.name + '-timeline')
+    if (!canvas) return
+
+    const ctx = canvas.getContext('2d')
+    const width = canvas.width = canvas.offsetWidth * window.devicePixelRatio
+    const height = canvas.height = canvas.offsetHeight * window.devicePixelRatio
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
+
+    const displayWidth = canvas.offsetWidth
+    const displayHeight = canvas.offsetHeight
+
+    ctx.clearRect(0, 0, width, height)
+
+    initTimeline(circuit.name)
+    const timeline = circuitTimelines[circuit.name]
+
+    if (timeline.steps.length === 0) return
+
+    // Draw grid
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-subtle') || '#e5e7eb'
+    ctx.lineWidth = 1
+    for (let i = 0; i <= 4; i++) {
+        const y = (displayHeight - 40) * (i / 4) + 20
+        ctx.beginPath()
+        ctx.moveTo(40, y)
+        ctx.lineTo(displayWidth - 10, y)
+        ctx.stroke()
+    }
+
+    // Draw axes labels
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') || '#6b7280'
+    ctx.font = '10px Arial'
+    ctx.textAlign = 'right'
+    for (let i = 0; i <= 4; i++) {
+        const y = (displayHeight - 40) * (1 - i / 4) + 20
+        ctx.fillText((i * 0.25).toFixed(2), 35, y + 3)
+    }
+
+    // Draw lines
+    function drawLine(data, color) {
+        if (data.length < 2) return
+
+        ctx.strokeStyle = color
+        ctx.lineWidth = 2
+        ctx.beginPath()
+
+        const xStep = (displayWidth - 50) / Math.max(data.length - 1, 1)
+        data.forEach((val, i) => {
+            const x = 40 + i * xStep
+            const y = displayHeight - 20 - (val * (displayHeight - 40))
+            if (i === 0) ctx.moveTo(x, y)
+            else ctx.lineTo(x, y)
+        })
+
+        ctx.stroke()
+    }
+
+    drawLine(timeline.amp0, '#10b981')
+    drawLine(timeline.amp1, '#3b82f6')
+}
+
+// Draw current state waveform
+function drawWaveform(circuit) {
+    const canvas = document.getElementById(circuit.name + '-waveform')
+    if (!canvas) return
+
+    const ctx = canvas.getContext('2d')
+    const width = canvas.width = canvas.offsetWidth * window.devicePixelRatio
+    const height = canvas.height = canvas.offsetHeight * window.devicePixelRatio
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
+
+    const displayWidth = canvas.offsetWidth
+    const displayHeight = canvas.offsetHeight
+
+    ctx.clearRect(0, 0, width, height)
+
+    const matrixRows = circuit.matrix && circuit.matrix.rows
+    if (!matrixRows || !matrixRows.length) return
+
+    const amp0 = matrixRows[0][0]
+    const amp1 = matrixRows[1][0]
+
+    // Draw bars for each state
+    function drawBar(label, real, imag, y) {
+        const barHeight = 35
+        const maxWidth = displayWidth - 100
+
+        // Label
+        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
+        ctx.font = 'bold 14px monospace'
+        ctx.textAlign = 'left'
+        ctx.fillText(label, 10, y + barHeight / 2 + 5)
+
+        // Real part (green)
+        const realWidth = Math.abs(real) * maxWidth
+        ctx.fillStyle = '#10b981'
+        ctx.fillRect(60, y, realWidth, barHeight * 0.4)
+
+        // Imaginary part (orange)
+        const imagWidth = Math.abs(imag) * maxWidth
+        ctx.fillStyle = '#f59e0b'
+        ctx.fillRect(60, y + barHeight * 0.5, imagWidth, barHeight * 0.4)
+
+        // Values
+        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') || '#6b7280'
+        ctx.font = '10px monospace'
+        ctx.textAlign = 'left'
+        ctx.fillText(real.toFixed(3), 65 + realWidth, y + barHeight * 0.35)
+        ctx.fillText(imag.toFixed(3) + 'i', 65 + imagWidth, y + barHeight * 0.85)
+    }
+
+    drawBar('|0⟩', amp0.real || 0, amp0.imaginary || 0, 30)
+    drawBar('|1⟩', amp1.real || 0, amp1.imaginary || 0, 110)
+}
+
+// Render both visualizations
+function renderAmplitudes(circuit) {
+    addToTimeline(circuit)
+    drawTimeline(circuit)
+    drawWaveform(circuit)
+}
+
+// Update when circuit is modified via GUI (EXACT copy from playground.html)
+function updatePlaygroundFromDom( circuit ){
+
+    circuit.evaluate$()
+}
+
+// Event listener: evaluation completed (EXACT copy from playground.html)
+window.addEventListener( 'Q.Circuit.evaluate completed', function( event ){
+
+    const circuit = event.detail.circuit
+    updateCircuitParts( circuit )
+})
+
+// Event listener: GUI altered circuit (EXACT copy from playground.html)
+window.addEventListener( 'Q gui altered circuit', function( event ){
+
+    updatePlaygroundFromDom( event.detail.circuit )
+})
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.querySelector('.sidebar-overlay').classList.toggle('open');
+        }
+        lucide.createIcons();
+    </script>
+    <script src="../../../js/main.js"></script>
+</body>
+
+</html>

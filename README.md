@@ -3,7 +3,7 @@
 Welcome to **QuantumStuff**, an open-source project dedicated to making **quantum computing and quantum physics accessible to everyone**.
 This repo contains beginner-friendly tutorials, interactive activities, and community-driven content on everything from basic qubits to advanced quantum algorithms.
 
-This project will power **quantumstuff.org** (coming soon 🚀).
+**Live at: [quantumstuff.org](https://quantumstuff.org)** 🚀
 
 ---
 
@@ -50,8 +50,24 @@ Just open any HTML file in your browser - no build step required!
 cd quantumstuff.org
 python3 -m http.server 8000
 
-# Then visit http://localhost:8000/site/
+# Then visit http://localhost:8000
 ```
+
+---
+
+# 🌐 Deployment
+
+This site is deployed on **GitHub Pages** with a custom domain from Porkbun.
+
+### Automatic Deployment
+- Push to `master` branch triggers automatic deployment
+- Site goes live at [quantumstuff.org](https://quantumstuff.org)
+- No build process required - pure HTML/CSS/JS
+
+### Custom Domain Setup
+The `CNAME` file configures the custom domain. DNS is configured with:
+- A records pointing to GitHub Pages IPs
+- HTTPS enforced via GitHub Pages
 
 ---
 
@@ -89,27 +105,32 @@ We'll review and collaborate!
 ```
 quantumstuff.org/
 │
+├── index.html              # Main landing page
+├── CNAME                   # Custom domain configuration
+│
+├── css/                    # Global styles
+├── js/                     # Global scripts
+├── images/                 # Site images
+├── sections/               # Page sections
+│
 ├── tutorials/
-│   └── basics/              # Quantum computing fundamentals (8 lessons)
-│       ├── lessons/         # HTML lesson files
-│       ├── js/              # Interactive lesson scripts
-│       ├── css/             # Styling
-│       └── visualizations/  # Bloch sphere and other visualizations
+│   └── basics/             # Quantum computing fundamentals (8 lessons)
+│       ├── lessons/        # HTML lesson files
+│       ├── js/             # Interactive lesson scripts
+│       ├── css/            # Styling
+│       └── visualizations/ # Bloch sphere and other visualizations
 │
 ├── libraries/
 │   ├── q.js/               # Quantum circuit library
 │   ├── c.js/               # Classical circuit library
 │   └── bloch-viz/          # Bloch sphere visualization library
 │
-├── interactive/            # (Ready for community demos)
+├── interactive/            # Interactive playgrounds and tools
+│   ├── quantum-circuit-playground.html
+│   ├── bloch-sphere-explorer.html
+│   └── quantum-visualization-playground.html
 │
-├── docs/                   # Documentation
-│   ├── README.md          # Project overview
-│   ├── STYLE_GUIDE.md     # Design guidelines
-│   └── CLAUDE.md          # AI assistant context
-│
-└── site/
-    └── index.html         # Main landing page
+└── docs/                   # Documentation
 ```
 
 ---

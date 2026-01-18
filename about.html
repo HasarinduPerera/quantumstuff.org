@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About quantumstuff.org - Our mission to democratize quantum education.">
+    <title>About Our Mission - quantumstuff.org</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Accessibility Styles -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Theme Persistence (MUST load before CSS) -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Earthy green palette - combining vibrant green with warm browns */
+        :root,
+        [data-theme="light"] {
+            --color-green: #16a34a;
+            --color-green-dark: #15803d;
+            --color-green-light: #86efac;
+            --color-amber: #fbbf24;
+            --color-sand: #d4c5a9;
+
+            /* Warm earthy backgrounds */
+            --bg-primary: #faf8f3;
+            --bg-secondary: #f0ebe0;
+            --bg-card: #fffdfb;
+            --bg-accent: #e8f5e9;
+
+            /* Text colors */
+            --text-primary: #2b281f;
+            --text-secondary: #6b5e4f;
+            --text-muted: #8a7d6f;
+
+            /* Borders */
+            --border-subtle: rgba(107, 94, 79, 0.15);
+            --border-green: rgba(34, 197, 94, 0.2);
+
+            /* Badges */
+            --badge-green-bg: #dcfce7;
+            --badge-green-text: #166534;
+            --badge-amber-bg: #fef3c7;
+            --badge-amber-text: #92400e;
+            --badge-gray-bg: #f3f4f6;
+            --badge-gray-text: #6b7280;
+            --badge-orange-bg: #ffedd5;
+            --badge-orange-text: #9a3412;
+
+            /* Green shades for icons */
+            --color-green-100: #dcfce7;
+            --color-green-700: #15803d;
+            --color-green-50: #f0fdf4;
+            --color-amber-50: #fffbeb;
+            --text-accent: #16a34a;
+
+            /* Spacing */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            --spacing-12: 3rem;
+            --spacing-16: 4rem;
+
+            /* Font sizes */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+
+            /* Border radius */
+            --radius-lg: 0.5rem;
+            --radius-2xl: 1rem;
+
+            /* Font weight */
+            --font-weight-semibold: 600;
+
+            /* Border color */
+            --border-color: rgba(107, 94, 79, 0.15);
+        }
+
+        [data-theme="dark"] {
+            --color-green: #16a34a;
+            --color-green-dark: #15803d;
+            --color-green-light: #4ade80;
+            --color-amber: #fbbf24;
+            --color-sand: #d4c5a9;
+
+            --bg-primary: #1c1a16;
+            --bg-secondary: #2b281f;
+            --bg-card: #32291d;
+            --bg-accent: #1e2617;
+
+            --text-primary: #f5f1e8;
+            --text-secondary: #c9b898;
+            --text-muted: #9a8d7a;
+
+            --border-subtle: rgba(212, 197, 169, 0.15);
+            --border-green: rgba(34, 197, 94, 0.2);
+
+            /* Badges dark mode */
+            --badge-green-bg: #14532d;
+            --badge-green-text: #86efac;
+            --badge-amber-bg: #78350f;
+            --badge-amber-text: #fcd34d;
+            --badge-gray-bg: #374151;
+            --badge-gray-text: #d1d5db;
+            --badge-orange-bg: #7c2d12;
+            --badge-orange-text: #fed7aa;
+
+            --color-green-100: #14532d;
+            --color-green-700: #4ade80;
+            --color-green-50: #14532d;
+            --color-amber-50: #78350f;
+            --text-accent: #4ade80;
+            --border-color: rgba(212, 197, 169, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            z-index: 10000;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 0 0 8px 0;
+            transition: top 0.2s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--color-green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-green);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--color-green);
+        }
+
+        .btn-primary {
+            background: var(--color-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-green-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border-subtle);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-green);
+            background: var(--bg-accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            background: linear-gradient(135deg,
+                    var(--bg-primary) 0%,
+                    var(--bg-accent) 50%,
+                    var(--bg-primary) 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-green);
+            border-radius: 999px;
+            color: var(--color-green);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 .accent {
+            color: var(--color-green);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--color-green);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(34, 197, 94, 0.12);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: 1fr;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-md-2 {
+            grid-template-columns: 1fr;
+        }
+
+        .grid-md-4 {
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .grid-md-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-md-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-md-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 2rem;
+            z-index: 99;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-list {
+            list-style: none;
+        }
+
+        .mobile-menu-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .mobile-menu-list a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .grid-md-2,
+            .grid-md-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Font Size Accessibility Fixes */
+        html.font-large .nav-content,
+        html.font-xlarge .nav-content {
+            min-height: 70px;
+            padding: 0.75rem 0;
+        }
+
+        html.font-large .nav-links,
+        html.font-xlarge .nav-links {
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        html.font-large .logo,
+        html.font-xlarge .logo {
+            font-size: 1.25rem;
+        }
+
+        html.font-large .btn-primary,
+        html.font-xlarge .btn-primary {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* High Contrast Mode */
+        [data-theme="high-contrast"] {
+            --bg-primary: #000000;
+            --bg-secondary: #1a1a1a;
+            --bg-accent: #0a0a0a;
+            --bg-card: #000000;
+            --text-primary: #ffffff;
+            --text-secondary: #ffff00;
+            --text-muted: #ffff00;
+            --text-accent: #ffff00;
+            --border-subtle: #ffffff;
+            --border-green: #ffff00;
+            --color-green: #ffff00;
+            --color-green-dark: #ffffff;
+            --color-green-light: #ffff00;
+        }
+
+        [data-theme="high-contrast"] .hero {
+            background: #000000 !important;
+        }
+
+        [data-theme="high-contrast"] .section {
+            background: #000000 !important;
+        }
+
+        [data-theme="high-contrast"] .card {
+            background: #000000 !important;
+            border: 2px solid #ffffff;
+        }
+
+        [data-theme="high-contrast"] .btn-primary {
+            background: #ffff00 !important;
+            color: #000000 !important;
+            border: 2px solid #ffffff;
+        }
+
+        [data-theme="high-contrast"] .btn-outline {
+            background: transparent !important;
+            color: #ffff00 !important;
+            border: 2px solid #ffff00;
+        }
+
+        [data-theme="high-contrast"] a {
+            color: #ffff00;
+            text-decoration: underline;
+        }
+
+        [data-theme="high-contrast"] .nav {
+            background: #000000 !important;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-outline {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <i data-lucide="atom" style="width: 28px; height: 28px;"></i>
+                    quantumstuff
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sections/index.html">Courses</a></li>
+                    <li><a href="playground.html">Playground</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="about.html">Our Mission</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <i data-lucide="sun" id="sunIcon" style="width: 20px; height: 20px;"></i>
+                        <i data-lucide="moon" id="moonIcon" style="display: none; width: 20px; height: 20px;"></i>
+                    </button>
+                    <a href="sections/index.html" class="btn-primary">Start Learning Free</a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                        <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sections/index.html">Courses</a></li>
+            <li><a href="playground.html">Playground</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li><a href="about.html">Our Mission</a></li>
+        </ul>
+        <div style="padding: 1rem 0;">
+            <a href="sections/index.html" class="btn-primary" style="width: 100%; justify-content: center;">Start
+                Learning Free</a>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                        Our Mission
+                    </div>
+                    <h1>Democratize <span class="accent">Quantum Education</span></h1>
+                    <p>
+                        QuantumStuff.org is a non-profit organization dedicated to making high-quality quantum computing
+                        education free and accessible to everyone, everywhere.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    <!-- Mission Statement -->
+    <section class="section" style="background: linear-gradient(to bottom, var(--bg-primary), var(--bg-accent));">
+        <div class="container">
+            <div
+                style="background: linear-gradient(to bottom right, var(--color-green-50), var(--color-amber-50)); border-radius: var(--radius-2xl); padding: var(--spacing-12); margin-bottom: var(--spacing-16); border: 1px solid var(--border-color);">
+                <div style="max-width: 48rem; margin: 0 auto; text-align: center;">
+                    <i data-lucide="lightbulb"
+                        style="width: 3rem; height: 3rem; color: var(--color-green-700); margin: 0 auto var(--spacing-6);"></i>
+                    <h2 style="font-size: var(--font-size-3xl); margin-bottom: var(--spacing-4);">Why We Exist</h2>
+                    <p style="font-size: var(--font-size-lg); color: var(--text-primary); line-height: 1.7;">
+                        Quantum computing represents the future of technology, yet access to quality education remains
+                        limited by high costs and geographic barriers. We founded QuantumStuff.org to change this. Every
+                        person deserves the opportunity to learn, explore, and contribute to the quantum
+                        revolution—regardless of their background or resources.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Our Values -->
+            <div style="margin-bottom: var(--spacing-16);">
+                <div class="section-header">
+                    <h2 class="section-title">Our Core Values</h2>
+                </div>
+                <div class="grid grid-cols-1 grid-md-2">
+                    <div class="card">
+                        <div
+                            style="width: 3rem; height: 3rem; background-color: var(--color-green-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-4);">
+                            <i data-lucide="target"
+                                style="width: 1.5rem; height: 1.5rem; color: var(--color-green-700);"></i>
+                        </div>
+                        <h3 style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-2);">Accessibility First
+                        </h3>
+                        <p style="color: var(--text-secondary);">We believe education should be free and accessible to
+                            everyone, regardless of location or financial situation.</p>
+                    </div>
+                    <div class="card">
+                        <div
+                            style="width: 3rem; height: 3rem; background-color: var(--color-green-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-4);">
+                            <i data-lucide="heart"
+                                style="width: 1.5rem; height: 1.5rem; color: var(--color-green-700);"></i>
+                        </div>
+                        <h3 style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-2);">Community Driven
+                        </h3>
+                        <p style="color: var(--text-secondary);">Built by volunteers who are passionate about
+                            democratizing quantum computing education worldwide.</p>
+                    </div>
+                    <div class="card">
+                        <div
+                            style="width: 3rem; height: 3rem; background-color: var(--color-green-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-4);">
+                            <i data-lucide="globe"
+                                style="width: 1.5rem; height: 1.5rem; color: var(--color-green-700);"></i>
+                        </div>
+                        <h3 style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-2);">Open & Transparent
+                        </h3>
+                        <p style="color: var(--text-secondary);">All our content is open source, peer-reviewed, and
+                            developed transparently on GitHub.</p>
+                    </div>
+                    <div class="card">
+                        <div
+                            style="width: 3rem; height: 3rem; background-color: var(--color-green-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-4);">
+                            <i data-lucide="award"
+                                style="width: 1.5rem; height: 1.5rem; color: var(--color-green-700);"></i>
+                        </div>
+                        <h3 style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-2);">Quality Education
+                        </h3>
+                        <p style="color: var(--text-secondary);">Expert-reviewed materials created by quantum computing
+                            professionals and experienced educators.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Impact Stats -->
+            <div class="card" style="margin-bottom: var(--spacing-16);">
+                <div class="section-header">
+                    <h2 class="section-title">Our Impact</h2>
+                </div>
+                <div class="grid grid-cols-2 grid-md-4">
+                    <div style="text-align: center;">
+                        <div
+                            style="font-size: var(--font-size-4xl); color: var(--color-green-700); margin-bottom: var(--spacing-2);">
+                            50+</div>
+                        <div style="color: var(--text-secondary);">Free Courses</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div
+                            style="font-size: var(--font-size-4xl); color: var(--color-green-700); margin-bottom: var(--spacing-2);">
+                            10K+</div>
+                        <div style="color: var(--text-secondary);">Active Learners</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div
+                            style="font-size: var(--font-size-4xl); color: var(--color-green-700); margin-bottom: var(--spacing-2);">
+                            120+</div>
+                        <div style="color: var(--text-secondary);">Countries Reached</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div
+                            style="font-size: var(--font-size-4xl); color: var(--color-green-700); margin-bottom: var(--spacing-2);">
+                            100%</div>
+                        <div style="color: var(--text-secondary);">Free Forever</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div
+                style="background: linear-gradient(to bottom right, var(--color-green-50), var(--color-amber-50)); border-radius: var(--radius-2xl); padding: var(--spacing-8); text-align: center; border: 1px solid var(--border-color);">
+                <h3 style="font-size: var(--font-size-3xl); margin-bottom: var(--spacing-4);">Join Our Mission</h3>
+                <p
+                    style="font-size: var(--font-size-lg); color: var(--text-secondary); margin-bottom: var(--spacing-8); max-width: 42rem; margin-left: auto; margin-right: auto;">
+                    Help us continue providing free quantum education to learners worldwide. Every contribution makes a
+                    difference.
+                </p>
+                <div
+                    style="display: flex; flex-direction: column; gap: var(--spacing-4); max-width: 32rem; margin: 0 auto;">
+                    <a href="https://github.com" class="btn btn-primary">Become a Volunteer</a>
+                    <a href="https://github.com" class="btn btn-outline">Contribute on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Learn</h4>
+                    <ul class="footer-links">
+                        <li><a href="sections/basic.html">Basic Quantum Computing</a></li>
+                        <li><a href="sections/index.html">All Courses</a></li>
+                        <li><a href="playground.html">Playground</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul class="footer-links">
+                        <li><a href="community.html">Discord</a></li>
+                        <li><a href="https://github.com">GitHub</a></li>
+                        <li><a href="community.html">Forum</a></li>
+                        <li><a href="about.html">Contribute</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>About</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Our Mission</a></li>
+                        <li><a href="about.html">Team</a></li>
+                        <li><a href="about.html">Volunteer</a></li>
+                        <li><a href="about.html">Donate</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="resources.html">Documentation</a></li>
+                        <li><a href="resources.html">API Reference</a></li>
+                        <li><a href="resources.html">External Links</a></li>
+                        <li><a href="resources.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 quantumstuff.org - A Non-Profit Educational Initiative | Open Source | Free Forever</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // Theme toggle
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+
+        function updateIcons(theme) {
+            sunIcon.style.display = theme === 'light' ? 'block' : 'none';
+            moonIcon.style.display = theme === 'dark' ? 'block' : 'none';
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        updateIcons(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcons(newTheme);
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
+    <script src="js/accessibility.js"></script>
+</body>
+
+</html>

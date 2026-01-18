@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The CNOT Gate - quantumstuff.org</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../../../libraries/q.js/Q/Q.css">
+    <link rel="stylesheet" href="../../../libraries/q.js/Q/Q-Circuit-Editor.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <style>
+        /* White container for Q.js circuit (matching classical circuit style) */
+        .qjs-circuit {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem auto;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        /* Hide the JavaScript console reference text */
+        .Q-circuit p:last-child {
+            display: none !important;
+        }
+
+        /* Ensure proper z-index stacking for wires to be visible */
+        .Q-circuit-board-background {
+            z-index: 0;
+        }
+
+        .Q-circuit-board-foreground {
+            z-index: 1;
+        }
+
+        /* Fix stacking effect visibility */
+        .Q-circuit-palette {
+            position: relative;
+            isolation: isolate;
+        }
+
+        /* Remove scrollbars and center circuit */
+        .Q-circuit-board-container {
+            overflow: visible !important;
+            max-height: none !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        /* Style results output */
+        #playground-report {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .qjs-circuit .truth-table {
+            margin: 2rem 0;
+        }
+
+        .qjs-circuit .truth-table pre {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <div class="header-content">
+            <a href="../../../index.html" class="logo">quantumstuff</a>
+            <div class="progress-track">
+                <div class="progress-step completed"></div>
+                <div class="progress-step completed"></div>
+                <div class="progress-step completed"></div>
+                <div class="progress-step completed"></div>
+                <div class="progress-step completed"></div>
+                <div class="progress-step completed"></div>
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+                    <i data-lucide="sun" style="width:18px;height:18px"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Foundations</div>
+                <nav class="sidebar-nav">
+                    <a href="lesson1.html" class="sidebar-link">1. Welcome to Quantum Computing</a>
+                    <a href="lesson2.html" class="sidebar-link">2. Classical Computing Foundations</a>
+                    <a href="lesson3.html" class="sidebar-link">3. Qubits and Superposition</a>
+                    <a href="lesson4.html" class="sidebar-link">4. The X Gate</a>
+                    <a href="lesson5.html" class="sidebar-link">5. The Hadamard Gate</a>
+                    <a href="lesson6.html" class="sidebar-link">6. Multiple Qubits</a>
+                    <a href="lesson7.html" class="sidebar-link active">7. The CNOT Gate</a>
+                    <a href="lesson8.html" class="sidebar-link">8. Entanglement and Quantum Power</a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="content" id="main-content">
+            <header class="lesson-header">
+                <div class="lesson-meta">
+                    <span class="lesson-number">Lesson 7</span>
+                    <span>20 min read</span>
+                </div>
+                <h1>The CNOT Gate</h1>
+                <p class="subtitle">Master the controlled-NOT gate—the fundamental two-qubit operation that enables
+                    entanglement and quantum power.</p>
+            </header>
+
+            <section class="section">
+                <h2 class="section-title">About This Lesson</h2>
+                <ul>
+                    <li>Understand what controlled operations are</li>
+                    <li>Learn the CNOT truth table and behavior</li>
+                    <li>Explore CNOT with superposition states</li>
+                    <li>Build circuits combining CNOT with H gates</li>
+                </ul>
+                <p><strong>Prerequisites:</strong> Lessons 1-6. Understanding of multiple qubits and quantum gates.</p>
+            </section>
+
+            <section class="section" id="controlled">
+                <h2 class="section-title">What is a Controlled Operation?</h2>
+                <p>The <span class="term" data-tooltip="Controlled-NOT - flips target if control is |1⟩"><strong>CNOT</strong></span> (Controlled-NOT) is our first <strong>two-qubit gate</strong>. It flips the target qubit
+                    <em>if and only if</em> the control qubit is |1⟩.</p>
+
+                <div class="callout">
+                    <div class="callout-title">
+                        <i data-lucide="info" style="width:16px;height:16px"></i>
+                        Key Concept: CNOT Structure
+                    </div>
+                    <p><strong>Control qubit (●):</strong> The decision-maker. If |1⟩, action happens.<br>
+                        <strong>Target qubit (⊕):</strong> Gets flipped (X gate) if control is |1⟩.
+                    </p>
+                    <p>CNOT|00⟩ = |00⟩ | CNOT|01⟩ = |01⟩ | CNOT|10⟩ = |11⟩ | CNOT|11⟩ = |10⟩</p>
+                </div>
+            </section>
+
+            <section class="section" id="truth-table">
+                <h2 class="section-title">The CNOT Truth Table</h2>
+                <div class="demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="table" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Interactive: CNOT Truth Table Explorer</span>
+                    </div>
+                    <div class="demo-content">
+                        <p style="margin-bottom: 1rem;">Try CNOT on different input states: |00⟩, |01⟩, |10⟩, |11⟩. Build the circuit and observe the results!</p>
+                        <div class="qjs-circuit">
+                            <div class='Q-circuit-palette'></div>
+                            <div id="cnot-truth"></div>
+                            <div class="truth-table">
+                                <h4>Result probabilities</h4>
+                                <pre><samp id="cnot-truth-report"></samp></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="superposition">
+                <h2 class="section-title">CNOT with Superposition</h2>
+                <p>When the control qubit is in superposition, CNOT creates <span class="term" data-tooltip="Qubits correlated - measuring one affects other"><strong>entanglement</strong></span>! H + CNOT
+                    gives us the Bell state: (1/√2)(|00⟩ + |11⟩)</p>
+
+                <div class="demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="git-merge" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Interactive: H + CNOT Circuit (Bell State)</span>
+                    </div>
+                    <div class="demo-content">
+                        <div id="h-cnot-circuit" style="margin:2rem 0"></div>
+                        <div id="h-cnot-results">
+                            <p style="background:var(--bg-secondary);padding:1rem;border-radius:4px">
+                                <strong>Live Probability Results:</strong><br>
+                                Try modifying the circuit above! Drag gates and see real-time changes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <details class="advanced-section type-math">
+                    <summary>🔬 For Advanced Learners: CNOT Matrix and Universal Gate Sets</summary>
+                    <div class="advanced-content">
+                        <h4 style="color: var(--color-green); margin-bottom: 0.75rem;">CNOT Matrix Representation</h4>
+                        <p>The CNOT gate acts on two qubits, so it's a 4×4 matrix:</p>
+                        <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+                            CNOT = [1  0  0  0]<br>
+                                   [0  1  0  0]<br>
+                                   [0  0  0  1]<br>
+                                   [0  0  1  0]
+                        </div>
+                        <p>This matrix shows that:</p>
+                        <ul>
+                            <li>|00⟩ → |00⟩ (control=0, target unchanged)</li>
+                            <li>|01⟩ → |01⟩ (control=0, target unchanged)</li>
+                            <li>|10⟩ → |11⟩ (control=1, target flipped)</li>
+                            <li>|11⟩ → |10⟩ (control=1, target flipped)</li>
+                        </ul>
+
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Universal Gate Sets</h4>
+                        <p>A set of gates is <strong>universal</strong> if you can approximate any quantum operation using just those gates. The most famous universal sets are:</p>
+                        <ul>
+                            <li><strong>H + CNOT + T:</strong> The Clifford+T gate set (industry standard)</li>
+                            <li><strong>H + CNOT + Phase gates:</strong> Common in quantum algorithms</li>
+                            <li><strong>CNOT + Single-qubit rotations:</strong> Most general form</li>
+                        </ul>
+
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Why CNOT is Special</h4>
+                        <p>CNOT is the simplest <strong>entangling gate</strong>—it can create <span class="term" data-tooltip="Qubits correlated - measuring one affects other">entanglement</span> when combined with single-qubit gates like H. This makes it essential for:</p>
+                        <ul>
+                            <li><strong>Universal quantum computing:</strong> Any quantum circuit can be built with CNOT + single-qubit gates</li>
+                            <li><strong>Error correction:</strong> Quantum error correction codes rely heavily on CNOT gates</li>
+                            <li><strong>Quantum algorithms:</strong> Most algorithms use CNOT as a building block</li>
+                        </ul>
+
+                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
+                            <p style="margin: 0; color: var(--text-secondary);"><strong>Fun fact:</strong> Any quantum algorithm, no matter how complex, can be decomposed into a sequence of single-qubit rotations and CNOT gates. This is called the "universal gate set theorem" and it's why CNOT is so fundamental!</p>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section class="section" id="circuits">
+                <h2 class="section-title">Building Circuits with CNOT</h2>
+                <div class="demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="workflow" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Interactive: CNOT Circuit Builder</span>
+                    </div>
+                    <div class="demo-content">
+                        <p style="margin-bottom: 1rem;">Experiment with different gate combinations: CNOT, H+CNOT, X+CNOT, or H on both qubits+CNOT!</p>
+                        <div class="qjs-circuit">
+                            <div class='Q-circuit-palette'></div>
+                            <div id="cnot-experiments"></div>
+                            <div class="truth-table">
+                                <h4>Result probabilities</h4>
+                                <pre><samp id="cnot-experiments-report"></samp></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="playground-section">
+                <h2 class="section-title">Interactive Circuit Playground</h2>
+                <p>Build and experiment with your own quantum circuits using the interactive Q.js circuit builder below.
+                    Drag gates from the palette onto the circuit board and see the results update in real-time!</p>
+
+                <div class="demo" id="playground-demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="wrench" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Q.js Circuit Builder</span>
+                    </div>
+                    <div class="demo-content">
+                        <div class="qjs-circuit">
+                            <div class='Q-circuit-palette'></div>
+                            <div id="playground"></div>
+                            <div class="truth-table">
+                                <h4>Result probabilities</h4>
+                                <pre><samp id="playground-report"></samp></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Learning Checkpoint -->
+            <div class="callout" style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
+                <div class="callout-title">
+                    <i data-lucide="check-circle" style="width:16px;height:16px"></i>
+                    ✓ Learning Checkpoint
+                </div>
+                <p style="margin-bottom: 0.75rem;"><strong>Before moving on, can you:</strong></p>
+                <ul class="checklist" style="list-style: none; padding-left: 0;">
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain how the CNOT gate works?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Predict the output for |10⟩ after CNOT?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Understand how H + CNOT creates entanglement?</li>
+                </ul>
+                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>Ready for entanglement? Check all boxes first!</em></p>
+            </div>
+
+            <!-- Misconception Box -->
+            <div class="callout" style="margin: 2rem 0; background: #fef3c7; border-left: 4px solid #f59e0b;">
+                <div class="callout-title">
+                    <i data-lucide="alert-triangle" style="width:16px;height:16px"></i>
+                    Common Misconception
+                </div>
+                <p style="margin: 0.5rem 0;"><strong>❌ Wrong:</strong> "CNOT just copies the control qubit to the target"</p>
+                <p style="margin: 0.5rem 0;"><strong>✓ Correct:</strong> CNOT flips the target if control=|1⟩. It doesn't copy! CNOT(|10⟩) = |11⟩, not |11⟩ by copying, but by flipping 0→1.</p>
+            </div>
+
+            <!-- Quick Reference Card -->
+            <section class="section" id="quick-reference">
+                <h2 class="section-title">📋 Quick Reference Card</h2>
+                <div style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">CNOT Gate Cheat Sheet</h3>
+
+                    <div style="display: grid; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">CNOT Truth Table</h4>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr style="background: var(--bg-secondary);">
+                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Control</th>
+                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Target (Before)</th>
+                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Target (After)</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|0⟩</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|0⟩</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|0⟩ (no change)</td>
+                                </tr>
+                                <tr style="background: var(--bg-secondary);">
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|0⟩</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|1⟩</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|1⟩ (no change)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|1⟩</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|0⟩</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|1⟩ (flipped)</td>
+                                </tr>
+                                <tr style="background: var(--bg-secondary);">
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|1⟩</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|1⟩</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|0⟩ (flipped)</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div>
+                            <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">Key Properties</h4>
+                            <ul style="font-size: 0.9375rem; margin: 0;">
+                                <li><strong>Controlled operation:</strong> Target flips only if control is |1⟩</li>
+                                <li><strong>Self-inverse:</strong> CNOT·CNOT = I</li>
+                                <li><strong>Creates entanglement:</strong> H + CNOT = Bell states</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-green);">
+                            <p style="margin: 0; font-size: 0.9375rem;"><strong>💡 Key Insight:</strong> CNOT is the gateway to entanglement! Combine H + CNOT to create correlated qubits that are inseparable.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section class="section" id="glossary">
+                <h2 class="section-title">Glossary</h2>
+                <dl class="term-list">
+                    <dt>CNOT Gate</dt>
+                    <dd><strong>Pronunciation:</strong> C-NOT or see-not<br><strong>Definition:</strong> Controlled-NOT gate—a two-qubit gate that flips the target only if control is |1⟩</dd>
+
+                    <dt>Control Qubit</dt>
+                    <dd><strong>Definition:</strong> The qubit that controls whether the operation happens (usually marked with a dot •)</dd>
+
+                    <dt>Target Qubit</dt>
+                    <dd><strong>Definition:</strong> The qubit that gets flipped (if control is |1⟩), marked with ⊕</dd>
+
+                    <dt>Controlled Operation</dt>
+                    <dd><strong>Definition:</strong> A quantum operation that only executes if a control qubit is in a specific state</dd>
+
+                    <dt>Two-Qubit Gate</dt>
+                    <dd><strong>Definition:</strong> A gate that operates on two qubits simultaneously, can create entanglement</dd>
+
+                    <dt>Universal Gate Set</dt>
+                    <dd><strong>Definition:</strong> A set of gates that can create any quantum circuit (e.g., H + CNOT + T gates)</dd>
+
+                    <dt>Circuit Depth</dt>
+                    <dd><strong>Definition:</strong> The number of sequential gate layers in a quantum circuit</dd>
+                </dl>
+            </section>
+
+            <section class="section quiz-section" id="quiz">
+                <h2 class="section-title">Test Your Understanding</h2>
+
+                <div class="quiz-question" data-question="1">
+                    <p class="question-text"><strong>Q1:</strong> What does CNOT do to |10⟩?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q1" value="a"><span>|10⟩ (no
+                                change)</span></label>
+                        <label class="option"><input type="radio" name="q1" value="b"><span>|11⟩ (target
+                                flipped)</span></label>
+                        <label class="option"><input type="radio" name="q1" value="c"><span>|01⟩ (control
+                                flipped)</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-1"></div>
+                </div>
+
+                <div class="quiz-question" data-question="2">
+                    <p class="question-text"><strong>Q2:</strong> Which qubit is never changed by CNOT?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q2" value="a"><span>The control qubit
+                                (●)</span></label>
+                        <label class="option"><input type="radio" name="q2" value="b"><span>The target qubit
+                                (⊕)</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-2"></div>
+                </div>
+
+                <div class="quiz-question" data-question="3">
+                    <p class="question-text"><strong>Q3:</strong> What does H + CNOT create from |00⟩?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q3" value="a"><span>Random states</span></label>
+                        <label class="option"><input type="radio" name="q3" value="b"><span>Correlated state: only |00⟩
+                                or |11⟩</span></label>
+                        <label class="option"><input type="radio" name="q3" value="c"><span>All 4 states
+                                equally</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-3"></div>
+                </div>
+
+                <button class="btn-primary" onclick="checkAnswersL7(this)">Check Answers</button>
+                <div id="quiz-score" class="quiz-result"></div>
+            </section>
+
+            <nav class="nav-footer">
+                <a href="lesson6.html" class="nav-btn nav-btn-prev">← Previous</a>
+                <a href="lesson8.html" class="nav-btn nav-btn-next">Next: Entanglement →</a>
+            </nav>
+        </main>
+
+        <aside class="toc">
+            <div class="toc-title">On This Page</div>
+            <nav class="toc-list">
+                <a href="#controlled" class="toc-link">Controlled Operations</a>
+                <a href="#truth-table" class="toc-link">CNOT Truth Table</a>
+                <a href="#superposition" class="toc-link">CNOT + Superposition</a>
+                <a href="#circuits" class="toc-link">Circuit Builder</a>
+                <a href="#playground-section" class="toc-link">Circuit Playground</a>
+                <a href="#quiz" class="toc-link">Quiz</a>
+            </nav>
+        </aside>
+    </div>
+
+    <!-- Q.js Library -->
+    <script src="../../../libraries/q.js/Q/Q.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-ComplexNumber.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Matrix.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Qubit.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Gate.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-History.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Circuit.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
+
+    <script>
+        window.addEventListener('load', function () {
+            try {
+                const bellCircuit = Q`
+                    H  X#0
+                    I  X#1
+                `.setName$('bell-state').toDom('h-cnot-circuit');
+                bellCircuit.circuit.evaluate$();
+                console.log('Bell state circuit created!');
+            } catch (error) {
+                console.error('Failed to create Bell circuit:', error);
+            }
+        });
+    </script>
+
+    <script src="../js/quantum-utils.js"></script>
+    <script src="../js/lesson7.js"></script>
+
+    <!-- Q.js Library -->
+    <script src="../../../libraries/q.js/Q/Q.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-ComplexNumber.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Matrix.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Qubit.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Gate.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-History.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Circuit.js"></script>
+    <script src="../../../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
+
+    <script>
+        // Create gate palettes (EXACT copy from playground.html)
+        Array
+        .from( document.querySelectorAll( '.Q-circuit-palette' ))
+        .forEach( function( el ){
+            Q.Circuit.Editor.createPalette( el )
+        })
+
+        // Initialize circuits on page load
+        window.addEventListener( 'DOMContentLoaded', function(){
+            // CNOT truth table circuit (2 qubits, 7 moments)
+            const cnotTruthCircuit = new Q.Circuit( 2, 7 )
+            cnotTruthCircuit.name = 'cnot-truth'
+            const cnotTruthDomEl = document.getElementById( 'cnot-truth' )
+            if( cnotTruthDomEl ){
+                cnotTruthCircuit.sort$()
+                cnotTruthCircuit.toDom( cnotTruthDomEl )
+                cnotTruthCircuit.evaluate$()
+            }
+
+            // CNOT experiments circuit (2 qubits, 7 moments)
+            const cnotExpCircuit = new Q.Circuit( 2, 7 )
+            cnotExpCircuit.name = 'cnot-experiments'
+            const cnotExpDomEl = document.getElementById( 'cnot-experiments' )
+            if( cnotExpDomEl ){
+                cnotExpCircuit.sort$()
+                cnotExpCircuit.toDom( cnotExpDomEl )
+                cnotExpCircuit.evaluate$()
+            }
+
+            // Main playground circuit (3 qubits, 7 moments)
+            const circuit = new Q.Circuit( 3, 7 )
+            circuit.name = 'playground'
+            const domEl = document.getElementById( 'playground' )
+            if( domEl ){
+                circuit.sort$()
+                circuit.toDom( domEl )
+                circuit.evaluate$()
+            }
+        })
+
+        // Update circuit parts helper function (EXACT copy from playground.html)
+        function updateCircuitParts( circuit ){
+            const reportEl = document.getElementById( circuit.name +'-report' )
+            if( reportEl ) reportEl.innerText = circuit.report$()
+        }
+
+        // Update when circuit is modified via GUI (EXACT copy from playground.html)
+        function updatePlaygroundFromDom( circuit ){
+            circuit.evaluate$()
+        }
+
+        // Event listener: evaluation completed (EXACT copy from playground.html)
+        window.addEventListener( 'Q.Circuit.evaluate completed', function( event ){
+            const circuit = event.detail.circuit
+            updateCircuitParts( circuit )
+        })
+
+        // Event listener: GUI altered circuit (EXACT copy from playground.html)
+        window.addEventListener( 'Q gui altered circuit', function( event ){
+            updatePlaygroundFromDom( event.detail.circuit )
+        })
+    </script>
+
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.querySelector('.sidebar-overlay').classList.toggle('open');
+        }
+        lucide.createIcons();
+    </script>
+    <script src="../../../js/main.js"></script>
+</body>
+
+</html>

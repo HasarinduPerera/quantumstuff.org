@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Accessibility Statement for quantumstuff.org - Our commitment to inclusive education.">
+    <title>Accessibility Statement - quantumstuff.org</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Accessibility Styles -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Theme Persistence (MUST load before CSS) -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Earthy green palette - combining vibrant green with warm browns */
+        :root,
+        [data-theme="light"] {
+            --color-green: #16a34a;
+            --color-green-dark: #15803d;
+            --color-green-light: #86efac;
+            --color-amber: #fbbf24;
+            --color-sand: #d4c5a9;
+
+            /* Warm earthy backgrounds */
+            --bg-primary: #faf8f3;
+            --bg-secondary: #f0ebe0;
+            --bg-card: #fffdfb;
+            --bg-accent: #e8f5e9;
+
+            /* Text colors */
+            --text-primary: #2b281f;
+            --text-secondary: #6b5e4f;
+            --text-muted: #8a7d6f;
+
+            /* Borders */
+            --border-subtle: rgba(107, 94, 79, 0.15);
+            --border-green: rgba(34, 197, 94, 0.2);
+
+            /* Badges */
+            --badge-green-bg: #dcfce7;
+            --badge-green-text: #166534;
+            --badge-amber-bg: #fef3c7;
+            --badge-amber-text: #92400e;
+            --badge-gray-bg: #f3f4f6;
+            --badge-gray-text: #6b7280;
+            --badge-orange-bg: #ffedd5;
+            --badge-orange-text: #9a3412;
+
+            /* Green shades for icons */
+            --color-green-100: #dcfce7;
+            --color-green-700: #15803d;
+            --color-green-50: #f0fdf4;
+            --color-amber-50: #fffbeb;
+            --text-accent: #16a34a;
+
+            /* Spacing */
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+
+            /* Font sizes */
+            --font-size-sm: 0.875rem;
+            --font-size-xs: 0.75rem;
+            --font-size-2xl: 1.5rem;
+
+            /* Border radius */
+            --radius-lg: 0.5rem;
+
+            /* Font weight */
+            --font-weight-semibold: 600;
+
+            /* Border color */
+            --border-color: rgba(107, 94, 79, 0.15);
+        }
+
+        [data-theme="dark"] {
+            --color-green: #16a34a;
+            --color-green-dark: #15803d;
+            --color-green-light: #4ade80;
+            --color-amber: #fbbf24;
+            --color-sand: #d4c5a9;
+
+            --bg-primary: #1c1a16;
+            --bg-secondary: #2b281f;
+            --bg-card: #32291d;
+            --bg-accent: #1e2617;
+
+            --text-primary: #f5f1e8;
+            --text-secondary: #c9b898;
+            --text-muted: #9a8d7a;
+
+            --border-subtle: rgba(212, 197, 169, 0.15);
+            --border-green: rgba(34, 197, 94, 0.2);
+
+            /* Badges dark mode */
+            --badge-green-bg: #14532d;
+            --badge-green-text: #86efac;
+            --badge-amber-bg: #78350f;
+            --badge-amber-text: #fcd34d;
+            --badge-gray-bg: #374151;
+            --badge-gray-text: #d1d5db;
+            --badge-orange-bg: #7c2d12;
+            --badge-orange-text: #fed7aa;
+
+            --color-green-100: #14532d;
+            --color-green-700: #4ade80;
+            --color-green-50: #14532d;
+            --color-amber-50: #78350f;
+            --text-accent: #4ade80;
+            --border-color: rgba(212, 197, 169, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            z-index: 10000;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 0 0 8px 0;
+            transition: top 0.2s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--color-green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-green);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--color-green);
+        }
+
+        .btn-primary {
+            background: var(--color-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-green-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border-subtle);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-green);
+            background: var(--bg-accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            background: linear-gradient(135deg,
+                    var(--bg-primary) 0%,
+                    var(--bg-accent) 50%,
+                    var(--bg-primary) 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-green);
+            border-radius: 999px;
+            color: var(--color-green);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 .accent {
+            color: var(--color-green);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--color-green);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(34, 197, 94, 0.12);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: 1fr;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-md-2 {
+            grid-template-columns: 1fr;
+        }
+
+        .grid-md-4 {
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .grid-md-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-md-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-md-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 2rem;
+            z-index: 99;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-list {
+            list-style: none;
+        }
+
+        .mobile-menu-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .mobile-menu-list a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .grid-md-2,
+            .grid-md-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Font Size Accessibility Fixes */
+        html.font-large .nav-content,
+        html.font-xlarge .nav-content {
+            min-height: 70px;
+            padding: 0.75rem 0;
+        }
+
+        html.font-large .nav-links,
+        html.font-xlarge .nav-links {
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        html.font-large .logo,
+        html.font-xlarge .logo {
+            font-size: 1.25rem;
+        }
+
+        html.font-large .btn-primary,
+        html.font-xlarge .btn-primary {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* High Contrast Mode */
+        [data-theme="high-contrast"] {
+            --bg-primary: #000000;
+            --bg-secondary: #1a1a1a;
+            --bg-accent: #0a0a0a;
+            --bg-card: #000000;
+            --text-primary: #ffffff;
+            --text-secondary: #ffff00;
+            --text-muted: #ffff00;
+            --text-accent: #ffff00;
+            --border-subtle: #ffffff;
+            --border-green: #ffff00;
+            --color-green: #ffff00;
+            --color-green-dark: #ffffff;
+            --color-green-light: #ffff00;
+        }
+
+        [data-theme="high-contrast"] .hero {
+            background: #000000 !important;
+        }
+
+        [data-theme="high-contrast"] .section {
+            background: #000000 !important;
+        }
+
+        [data-theme="high-contrast"] .card {
+            background: #000000 !important;
+            border: 2px solid #ffffff;
+        }
+
+        [data-theme="high-contrast"] .btn-primary {
+            background: #ffff00 !important;
+            color: #000000 !important;
+            border: 2px solid #ffffff;
+        }
+
+        [data-theme="high-contrast"] .btn-outline {
+            background: transparent !important;
+            color: #ffff00 !important;
+            border: 2px solid #ffff00;
+        }
+
+        [data-theme="high-contrast"] a {
+            color: #ffff00;
+            text-decoration: underline;
+        }
+
+        [data-theme="high-contrast"] .nav {
+            background: #000000 !important;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-outline {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <i data-lucide="atom" style="width: 28px; height: 28px;"></i>
+                    quantumstuff
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sections/index.html">Courses</a></li>
+                    <li><a href="playground.html">Playground</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="about.html">Our Mission</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <i data-lucide="sun" id="sunIcon" style="width: 20px; height: 20px;"></i>
+                        <i data-lucide="moon" id="moonIcon" style="display: none; width: 20px; height: 20px;"></i>
+                    </button>
+                    <a href="sections/index.html" class="btn-primary">Start Learning Free</a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                        <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sections/index.html">Courses</a></li>
+            <li><a href="playground.html">Playground</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li><a href="about.html">Our Mission</a></li>
+        </ul>
+        <div style="padding: 1rem 0;">
+            <a href="sections/index.html" class="btn-primary" style="width: 100%; justify-content: center;">Start
+                Learning Free</a>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i data-lucide="accessibility" style="width: 16px; height: 16px;"></i>
+                        Commitment
+                    </div>
+                    <h1>Accessibility <span class="accent">Statement</span></h1>
+                    <p>
+                        Our commitment to making quantum education accessible to everyone
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    <!-- Statement Content -->
+    <section class="section">
+        <div class="container">
+            <div style="max-width: 48rem; margin: 0 auto;">
+
+                <!-- Commitment -->
+                <div class="card" style="margin-bottom: var(--spacing-8);">
+                    <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--spacing-4);">Our Commitment</h2>
+                    <p style="margin-bottom: var(--spacing-4);">
+                        quantumstuff.org is committed to ensuring digital accessibility for people with disabilities. We
+                        are continually improving the user experience for everyone and applying the relevant
+                        accessibility standards.
+                    </p>
+                    <p>
+                        We believe that everyone should have access to quality quantum computing education, regardless
+                        of their abilities or the technologies they use to access the web.
+                    </p>
+                </div>
+
+                <!-- Conformance Status -->
+                <div class="card" style="margin-bottom: var(--spacing-8);">
+                    <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--spacing-4);">Conformance Status
+                    </h2>
+                    <p style="margin-bottom: var(--spacing-4);">
+                        <strong>WCAG 2.1 Level AA</strong> - quantumstuff.org aims to conform to the Web Content
+                        Accessibility Guidelines (WCAG) 2.1, Level AA. We are actively working towards full compliance.
+                    </p>
+                    <p>
+                        These guidelines explain how to make web content more accessible for people with disabilities
+                        and user-friendly for everyone.
+                    </p>
+                </div>
+
+                <!-- Accessibility Features -->
+                <div class="card" style="margin-bottom: var(--spacing-8);">
+                    <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--spacing-4);">Accessibility Features
+                    </h2>
+                    <p style="margin-bottom: var(--spacing-4);">Our website includes the following accessibility
+                        features:</p>
+
+                    <div style="display: grid; gap: var(--spacing-3);">
+                        <div style="display: flex; gap: var(--spacing-2); align-items-start;">
+                            <i data-lucide="check-circle-2"
+                                style="color: var(--color-green-700); flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>Theme Options:</strong> Light, Dark, and High Contrast modes</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-2); align-items-start;">
+                            <i data-lucide="check-circle-2"
+                                style="color: var(--color-green-700); flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>Font Size Controls:</strong> Adjustable text size (A-, A, A+)</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-2); align-items-start;">
+                            <i data-lucide="check-circle-2"
+                                style="color: var(--color-green-700); flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>Dyslexia-Friendly Font:</strong> OpenDyslexic option available</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-2); align-items-start;">
+                            <i data-lucide="check-circle-2"
+                                style="color: var(--color-green-700); flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>Text-to-Speech:</strong> Read page aloud using Web Speech API</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-2); align-items-start;">
+                            <i data-lucide="check-circle-2"
+                                style="color: var(--color-green-700); flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>Keyboard Navigation:</strong> Full site navigation via keyboard</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-2); align-items-start;">
+                            <i data-lucide="check-circle-2"
+                                style="color: var(--color-green-700); flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>Skip Links:</strong> Skip to main content option available</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-2); align-items-start;">
+                            <i data-lucide="check-circle-2"
+                                style="color: var(--color-green-700); flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>Semantic HTML:</strong> Proper landmarks and structure for screen
+                                readers</span>
+                        </div>
+                        <div style="display: flex; gap: var(--spacing-2); align-items-start;">
+                            <i data-lucide="check-circle-2"
+                                style="color: var(--color-green-700); flex-shrink: 0; margin-top: 2px;"></i>
+                            <span><strong>ARIA Labels:</strong> Descriptive labels for assistive technologies</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keyboard Shortcuts -->
+                <div class="card" style="margin-bottom: var(--spacing-8);">
+                    <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--spacing-4);">Keyboard Shortcuts
+                    </h2>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--border-color);">
+                                <th
+                                    style="text-align: left; padding: var(--spacing-2); font-weight: var(--font-weight-semibold);">
+                                    Action</th>
+                                <th
+                                    style="text-align: left; padding: var(--spacing-2); font-weight: var(--font-weight-semibold);">
+                                    Shortcut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <td style="padding: var(--spacing-2);">Navigate between elements</td>
+                                <td style="padding: var(--spacing-2);"><code>Tab</code> / <code>Shift+Tab</code></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <td style="padding: var(--spacing-2);">Activate link or button</td>
+                                <td style="padding: var(--spacing-2);"><code>Enter</code> or <code>Space</code></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <td style="padding: var(--spacing-2);">Skip to main content</td>
+                                <td style="padding: var(--spacing-2);"><code>Tab</code> (first on page)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <td style="padding: var(--spacing-2);">Scroll page</td>
+                                <td style="padding: var(--spacing-2);"><code>Arrow Keys</code>,
+                                    <code>Page Up/Down</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Known Issues -->
+                <div class="card" style="margin-bottom: var(--spacing-8);">
+                    <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--spacing-4);">Known Issues</h2>
+                    <p style="margin-bottom: var(--spacing-3);">We are aware of the following accessibility issues and
+                        are actively working to resolve them:</p>
+                    <ul
+                        style="list-style-type: disc; padding-left: var(--spacing-6); display: grid; gap: var(--spacing-2);">
+                        <li>Some interactive visualizations may not be fully keyboard accessible</li>
+                        <li>Video content does not yet have captions (we will add them when video content is created)
+                        </li>
+                        <li>Some color contrasts are still being optimized for WCAG AAA compliance</li>
+                    </ul>
+                </div>
+
+                <!-- Feedback -->
+                <div class="card"
+                    style="background: linear-gradient(to bottom right, var(--color-green-50), var(--color-amber-50));">
+                    <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--spacing-4);">Feedback</h2>
+                    <p style="margin-bottom: var(--spacing-4);">
+                        We welcome your feedback on the accessibility of quantumstuff.org. Please let us know if you
+                        encounter any accessibility barriers.
+                    </p>
+                    <p style="margin-bottom: var(--spacing-4);"><strong>Contact Methods:</strong></p>
+                    <ul style="list-style-type: none; padding: 0; display: grid; gap: var(--spacing-2);">
+                        <li style="display: flex; align-items: center; gap: var(--spacing-2);">
+                            <i data-lucide="mail"
+                                style="width: 1.25rem; height: 1.25rem; color: var(--color-green-700);"></i>
+                            Email: <a href="mailto:accessibility@quantumstuff.org"
+                                style="color: var(--text-accent); text-decoration: underline;">accessibility@quantumstuff.org</a>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: var(--spacing-2);">
+                            <i data-lucide="github"
+                                style="width: 1.25rem; height: 1.25rem; color: var(--color-green-700);"></i>
+                            GitHub: <a href="https://github.com/quantumstuff/issues"
+                                style="color: var(--text-accent); text-decoration: underline;">Report an issue</a>
+                        </li>
+                    </ul>
+                    <p
+                        style="margin-top: var(--spacing-4); font-size: var(--font-size-sm); color: var(--text-secondary);">
+                        We try to respond to accessibility feedback within 2 business days.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Learn</h4>
+                    <ul class="footer-links">
+                        <li><a href="sections/basic.html">Basic Quantum Computing</a></li>
+                        <li><a href="sections/index.html">All Courses</a></li>
+                        <li><a href="playground.html">Playground</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul class="footer-links">
+                        <li><a href="community.html">Discord</a></li>
+                        <li><a href="https://github.com">GitHub</a></li>
+                        <li><a href="community.html">Forum</a></li>
+                        <li><a href="about.html">Contribute</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>About</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Our Mission</a></li>
+                        <li><a href="about.html">Team</a></li>
+                        <li><a href="about.html">Volunteer</a></li>
+                        <li><a href="about.html">Donate</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="resources.html">Documentation</a></li>
+                        <li><a href="resources.html">API Reference</a></li>
+                        <li><a href="resources.html">External Links</a></li>
+                        <li><a href="resources.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 quantumstuff.org - A Non-Profit Educational Initiative | Open Source | Free Forever</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // Theme toggle
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+
+        function updateIcons(theme) {
+            sunIcon.style.display = theme === 'light' ? 'block' : 'none';
+            moonIcon.style.display = theme === 'dark' ? 'block' : 'none';
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        updateIcons(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcons(newTheme);
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
+    <script src="js/accessibility.js"></script>
+</body>
+
+</html>

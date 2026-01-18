@@ -1,0 +1,576 @@
+/**
+ * gate-libraries.css
+ * Styling for q.js and c.js gate libraries
+ * Smooth, professional UI/UX with nature theme
+ */
+
+/* ============================================================================
+   QUANTUM LIBRARY (q.js) STYLES
+   ============================================================================ */
+
+/* Histogram Visualization */
+.q-histogram {
+    background: #f9fdf7;
+    border: 2px solid #e8f5e0;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 1rem 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.q-histogram.q-fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.q-histogram-bars {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 2rem;
+    min-height: 220px;
+    margin-bottom: 1rem;
+}
+
+.q-histogram-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.q-histogram-bar {
+    width: 80px;
+    min-height: 20px;
+    background: linear-gradient(180deg, #2d5016 0%, #5a7a42 100%);
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(45, 80, 22, 0.1);
+}
+
+.q-histogram-bar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(45, 80, 22, 0.2);
+}
+
+.q-bar-0 {
+    background: linear-gradient(180deg, #2d5016 0%, #5a7a42 100%);
+}
+
+.q-bar-1 {
+    background: linear-gradient(180deg, #6b8e23 0%, #8b9f5a 100%);
+}
+
+.q-bar-label {
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.q-histogram-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d5016;
+}
+
+.q-histogram-percent {
+    font-size: 1rem;
+    color: #5a7a42;
+    font-weight: 500;
+}
+
+.q-histogram-stats {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e8f5e0;
+}
+
+/* Result Badges */
+.q-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: #f9fdf7;
+    border-radius: 8px;
+    border: 2px solid #e8f5e0;
+}
+
+.q-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    animation: q-badge-appear 0.3s ease backwards;
+}
+
+.q-badge:nth-child(n) {
+    animation-delay: calc(var(--i, 0) * 0.05s);
+}
+
+@keyframes q-badge-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.q-badge-0 {
+    background: #2d5016;
+    color: white;
+}
+
+.q-badge-1 {
+    background: #6b8e23;
+    color: white;
+}
+
+.q-badge:hover {
+    transform: scale(1.1);
+}
+
+/* ============================================================================
+   CLASSICAL LIBRARY (c.js) STYLES
+   ============================================================================ */
+
+/* Bit Display */
+.c-bit-display {
+    background: #f9fdf7;
+    border: 3px solid #e8f5e0;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    min-width: 150px;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.c-bit-display.c-fade-in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.c-bit-0 {
+    border-color: #8b7355;
+    background: linear-gradient(135deg, #fdfcfa 0%, #f5ebe0 100%);
+}
+
+.c-bit-1 {
+    border-color: #2d5016;
+    background: linear-gradient(135deg, #e8f5e0 0%, #d4eac7 100%);
+}
+
+.c-bit-value {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #2d5016;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.c-bit-0 .c-bit-value {
+    color: #8b7355;
+}
+
+.c-bit-1 .c-bit-value {
+    color: #2d5016;
+}
+
+.c-bit-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Circuit Display */
+.c-circuit-display {
+    background: #f9fdf7;
+    border: 2px solid #e8f5e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.c-circuit-wire {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    flex-wrap: nowrap;
+}
+
+.c-circuit-initial,
+.c-circuit-final {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d5016;
+    padding: 0.5rem 1rem;
+    background: #e8f5e0;
+    border-radius: 6px;
+}
+
+.c-gate-box {
+    background: #2d5016;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.c-gate-box:hover {
+    background: #3d6a20;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(45, 80, 22, 0.2);
+}
+
+.c-circuit-arrow {
+    font-size: 1.5rem;
+    color: #5a7a42;
+}
+
+/* Truth Table */
+.c-truth-table {
+    background: white;
+    border: 2px solid #e8f5e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.c-truth-table.c-fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.c-truth-table-title {
+    color: #2d5016;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.c-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.c-table thead {
+    background: #2d5016;
+    color: white;
+}
+
+.c-table th,
+.c-table td {
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid #e8f5e0;
+}
+
+.c-table th {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.c-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.c-table tbody tr:hover {
+    background: #f9fdf7;
+}
+
+.c-table tbody tr:nth-child(even) {
+    background: #fdfcfa;
+}
+
+.c-output-cell {
+    font-weight: 700;
+    color: #2d5016;
+    font-size: 1.1rem;
+}
+
+/* Circuit State Display */
+.c-circuit-state {
+    background: #f9fdf7;
+    border: 2px solid #e8f5e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.c-bits-display {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.c-bit-box {
+    flex: 1;
+    min-width: 100px;
+    background: white;
+    border: 3px solid #e8f5e0;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.c-bit-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(45, 80, 22, 0.1);
+}
+
+.c-bit-box-0 {
+    border-color: #8b7355;
+}
+
+.c-bit-box-1 {
+    border-color: #2d5016;
+    background: #e8f5e0;
+}
+
+.c-bit-index {
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.c-bit-value-large {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #2d5016;
+}
+
+.c-bit-box-0 .c-bit-value-large {
+    color: #8b7355;
+}
+
+.c-bit-box-1 .c-bit-value-large {
+    color: #2d5016;
+}
+
+.c-circuit-info {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.c-info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e8f5e0;
+}
+
+.c-info-row:last-child {
+    border-bottom: none;
+}
+
+.c-label {
+    font-weight: 600;
+    color: #5a7a42;
+}
+
+.c-value {
+    font-weight: 700;
+    color: #2d5016;
+    font-family: 'Courier New', monospace;
+}
+
+/* Gate Playground */
+.c-gate-playground {
+    background: #f9fdf7;
+    border: 2px solid #e8f5e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.c-gate-playground h4 {
+    color: #2d5016;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.c-controls {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.c-controls label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #5a7a42;
+}
+
+.c-controls select {
+    padding: 0.5rem 1rem;
+    border: 2px solid #e8f5e0;
+    border-radius: 6px;
+    background: white;
+    color: #2d5016;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.c-controls select:hover {
+    border-color: #2d5016;
+}
+
+.c-controls select:focus {
+    outline: none;
+    border-color: #2d5016;
+    box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+}
+
+.c-gate-output {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.c-result {
+    font-size: 1.25rem;
+    color: #5a7a42;
+}
+
+.c-result-value {
+    display: inline-block;
+    background: #2d5016;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+/* ============================================================================
+   SHARED ANIMATIONS AND UTILITIES
+   ============================================================================ */
+
+.q-fade-in,
+.c-fade-in {
+    animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Smooth transitions for all interactive elements */
+.q-histogram-bar,
+.q-badge,
+.c-bit-display,
+.c-gate-box,
+.c-bit-box,
+.c-controls select {
+    will-change: transform;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .q-histogram-bars {
+        gap: 1rem;
+    }
+
+    .q-histogram-bar {
+        width: 60px;
+    }
+
+    .c-bits-display {
+        flex-direction: column;
+    }
+
+    .c-bit-box {
+        min-width: auto;
+    }
+
+    .c-circuit-wire {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .c-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .c-controls label {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 480px) {
+    .q-histogram {
+        padding: 1rem;
+    }
+
+    .c-bit-value {
+        font-size: 3rem;
+    }
+
+    .c-gate-playground {
+        padding: 1rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .c-gate-playground,
+    .c-controls {
+        display: none;
+    }
+
+    .q-histogram,
+    .c-truth-table,
+    .c-circuit-state {
+        break-inside: avoid;
+    }
+}

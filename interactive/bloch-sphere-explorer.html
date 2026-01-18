@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Theme Persistence (MUST load before CSS) -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloch Sphere Explorer - quantumstuff.org</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root,
+        [data-theme="light"] {
+            --bg-primary: #faf8f3;
+            --bg-card: #fffdfb;
+            --text-primary: #2b281f;
+            --text-secondary: #6b5e4f;
+            --border-subtle: rgba(212, 197, 169, 0.3);
+            --color-green: #16a34a;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1c1a16;
+            --bg-card: #32291d;
+            --text-primary: #f5f1e8;
+            --text-secondary: #c9b898;
+            --border-subtle: rgba(212, 197, 169, 0.15);
+            --color-green: #16a34a;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* Page Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .info-card:hover {
+            border-color: var(--color-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
+        }
+
+        .info-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-intro {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .section-intro strong {
+            color: var(--color-green);
+        }
+
+        .playground-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            display: block;
+            margin: 1.5rem 0;
+            background: white;
+        }
+
+        .instructions {
+            background: var(--bg-accent, #e8f5e9);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--color-green);
+        }
+
+        .instructions h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .instructions ul {
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Navigation bar */
+        .nav-bar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-bar a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-bar a:hover {
+            color: var(--color-green);
+        }
+
+        .nav-separator {
+            color: var(--text-secondary);
+            opacity: 0.3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="../index.html">
+            <i data-lucide="home" style="width:16px;height:16px;"></i>
+            Home
+        </a>
+        <span class="nav-separator">/</span>
+        <a href="../playground.html">
+            <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+            Playground
+        </a>
+        <span class="nav-separator">/</span>
+        <span style="color: var(--text-primary); font-weight: 500; font-size: 0.9rem;">Bloch Sphere Explorer</span>
+    </div>
+
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Bloch Sphere Explorer</h1>
+            <p>Visualize single-qubit quantum states on the 3D Bloch sphere. Apply gates and watch the state vector transform in real-time.</p>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>
+                    <i data-lucide="rotate-3d" style="width:18px;height:18px;color:var(--color-green)"></i>
+                    Interactive 3D
+                </h3>
+                <p>Click and drag to rotate the sphere, use mouse wheel to zoom in and out</p>
+            </div>
+            <div class="info-card">
+                <h3>
+                    <i data-lucide="zap" style="width:18px;height:18px;color:var(--color-green)"></i>
+                    Quantum Gates
+                </h3>
+                <p>Apply X, Y, Z, H, S, T and other gates to see real-time state transformations</p>
+            </div>
+            <div class="info-card">
+                <h3>
+                    <i data-lucide="eye" style="width:18px;height:18px;color:var(--color-green)"></i>
+                    State Visualization
+                </h3>
+                <p>See the state vector and amplitudes update as you apply quantum operations</p>
+            </div>
+        </div>
+
+        <!-- Bloch Sphere Section -->
+        <section class="section">
+            <h2 class="section-title">
+                <i data-lucide="globe" style="width:24px;height:24px;color:var(--color-green)"></i>
+                Interactive Bloch Sphere
+            </h2>
+
+            <div class="playground-section">
+                <p class="section-intro">
+                    <strong>The Bloch Sphere</strong> is a geometrical representation of a single qubit's quantum state. The north pole represents |0⟩, the south pole represents |1⟩, and all other points on the sphere represent different superposition states.
+                </p>
+
+                <iframe src="../tutorials/basics/visualizations/bloch-viz-clean.html"></iframe>
+
+                <div class="instructions">
+                    <h3>How to Use</h3>
+                    <ul>
+                        <li><strong>Rotate:</strong> Click and drag to rotate the Bloch sphere</li>
+                        <li><strong>Zoom:</strong> Use mouse wheel or pinch to zoom in/out</li>
+                        <li><strong>Apply Gates:</strong> Click the quantum gate buttons on the right (X, Y, Z, H, S, T, etc.) to transform the state</li>
+                        <li><strong>Watch the State:</strong> The vector shows the current qubit state. The state amplitudes are displayed at the top</li>
+                        <li><strong>Reset:</strong> Click the reset button to return to |0⟩ state</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

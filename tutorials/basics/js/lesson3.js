@@ -38,11 +38,23 @@ function spinCoin() {
 function measureCoin() {
     var coin = document.getElementById('coin');
     var label = document.getElementById('coin-state-label');
+    var resultDiv = document.getElementById('coin-result');
 
     if (!coin || !label) return;
 
     if (!coinState.inSuperposition) {
-        alert('Please put the coin in superposition first!');
+        // Show nice error message instead of alert
+        if (resultDiv) {
+            resultDiv.innerHTML = '<div style="padding: 1rem; background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 8px; color: var(--text-primary); margin-top: 1rem;">' +
+                '<strong style="color: #ef4444;">⚠️ Not in superposition!</strong><br>' +
+                '<span style="font-size: 0.9375rem;">Please click "Put in Superposition" first before measuring.</span>' +
+                '</div>';
+
+            // Clear message after 3 seconds
+            setTimeout(function() {
+                if (resultDiv) resultDiv.innerHTML = '';
+            }, 3000);
+        }
         return;
     }
 
@@ -59,6 +71,13 @@ function measureCoin() {
 
     label.textContent = 'Measured: |' + result + '⟩ (collapsed to definite state)';
     label.classList.remove('superposition');
+
+    // Show result message
+    if (resultDiv) {
+        resultDiv.innerHTML = '<div style="padding: 1rem; background: var(--bg-highlight); border-left: 4px solid var(--color-green); border-radius: 8px; color: var(--text-primary); margin-top: 1rem;">' +
+            '<strong style="color: var(--color-green);">✓ Measured!</strong> The coin collapsed to <strong>|' + result + '⟩</strong>' +
+            '</div>';
+    }
 
     // Add highlight effect
     highlightElement('coin', 800);
@@ -81,7 +100,7 @@ function resetCoin() {
 }
 
 // ============================================================================
-// INTERACTIVE 2: SCHRÖDINGER'S CAT
+// INTERACTIVE 2: ADVANCED SCHRÖDINGER'S CAT
 // ============================================================================
 
 var catState = {
@@ -91,75 +110,165 @@ var catState = {
 
 function openSchrodingerBox() {
     if (!catState.inSuperposition) {
-        alert('The cat has already been measured! Reset to try again.');
         return;
     }
 
-    var boxVisual = document.getElementById('box-visual');
+    var superpositionView = document.getElementById('superposition-view');
+    var measurementResult = document.getElementById('measurement-result');
     var resultDiv = document.getElementById('cat-result');
     var openBtn = document.getElementById('open-box-btn');
+    var resetBtn = document.getElementById('reset-box-btn');
+    var statusBadge = document.querySelector('.status-badge');
+    var resultOrb = document.getElementById('result-orb');
+    var resultEmoji = document.getElementById('result-emoji');
+    var waves = document.getElementById('quantum-waves');
+    var probBars = document.getElementById('probability-bars');
 
-    if (!boxVisual || !resultDiv) return;
+    if (!superpositionView || !measurementResult) return;
 
-    // Measure the cat (50/50 chance)
-    var result = Math.random() < 0.5;
-    catState.isAlive = result;
-    catState.inSuperposition = false;
+    // Disable button
+    openBtn.disabled = true;
 
-    // Animate the box opening
-    boxVisual.style.transform = 'scale(0.9)';
-    boxVisual.style.opacity = '0.5';
+    // Fade out waves and probability bars
+    if (waves) {
+        waves.style.transition = 'opacity 0.6s ease';
+        waves.style.opacity = '0';
+    }
+    if (probBars) {
+        probBars.style.transition = 'all 0.6s ease';
+        probBars.style.opacity = '0';
+        probBars.style.transform = 'scale(0.9)';
+    }
+
+    // Fade out superposition view
+    superpositionView.style.transition = 'all 0.6s ease';
+    superpositionView.style.opacity = '0';
+    superpositionView.style.transform = 'scale(0.8)';
 
     setTimeout(function() {
-        // Change box appearance
-        boxVisual.className = result ? 'box-open' : 'box-open dead-result';
-        boxVisual.innerHTML = '<div class="box-label">📭 Box Opened!</div>' +
-                              '<div class="cat-result-large">' + (result ? '😺' : '💀') + '</div>';
+        // Measure the cat (50/50 chance)
+        var result = Math.random() < 0.5;
+        catState.isAlive = result;
+        catState.inSuperposition = false;
 
-        boxVisual.style.transform = 'scale(1)';
-        boxVisual.style.opacity = '1';
+        // Hide superposition view
+        superpositionView.style.display = 'none';
+
+        // Show measurement result
+        measurementResult.style.display = 'block';
+        resultEmoji.textContent = result ? '😺' : '💀';
+
+        if (!result) {
+            resultOrb.classList.add('dead');
+        } else {
+            resultOrb.classList.remove('dead');
+        }
+
+        // Update status badge
+        if (statusBadge) {
+            statusBadge.className = 'status-badge collapsed' + (result ? '' : ' dead');
+            statusBadge.innerHTML = '<i data-lucide="zap" style="width:14px;height:14px"></i>' +
+                                   '<span>Wave Function Collapsed!</span>';
+            lucide.createIcons();
+        }
 
         // Show result message
-        resultDiv.innerHTML = result ?
-            '🎉 <strong>The cat is ALIVE!</strong> The superposition collapsed to the alive state.' :
-            '😢 <strong>The cat is DEAD.</strong> The superposition collapsed to the dead state.';
-        resultDiv.style.borderLeftColor = result ? 'var(--color-green)' : '#ef4444';
-        resultDiv.style.background = result ? '#d4edda' : '#f8d7da';
-    }, 300);
+        setTimeout(function() {
+            resultDiv.innerHTML = result ?
+                '<div style="padding: 1.5rem; background: var(--bg-accent); border-left: 4px solid var(--color-green); border-radius: 8px;">' +
+                '🎉 <strong style="color: var(--color-green);">The cat is ALIVE!</strong><br>' +
+                '<span style="color: var(--text-secondary);">The quantum superposition collapsed to |alive⟩ upon measurement.</span>' +
+                '</div>' :
+                '<div style="padding: 1.5rem; background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 8px;">' +
+                '😢 <strong style="color: #ef4444;">The cat is DEAD.</strong><br>' +
+                '<span style="color: var(--text-secondary);">The quantum superposition collapsed to |dead⟩ upon measurement.</span>' +
+                '</div>';
 
-    openBtn.disabled = true;
+            // Show reset button
+            if (resetBtn) {
+                resetBtn.style.display = 'inline-flex';
+            }
+            openBtn.style.display = 'none';
+
+            // Celebration confetti for alive cat
+            if (result && typeof confetti !== 'undefined') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+        }, 400);
+    }, 600);
 }
 
 function resetSchrodingerBox() {
-    var boxVisual = document.getElementById('box-visual');
+    var superpositionView = document.getElementById('superposition-view');
+    var measurementResult = document.getElementById('measurement-result');
     var resultDiv = document.getElementById('cat-result');
     var openBtn = document.getElementById('open-box-btn');
+    var resetBtn = document.getElementById('reset-box-btn');
+    var statusBadge = document.querySelector('.status-badge');
+    var resultOrb = document.getElementById('result-orb');
+    var waves = document.getElementById('quantum-waves');
+    var probBars = document.getElementById('probability-bars');
 
-    if (!boxVisual || !resultDiv) return;
+    if (!superpositionView || !measurementResult) return;
 
-    catState.inSuperposition = true;
-    catState.isAlive = null;
-
-    // Animate reset
-    boxVisual.style.transform = 'scale(0.9)';
-    boxVisual.style.opacity = '0';
+    // Fade out measurement result
+    measurementResult.style.transition = 'all 0.5s ease';
+    measurementResult.style.opacity = '0';
+    measurementResult.style.transform = 'translate(-50%, -50%) scale(0.5)';
 
     setTimeout(function() {
-        boxVisual.className = 'box-closed';
-        boxVisual.innerHTML = '<div class="box-label">📦 Box Closed</div>' +
-                              '<div class="superposition-states">' +
-                                  '<span class="cat-state alive">😺 Alive</span>' +
-                                  '<span class="superposition-symbol">+</span>' +
-                                  '<span class="cat-state dead">💀 Dead</span>' +
-                              '</div>' +
-                              '<div class="quantum-label">Superposition!</div>';
+        // Reset state
+        catState.inSuperposition = true;
+        catState.isAlive = null;
 
-        boxVisual.style.transform = 'scale(1)';
-        boxVisual.style.opacity = '1';
+        // Hide measurement result
+        measurementResult.style.display = 'none';
+        measurementResult.style.opacity = '1';
+        measurementResult.style.transform = 'translate(-50%, -50%) scale(1)';
+        resultOrb.classList.remove('dead');
 
-        resultDiv.innerHTML = '';
-        openBtn.disabled = false;
-    }, 300);
+        // Show superposition view
+        superpositionView.style.display = 'flex';
+        superpositionView.style.opacity = '0';
+        superpositionView.style.transform = 'scale(0.8)';
+
+        setTimeout(function() {
+            superpositionView.style.transition = 'all 0.6s ease';
+            superpositionView.style.opacity = '1';
+            superpositionView.style.transform = 'scale(1)';
+
+            // Fade in waves and probability bars
+            if (waves) {
+                waves.style.opacity = '0.15';
+            }
+            if (probBars) {
+                probBars.style.opacity = '1';
+                probBars.style.transform = 'scale(1)';
+            }
+
+            // Update status badge
+            if (statusBadge) {
+                statusBadge.className = 'status-badge superposition';
+                statusBadge.innerHTML = '<i data-lucide="radio" style="width:14px;height:14px"></i>' +
+                                       '<span>Quantum Superposition</span>';
+                lucide.createIcons();
+            }
+
+            // Clear result message
+            resultDiv.innerHTML = '';
+
+            // Toggle buttons
+            openBtn.disabled = false;
+            openBtn.style.display = 'inline-flex';
+            if (resetBtn) {
+                resetBtn.style.display = 'none';
+            }
+        }, 50);
+    }, 500);
 }
 
 // ============================================================================
@@ -173,70 +282,116 @@ var measurementData = {
 };
 
 function measureOnce() {
-    // Measure a qubit in equal superposition
-    var result = measureQubit(0.5);
-
-    // Update statistics
-    measurementData.totalMeasurements++;
-    if (result === 0) {
-        measurementData.zeros++;
-    } else {
-        measurementData.ones++;
-    }
-
-    // Update display
-    updateMeasurementDisplay();
+    animateMeasurement(1);
 }
 
 function measure10() {
-    // Perform 10 measurements
-    var stats = performMeasurements(0.5, 10);
-
-    measurementData.totalMeasurements += 10;
-    measurementData.zeros += stats.zeros;
-    measurementData.ones += stats.ones;
-
-    updateMeasurementDisplay();
+    animateMeasurement(10);
 }
 
 function measure100() {
-    // Perform 100 measurements
-    var stats = performMeasurements(0.5, 100);
+    animateMeasurement(100);
+}
 
-    measurementData.totalMeasurements += 100;
-    measurementData.zeros += stats.zeros;
-    measurementData.ones += stats.ones;
+function animateMeasurement(count) {
+    var delay = count === 1 ? 0 : count <= 10 ? 150 : 30; // Timing for animations
 
-    updateMeasurementDisplay();
+    for (var i = 0; i < count; i++) {
+        (function(index) {
+            setTimeout(function() {
+                // Measure a qubit
+                var result = measureQubit(0.5);
+
+                // Update statistics
+                measurementData.totalMeasurements++;
+                if (result === 0) {
+                    measurementData.zeros++;
+                } else {
+                    measurementData.ones++;
+                }
+
+                // Create flying particle
+                createMeasurementParticle(result);
+
+                // Update display with animation
+                updateMeasurementDisplay();
+            }, index * delay);
+        })(i);
+    }
 }
 
 function updateMeasurementDisplay() {
-    // Use quantum-utils histogram function
-    createHistogram(
-        {zeros: measurementData.zeros, ones: measurementData.ones},
-        'measurement-histogram',
-        200
-    );
+    var total = measurementData.totalMeasurements;
+    var zeros = measurementData.zeros;
+    var ones = measurementData.ones;
 
-    // Add explanatory text if we have enough measurements
-    var container = document.getElementById('measurement-histogram');
-    if (container && measurementData.totalMeasurements >= 50) {
-        var percent0 = Math.round((measurementData.zeros / measurementData.totalMeasurements) * 100);
-        var percent1 = Math.round((measurementData.ones / measurementData.totalMeasurements) * 100);
+    // Update total counter
+    var totalEl = document.getElementById('total-measurements');
+    if (totalEl) totalEl.textContent = total;
 
-        var explanation = document.createElement('div');
-        explanation.className = 'measurement-explanation';
-        explanation.style.cssText = 'margin-top: 1rem; text-align: center; font-style: italic; color: var(--text-secondary);';
-        explanation.textContent = 'Notice: With ' + measurementData.totalMeasurements + ' measurements, we get approximately 50/50 distribution (' + percent0 + '% vs ' + percent1 + '%). This is quantum superposition!';
-
-        // Remove old explanation if exists
-        var oldExplanation = container.querySelector('.measurement-explanation');
-        if (oldExplanation) {
-            oldExplanation.remove();
-        }
-
-        container.appendChild(explanation);
+    // Update zero stats
+    var zeroCountEl = document.getElementById('zero-count');
+    var zeroPercentEl = document.getElementById('zero-percent');
+    if (zeroCountEl) zeroCountEl.textContent = zeros;
+    if (zeroPercentEl) {
+        var zeroPercent = total > 0 ? Math.round((zeros / total) * 100) : 0;
+        zeroPercentEl.textContent = zeroPercent + '%';
     }
+
+    // Update one stats
+    var oneCountEl = document.getElementById('one-count');
+    var onePercentEl = document.getElementById('one-percent');
+    if (oneCountEl) oneCountEl.textContent = ones;
+    if (onePercentEl) {
+        var onePercent = total > 0 ? Math.round((ones / total) * 100) : 0;
+        onePercentEl.textContent = onePercent + '%';
+    }
+
+    // Update histogram bars
+    var maxCount = Math.max(zeros, ones, 1);
+
+    var zeroBar = document.getElementById('zero-bar');
+    var zeroBarValue = document.getElementById('zero-bar-value');
+    if (zeroBar) {
+        var zeroWidth = (zeros / maxCount) * 100;
+        zeroBar.style.width = zeroWidth + '%';
+    }
+    if (zeroBarValue) zeroBarValue.textContent = zeros;
+
+    var oneBar = document.getElementById('one-bar');
+    var oneBarValue = document.getElementById('one-bar-value');
+    if (oneBar) {
+        var oneWidth = (ones / maxCount) * 100;
+        oneBar.style.width = oneWidth + '%';
+    }
+    if (oneBarValue) oneBarValue.textContent = ones;
+}
+
+function createMeasurementParticle(result) {
+    var container = document.getElementById('measurement-particles');
+    if (!container) return;
+
+    // Create particle
+    var particle = document.createElement('div');
+    particle.className = 'measure-particle';
+    particle.textContent = result;
+    particle.style.background = result === 0 ? 'var(--color-green)' : 'var(--color-amber)';
+
+    // Add to container
+    container.appendChild(particle);
+
+    // Animate particle
+    setTimeout(function() {
+        particle.classList.add('flying');
+        particle.style.setProperty('--target-x', result === 0 ? '-45%' : '45%');
+    }, 10);
+
+    // Remove particle after animation
+    setTimeout(function() {
+        if (particle && particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+        }
+    }, 600);
 }
 
 function resetMeasurements() {
@@ -244,9 +399,12 @@ function resetMeasurements() {
     measurementData.zeros = 0;
     measurementData.ones = 0;
 
-    var container = document.getElementById('measurement-histogram');
-    if (container) {
-        container.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">No measurements yet. Click a button above to start!</p>';
+    updateMeasurementDisplay();
+
+    // Clear particles
+    var particleContainer = document.getElementById('measurement-particles');
+    if (particleContainer) {
+        particleContainer.innerHTML = '';
     }
 }
 
@@ -584,6 +742,218 @@ function showProbQuizResults() {
 }
 
 // ============================================================================
+// INTERACTIVE 5: BIT VS QUBIT COMPARISON
+// ============================================================================
+
+var bitState = 0;
+var qubitInSuperpositionL3 = false;
+var particleIntervalL3 = null;
+
+function toggleClassicalBit() {
+    // Toggle bit value
+    bitState = bitState === 0 ? 1 : 0;
+
+    var bitValue = document.getElementById('bit-value');
+    var bitLabel = document.getElementById('bit-label');
+    var bitTag = document.getElementById('bit-tag');
+    var bitCircle = document.getElementById('bit-circle');
+
+    if (bitValue) bitValue.textContent = bitState;
+    if (bitLabel) bitLabel.textContent = 'Definite State: |' + bitState + '⟩';
+
+    // Animate the change
+    if (bitCircle) {
+        bitCircle.style.transform = 'scale(1.1)';
+        setTimeout(function() {
+            bitCircle.style.transform = 'scale(1)';
+        }, 200);
+    }
+
+    // Update tag to show current state
+    if (bitTag) {
+        bitTag.textContent = 'State: ' + bitState;
+        bitTag.className = 'card-tag deterministic';
+
+        // Change back to "Deterministic" after 2 seconds
+        setTimeout(function() {
+            if (bitTag) {
+                bitTag.textContent = 'Deterministic';
+            }
+        }, 2000);
+    }
+}
+
+function putInSuperpositionL3() {
+    if (qubitInSuperpositionL3) return;
+
+    qubitInSuperpositionL3 = true;
+
+    var qubitCircle = document.getElementById('qubit-circle');
+    var qubitValue = document.getElementById('qubit-value');
+    var qubitLabel = document.getElementById('qubit-label');
+    var qubitTag = document.getElementById('qubit-tag');
+    var measureBtn = document.getElementById('measure-btn-l3');
+    var superpositionBtn = document.getElementById('superposition-btn');
+
+    // Hide atom symbol - DON'T show the static superposition indicator, just show floating particles
+    if (qubitValue) qubitValue.style.display = 'none';
+
+    // Update label
+    if (qubitLabel) qubitLabel.textContent = 'Superposition: |ψ⟩ = (1/√2)|0⟩ + (1/√2)|1⟩';
+
+    // Update tag to "Superposition"
+    if (qubitTag) {
+        qubitTag.textContent = 'Superposition';
+        qubitTag.className = 'card-tag superposition';
+    }
+
+    // Add active class for glow effect
+    if (qubitCircle) qubitCircle.classList.add('active');
+
+    // Start particle animation - create multiple floating 0s and 1s
+    particleIntervalL3 = setInterval(createParticleL3, 150);
+
+    // Enable measure button, disable superposition button
+    if (measureBtn) measureBtn.disabled = false;
+    if (superpositionBtn) superpositionBtn.disabled = true;
+}
+
+function measureQubitL3() {
+    if (!qubitInSuperpositionL3) return;
+
+    var qubitCircle = document.getElementById('qubit-circle');
+    var qubitValue = document.getElementById('qubit-value');
+    var qubitLabel = document.getElementById('qubit-label');
+    var qubitTag = document.getElementById('qubit-tag');
+    var measureBtn = document.getElementById('measure-btn-l3');
+    var superpositionBtn = document.getElementById('superposition-btn');
+    var qubitInfo = document.getElementById('qubit-info');
+    var explanation = document.getElementById('qubit-explanation-l3');
+
+    // Disable button
+    if (measureBtn) measureBtn.disabled = true;
+
+    // Stop particle animation
+    if (particleIntervalL3) {
+        clearInterval(particleIntervalL3);
+        particleIntervalL3 = null;
+    }
+
+    setTimeout(function() {
+        // Measure the qubit (50/50 chance)
+        var result = Math.random() < 0.5 ? 0 : 1;
+
+        // Stop superposition
+        qubitInSuperpositionL3 = false;
+
+        // Clear all floating particles
+        var particleContainer = document.getElementById('qubit-particles-l3');
+        if (particleContainer) particleContainer.innerHTML = '';
+
+        // Show result value
+        if (qubitValue) {
+            qubitValue.style.display = 'block';
+            qubitValue.textContent = result;
+        }
+
+        // Update label
+        if (qubitLabel) qubitLabel.textContent = 'Measured: |' + result + '⟩ (collapsed!)';
+
+        // Remove active class
+        if (qubitCircle) qubitCircle.classList.remove('active');
+
+        // Update tag immediately to show measurement
+        if (qubitTag) {
+            qubitTag.textContent = 'Collapsed';
+            qubitTag.className = 'card-tag quantum';
+        }
+
+        // Update info box
+        if (qubitInfo) {
+            qubitInfo.innerHTML = '<p><strong>Collapsed to:</strong> |' + result + '⟩</p>' +
+                                 '<p><small>Superposition destroyed!</small></p>';
+        }
+
+        // Update explanation
+        if (explanation) {
+            explanation.innerHTML = '<i data-lucide="zap" style="width:18px;height:18px"></i>' +
+                                   '<span>Wave function collapsed! The qubit is now in definite state: |' + result + '⟩</span>';
+            lucide.createIcons();
+        }
+
+        // Animate measurement with scale
+        if (qubitCircle) {
+            qubitCircle.style.transform = 'scale(1.15)';
+            setTimeout(function() {
+                qubitCircle.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // Enable superposition button
+        if (superpositionBtn) superpositionBtn.disabled = false;
+
+        // Change tag back to "Probabilistic" after 3 seconds
+        setTimeout(function() {
+            if (qubitTag) {
+                qubitTag.textContent = 'Probabilistic';
+                qubitTag.className = 'card-tag quantum';
+            }
+
+            // Reset info box
+            if (qubitInfo) {
+                qubitInfo.innerHTML = '<p><strong>Can be both:</strong> 0 <span style="color: var(--color-green);">AND</span> 1</p>' +
+                                     '<p><small>Superposition until measured</small></p>';
+            }
+
+            // Reset explanation
+            if (explanation) {
+                explanation.innerHTML = '<i data-lucide="info" style="width:18px;height:18px"></i>' +
+                                       '<span>Click "Create Superposition" to put the qubit in both states, then "Measure" to collapse it!</span>';
+                lucide.createIcons();
+            }
+
+            // Reset qubit value
+            if (qubitValue) qubitValue.textContent = '⚛️';
+            if (qubitLabel) qubitLabel.textContent = 'Initial State: |0⟩';
+        }, 3000);
+    }, 400);
+}
+
+function createParticleL3() {
+    var container = document.getElementById('qubit-particles-l3');
+    if (!container) return;
+
+    var particle = document.createElement('div');
+    particle.className = 'quantum-particle';
+
+    // Randomly show 0 or 1
+    particle.textContent = Math.random() < 0.5 ? '0' : '1';
+    particle.style.color = Math.random() < 0.5 ? 'var(--color-green)' : 'var(--color-amber)';
+    particle.style.fontSize = '1.2rem';
+    particle.style.fontWeight = '700';
+
+    // Random position around the circle
+    var angle = Math.random() * Math.PI * 2;
+    var distance = 80 + Math.random() * 40;
+    var x = Math.cos(angle) * distance;
+    var y = Math.sin(angle) * distance;
+
+    particle.style.left = '50%';
+    particle.style.top = '50%';
+    particle.style.setProperty('--tx', x + 'px');
+    particle.style.setProperty('--ty', y + 'px');
+
+    container.appendChild(particle);
+
+    // Remove particle after animation
+    setTimeout(function() {
+        if (particle && particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+        }
+    }, 2000);
+}
+
+// ============================================================================
 // MAIN LESSON QUIZ
 // ============================================================================
 
@@ -640,6 +1010,11 @@ document.addEventListener('DOMContentLoaded', function() {
         startBtn.onclick = startProbabilityQuiz;
         startBtn.style.cssText = 'width: 100%; padding: 1rem; font-size: 1.1rem;';
         quizContainer.appendChild(startBtn);
+    }
+
+    // Initialize Lucide icons after DOM is ready
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
     }
 
     console.log('Lesson 3: Qubits and Superposition - All interactives loaded!');

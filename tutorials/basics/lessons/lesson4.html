@@ -86,36 +86,43 @@
 
         .amplitude-viz-box {
             background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 1rem;
+            border: 2px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.5rem;
         }
 
         .amplitude-viz-box h4 {
             margin: 0 0 1rem;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
         }
 
         .timeline-canvas {
             width: 100%;
-            height: 200px;
-            background: var(--bg-secondary);
-            border-radius: 4px;
+            height: 240px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
         }
 
         .waveform-canvas {
             width: 100%;
-            height: 200px;
-            background: var(--bg-secondary);
-            border-radius: 4px;
+            height: 240px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
         }
 
         .viz-legend {
             display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
-            font-size: 0.75rem;
+            gap: 1.25rem;
+            margin-top: 0.75rem;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
         }
 
         .viz-legend-item {
@@ -246,16 +253,11 @@
                                     </div>
                                 </div>
                                 <div class="amplitude-viz-box">
-                                    <h4>Current State Waveform</h4>
+                                    <h4>Wave Representation</h4>
                                     <canvas id="x-basis-waveform" class="waveform-canvas"></canvas>
                                     <div class="viz-legend">
                                         <div class="viz-legend-item">
-                                            <div class="viz-legend-color" style="background: #10b981;"></div>
-                                            <span>Real part</span>
-                                        </div>
-                                        <div class="viz-legend-item">
-                                            <div class="viz-legend-color" style="background: #f59e0b;"></div>
-                                            <span>Imaginary part</span>
+                                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Oscillating waves showing amplitude magnitude and phase</span>
                                         </div>
                                     </div>
                                 </div>
@@ -341,7 +343,7 @@
                                     </div>
                                 </div>
                                 <div class="amplitude-viz-box">
-                                    <h4>Current State Waveform</h4>
+                                    <h4>Wave Representation</h4>
                                     <canvas id="x-superposition-waveform" class="waveform-canvas"></canvas>
                                     <div class="viz-legend">
                                         <div class="viz-legend-item">
@@ -389,7 +391,7 @@
                                     </div>
                                 </div>
                                 <div class="amplitude-viz-box">
-                                    <h4>Current State Waveform</h4>
+                                    <h4>Wave Representation</h4>
                                     <canvas id="x-experiments-waveform" class="waveform-canvas"></canvas>
                                     <div class="viz-legend">
                                         <div class="viz-legend-item">
@@ -444,7 +446,7 @@
                                     </div>
                                 </div>
                                 <div class="amplitude-viz-box">
-                                    <h4>Current State Waveform</h4>
+                                    <h4>Wave Representation</h4>
                                     <canvas id="x-reversibility-waveform" class="waveform-canvas"></canvas>
                                     <div class="viz-legend">
                                         <div class="viz-legend-item">
@@ -509,7 +511,7 @@
                 <div class="demo" id="playground-demo">
                     <div class="demo-header">
                         <div class="demo-icon"><i data-lucide="wrench" style="width:18px;height:18px"></i></div>
-                        <span class="demo-title">Q.js Circuit Builder</span>
+                        <span class="demo-title">Circuit Builder</span>
                     </div>
                     <div class="demo-content">
                         <div class="qjs-circuit">
@@ -786,7 +788,7 @@ function initTimeline(circuitName) {
     }
 }
 
-// Add current state to timeline
+// Rebuild timeline based on current circuit state
 function addToTimeline(circuit) {
     initTimeline(circuit.name)
     const timeline = circuitTimelines[circuit.name]
@@ -794,21 +796,50 @@ function addToTimeline(circuit) {
     const matrixRows = circuit.matrix && circuit.matrix.rows
     if (!matrixRows || !matrixRows.length) return
 
-    const amp0 = matrixRows[0][0]
-    const amp1 = matrixRows[1][0]
+    // Get current operations
+    const operations = circuit.operations || []
 
-    const mag0 = Math.sqrt(amp0.real * amp0.real + amp0.imaginary * amp0.imaginary)
-    const mag1 = Math.sqrt(amp1.real * amp1.real + amp1.imaginary * amp1.imaginary)
+    // Always rebuild timeline to match current circuit
+    timeline.steps = []
+    timeline.amp0 = []
+    timeline.amp1 = []
+    timeline.gates = []
 
-    timeline.steps.push(timeline.steps.length)
-    timeline.amp0.push(mag0)
-    timeline.amp1.push(mag1)
+    // Start with initial state |0⟩
+    timeline.steps.push(0)
+    timeline.amp0.push(1.0)
+    timeline.amp1.push(0.0)
+    timeline.gates.push('|0⟩')
 
-    // Keep only last 10 steps
-    if (timeline.steps.length > 10) {
-        timeline.steps.shift()
-        timeline.amp0.shift()
-        timeline.amp1.shift()
+    // Simulate each gate application
+    let state = { amp0: 1.0, amp1: 0.0 } // Start in |0⟩
+
+    for (let i = 0; i < operations.length; i++) {
+        const operation = operations[i]
+        const gate = operation.gate
+        const gateName = (gate && gate.symbol) || 'G'
+
+        // Apply gate to current state
+        if (gate && gate.matrix && gate.matrix.rows) {
+            const m = gate.matrix.rows
+            // Matrix multiplication: [m00 m01] [amp0]
+            //                        [m10 m11] [amp1]
+            const newAmp0Real = m[0][0].real * state.amp0 + m[0][1].real * state.amp1
+            const newAmp0Imag = m[0][0].imaginary * state.amp0 + m[0][1].imaginary * state.amp1
+            const newAmp1Real = m[1][0].real * state.amp0 + m[1][1].real * state.amp1
+            const newAmp1Imag = m[1][0].imaginary * state.amp0 + m[1][1].imaginary * state.amp1
+
+            const mag0 = Math.sqrt(newAmp0Real * newAmp0Real + newAmp0Imag * newAmp0Imag)
+            const mag1 = Math.sqrt(newAmp1Real * newAmp1Real + newAmp1Imag * newAmp1Imag)
+
+            state.amp0 = mag0
+            state.amp1 = mag1
+        }
+
+        timeline.steps.push(i + 1)
+        timeline.amp0.push(state.amp0)
+        timeline.amp1.push(state.amp1)
+        timeline.gates.push(gateName)
     }
 }
 
@@ -832,9 +863,14 @@ function drawTimeline(circuit) {
 
     if (timeline.steps.length === 0) return
 
-    // Draw grid
+    // Enable smoothing for better rendering
+    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingQuality = 'high'
+
+    // Draw grid with better visibility
     ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-subtle') || '#e5e7eb'
     ctx.lineWidth = 1
+    ctx.setLineDash([3, 3]) // Dashed grid lines
     for (let i = 0; i <= 4; i++) {
         const y = (displayHeight - 40) * (i / 4) + 20
         ctx.beginPath()
@@ -842,40 +878,113 @@ function drawTimeline(circuit) {
         ctx.lineTo(displayWidth - 10, y)
         ctx.stroke()
     }
+    ctx.setLineDash([]) // Reset to solid lines
 
-    // Draw axes labels
+    // Draw axes labels with better font
     ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') || '#6b7280'
-    ctx.font = '10px Arial'
+    ctx.font = 'bold 11px Inter, Arial, sans-serif'
     ctx.textAlign = 'right'
     for (let i = 0; i <= 4; i++) {
         const y = (displayHeight - 40) * (1 - i / 4) + 20
-        ctx.fillText((i * 0.25).toFixed(2), 35, y + 3)
+        ctx.fillText((i * 0.25).toFixed(2), 35, y + 4)
     }
 
-    // Draw lines
-    function drawLine(data, color) {
+    // Draw Y-axis label (moved further left to avoid overlap)
+    ctx.save()
+    ctx.translate(8, displayHeight / 2)
+    ctx.rotate(-Math.PI / 2)
+    ctx.textAlign = 'center'
+    ctx.font = 'bold 10px Inter, Arial, sans-serif'
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
+    ctx.fillText('Amplitude', 0, 0)
+    ctx.restore()
+
+    // Draw X-axis label
+    ctx.textAlign = 'center'
+    ctx.font = 'bold 11px Inter, Arial, sans-serif'
+    ctx.fillText('Circuit Steps', displayWidth / 2, displayHeight - 5)
+
+    // Draw lines with enhanced styling
+    function drawLine(data, color, isFirstLine) {
         if (data.length < 2) return
 
+        const xStep = (displayWidth - 50) / Math.max(data.length - 1, 1)
+
+        // Draw line shadow for depth
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)'
+        ctx.lineWidth = 4
+        ctx.lineJoin = 'round'
+        ctx.lineCap = 'round'
+        ctx.beginPath()
+        data.forEach((val, i) => {
+            const x = 40 + i * xStep
+            const y = displayHeight - 20 - (val * (displayHeight - 40))
+            if (i === 0) ctx.moveTo(x, y + 1)
+            else ctx.lineTo(x, y + 1)
+        })
+        ctx.stroke()
+
+        // Draw main line
         ctx.strokeStyle = color
         ctx.lineWidth = 2
+        ctx.lineJoin = 'round'
+        ctx.lineCap = 'round'
         ctx.beginPath()
-
-        const xStep = (displayWidth - 50) / Math.max(data.length - 1, 1)
         data.forEach((val, i) => {
             const x = 40 + i * xStep
             const y = displayHeight - 20 - (val * (displayHeight - 40))
             if (i === 0) ctx.moveTo(x, y)
             else ctx.lineTo(x, y)
         })
-
         ctx.stroke()
+
+        // Draw data point markers
+        ctx.fillStyle = color
+        data.forEach((val, i) => {
+            const x = 40 + i * xStep
+            const y = displayHeight - 20 - (val * (displayHeight - 40))
+
+            // Outer circle (white border)
+            ctx.beginPath()
+            ctx.arc(x, y, 5, 0, Math.PI * 2)
+            ctx.fillStyle = '#ffffff'
+            ctx.fill()
+
+            // Inner circle (colored)
+            ctx.beginPath()
+            ctx.arc(x, y, 3.5, 0, Math.PI * 2)
+            ctx.fillStyle = color
+            ctx.fill()
+
+            // Draw gate label only for the first line to avoid duplicates
+            if (isFirstLine && timeline.gates && timeline.gates[i]) {
+                const gateName = timeline.gates[i]
+
+                // Draw background for gate label
+                ctx.font = 'bold 10px Inter, Arial, sans-serif'
+                const textWidth = ctx.measureText(gateName).width
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)'
+                ctx.fillRect(x - textWidth / 2 - 3, y - 20, textWidth + 6, 14)
+
+                // Draw border
+                ctx.strokeStyle = color
+                ctx.lineWidth = 1.5
+                ctx.strokeRect(x - textWidth / 2 - 3, y - 20, textWidth + 6, 14)
+
+                // Draw gate text
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
+                ctx.textAlign = 'center'
+                ctx.textBaseline = 'middle'
+                ctx.fillText(gateName, x, y - 13)
+            }
+        })
     }
 
-    drawLine(timeline.amp0, '#10b981')
-    drawLine(timeline.amp1, '#3b82f6')
+    drawLine(timeline.amp0, '#10b981', true)
+    drawLine(timeline.amp1, '#3b82f6', false)
 }
 
-// Draw current state waveform
+// Draw wave representation
 function drawWaveform(circuit) {
     const canvas = document.getElementById(circuit.name + '-waveform')
     if (!canvas) return
@@ -885,8 +994,8 @@ function drawWaveform(circuit) {
     const height = canvas.height = canvas.offsetHeight * window.devicePixelRatio
     ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
 
-    const displayWidth = canvas.offsetWidth
-    const displayHeight = canvas.offsetHeight
+    const w = canvas.offsetWidth
+    const h = canvas.offsetHeight
 
     ctx.clearRect(0, 0, width, height)
 
@@ -896,37 +1005,53 @@ function drawWaveform(circuit) {
     const amp0 = matrixRows[0][0]
     const amp1 = matrixRows[1][0]
 
-    // Draw bars for each state
-    function drawBar(label, real, imag, y) {
-        const barHeight = 35
-        const maxWidth = displayWidth - 100
+    // Draw wave for amplitude
+    function drawWave(label, real, imag, centerY) {
+        const mag = Math.sqrt(real * real + imag * imag)
+        const phase = Math.atan2(imag, real)
 
-        // Label
+        // Label - positioned above the wave area
         ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
-        ctx.font = 'bold 14px monospace'
+        ctx.font = 'bold 13px Inter, Arial, sans-serif'
         ctx.textAlign = 'left'
-        ctx.fillText(label, 10, y + barHeight / 2 + 5)
+        ctx.fillText(label, 10, centerY - 50)
 
-        // Real part (green)
-        const realWidth = Math.abs(real) * maxWidth
-        ctx.fillStyle = '#10b981'
-        ctx.fillRect(60, y, realWidth, barHeight * 0.4)
+        // Baseline
+        ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-subtle') || '#ddd'
+        ctx.lineWidth = 1
+        ctx.beginPath()
+        ctx.moveTo(50, centerY)
+        ctx.lineTo(w - 10, centerY)
+        ctx.stroke()
 
-        // Imaginary part (orange)
-        const imagWidth = Math.abs(imag) * maxWidth
-        ctx.fillStyle = '#f59e0b'
-        ctx.fillRect(60, y + barHeight * 0.5, imagWidth, barHeight * 0.4)
+        // Draw sinusoidal wave
+        const amplitude = mag * 35 // scale for display (reduced from 40)
+        const frequency = 2 // 2 cycles across canvas
 
-        // Values
+        ctx.strokeStyle = '#10b981'
+        ctx.lineWidth = 2 // reduced from 3
+        ctx.lineCap = 'round'
+        ctx.lineJoin = 'round'
+        ctx.beginPath()
+
+        for (let x = 50; x < w - 10; x++) {
+            const t = ((x - 50) / (w - 60)) * frequency * 2 * Math.PI
+            const y = centerY - amplitude * Math.sin(t + phase)
+            if (x === 50) ctx.moveTo(x, y)
+            else ctx.lineTo(x, y)
+        }
+        ctx.stroke()
+
+        // Show amplitude and phase - positioned below wave
         ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') || '#6b7280'
-        ctx.font = '10px monospace'
+        ctx.font = '10px Inter, Arial, sans-serif'
         ctx.textAlign = 'left'
-        ctx.fillText(real.toFixed(3), 65 + realWidth, y + barHeight * 0.35)
-        ctx.fillText(imag.toFixed(3) + 'i', 65 + imagWidth, y + barHeight * 0.85)
+        ctx.fillText('Mag: ' + mag.toFixed(3), 50, centerY + 50)
+        ctx.fillText('Phase: ' + (phase * 180 / Math.PI).toFixed(1) + '°', 150, centerY + 50)
     }
 
-    drawBar('|0⟩', amp0.real || 0, amp0.imaginary || 0, 30)
-    drawBar('|1⟩', amp1.real || 0, amp1.imaginary || 0, 110)
+    drawWave('|0⟩', amp0.real || 0, amp0.imaginary || 0, h * 0.3)
+    drawWave('|1⟩', amp1.real || 0, amp1.imaginary || 0, h * 0.7)
 }
 
 // Render both visualizations

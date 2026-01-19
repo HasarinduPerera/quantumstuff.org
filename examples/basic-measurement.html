@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example: Basic Quantum Measurement</title>
+    <link rel="stylesheet" href="../tutorials/basics/css/styles.css">
+    <style>
+        body {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .example-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-card, #fff);
+            border-radius: 8px;
+            border: 2px solid var(--color-green, #16a34a);
+        }
+        button {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-green, #16a34a);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: var(--color-green-dark, #15803d);
+        }
+        #results {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary, #f0ebe0);
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Example: Basic Quantum Measurement</h1>
+    <p>This example demonstrates how to use <code>quantum-utils.js</code> for basic qubit measurement simulations.</p>
+
+    <div class="example-section">
+        <h2>Interactive Demo</h2>
+        <p>Adjust the probability of measuring |0⟩ and run measurements:</p>
+
+        <label for="prob-slider">Probability of |0⟩: <span id="prob-value">0.50</span></label><br>
+        <input type="range" id="prob-slider" min="0" max="100" value="50" style="width: 100%; margin: 1rem 0;">
+
+        <button onclick="runMeasurement()">Run 100 Measurements</button>
+
+        <div id="results"></div>
+        <div id="histogram" style="margin-top: 1rem;"></div>
+    </div>
+
+    <div class="example-section">
+        <h2>Code Example</h2>
+        <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto;"><code>// Get probability from slider
+const prob0 = parseFloat(document.getElementById('prob-slider').value) / 100;
+
+// Perform 100 measurements
+const stats = performMeasurements(prob0, 100);
+
+// Display results
+console.log(`|0⟩: ${stats.zeros}, |1⟩: ${stats.ones}`);
+
+// Create histogram visualization
+createHistogram(stats, 'histogram-container');
+
+// Get human-readable state description
+const description = describeState(prob0);
+console.log(description);
+</code></pre>
+    </div>
+
+    <!-- Include quantum-utils.js -->
+    <script src="../tutorials/basics/js/quantum-utils.js"></script>
+
+    <script>
+        // Update probability display
+        document.getElementById('prob-slider').addEventListener('input', function() {
+            const value = (this.value / 100).toFixed(2);
+            document.getElementById('prob-value').textContent = value;
+        });
+
+        function runMeasurement() {
+            // Get probability from slider
+            const prob0 = parseFloat(document.getElementById('prob-slider').value) / 100;
+
+            // Perform 100 measurements
+            const stats = performMeasurements(prob0, 100);
+
+            // Display state description
+            const stateDesc = describeState(prob0);
+            const ketNotation = toKetNotation(prob0);
+
+            document.getElementById('results').innerHTML = `
+                <h3>Measurement Results</h3>
+                <p><strong>Initial State:</strong> ${stateDesc}</p>
+                <p><strong>Ket Notation:</strong> ${ketNotation}</p>
+                <p><strong>Measured:</strong> |0⟩: ${stats.zeros} (${(stats.prob0 * 100).toFixed(1)}%), |1⟩: ${stats.ones} (${(stats.prob1 * 100).toFixed(1)}%)</p>
+            `;
+
+            // Create histogram
+            createHistogram(stats, 'histogram', 150);
+
+            // Highlight results
+            highlightElement('results', 800);
+        }
+
+        // Run once on load
+        runMeasurement();
+    </script>
+</body>
+</html>

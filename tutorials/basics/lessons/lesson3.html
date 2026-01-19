@@ -196,21 +196,80 @@
                         <p style="text-align: center; margin-bottom: 1.5rem; color: var(--text-secondary);">
                             The famous thought experiment: a cat in a box is in superposition—both alive AND dead—until we observe!
                         </p>
-                        <div class="schrodinger-box" id="schrodinger-box">
-                            <div class="box-closed" id="box-visual">
-                                <div class="box-label">📦 Box Closed</div>
-                                <div class="superposition-states">
-                                    <span class="cat-state alive">😺 Alive</span>
-                                    <span class="superposition-symbol">+</span>
-                                    <span class="cat-state dead">💀 Dead</span>
+
+                        <!-- Advanced Quantum Box -->
+                        <div class="quantum-container">
+                            <!-- Wave Effect Background -->
+                            <div class="quantum-waves" id="quantum-waves">
+                                <div class="wave wave-1"></div>
+                                <div class="wave wave-2"></div>
+                                <div class="wave wave-3"></div>
+                            </div>
+
+                            <!-- Main Box -->
+                            <div class="schrodinger-advanced-box" id="box-visual">
+                                <!-- Probability Visualization -->
+                                <div class="probability-bars" id="probability-bars">
+                                    <div class="prob-bar alive-bar">
+                                        <div class="prob-icon">😺</div>
+                                        <div class="prob-label">Alive</div>
+                                        <div class="prob-value">50%</div>
+                                    </div>
+                                    <div class="prob-divider">
+                                        <div class="quantum-vs">?</div>
+                                    </div>
+                                    <div class="prob-bar dead-bar">
+                                        <div class="prob-icon">💀</div>
+                                        <div class="prob-label">Dead</div>
+                                        <div class="prob-value">50%</div>
+                                    </div>
                                 </div>
-                                <div class="quantum-label">Superposition!</div>
+
+                                <!-- Cat States Container -->
+                                <div class="cat-display" id="cat-display">
+                                    <div class="superposition-view" id="superposition-view">
+                                        <div class="state-orb alive-orb">
+                                            <span class="orb-emoji">😺</span>
+                                            <div class="orb-glow"></div>
+                                        </div>
+                                        <div class="superposition-ripple"></div>
+                                        <div class="state-orb dead-orb">
+                                            <span class="orb-emoji">💀</span>
+                                            <div class="orb-glow"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Result View (hidden initially) -->
+                                    <div class="measurement-result" id="measurement-result" style="display: none;">
+                                        <div class="result-orb" id="result-orb">
+                                            <span class="result-emoji" id="result-emoji"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Status Label -->
+                                <div class="quantum-status" id="quantum-status">
+                                    <div class="status-badge superposition">
+                                        <i data-lucide="radio" style="width:14px;height:14px"></i>
+                                        <span>Quantum Superposition</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="button-group">
-                            <button class="btn-primary" id="open-box-btn" onclick="openSchrodingerBox()">Open Box (Measure!)</button>
-                            <button class="btn-secondary" onclick="resetSchrodingerBox()">Close Box & Reset</button>
+
+                        <!-- Controls -->
+                        <div class="button-group" style="margin-top: 2rem;">
+                            <button class="btn-primary" id="open-box-btn" onclick="openSchrodingerBox()">
+                                <i data-lucide="eye" style="width:16px;height:16px;margin-right:0.5rem"></i>
+                                Observe (Measure!)
+                            </button>
+                            <button class="btn-secondary" id="reset-box-btn" onclick="resetSchrodingerBox()" style="display: none;">
+                                <i data-lucide="refresh-cw" style="width:16px;height:16px;margin-right:0.5rem"></i>
+                                Reset Experiment
+                            </button>
                         </div>
+
+                        <!-- Result Message -->
                         <div id="cat-result" class="result-text"></div>
                     </div>
                 </div>
@@ -221,31 +280,102 @@
                         <span class="demo-title">Interactive: Bit vs Qubit</span>
                     </div>
                     <div class="demo-content">
-                        <div class="bit-qubit-comparison">
-                            <div class="comparison-panel" style="position: relative;">
-                                <h4>Classical Bit</h4>
-                                <div style="position: relative; height: 120px; display: flex; align-items: center; justify-content: center;">
-                                    <div id="classical-bit-value" class="bit-value" style="transition: transform 0.3s ease, opacity 0.3s ease;">0</div>
+                        <!-- Advanced Bit vs Qubit Comparison -->
+                        <div class="bit-qubit-advanced-comparison">
+                            <!-- Classical Bit Card -->
+                            <div class="comparison-card bit-card">
+                                <div class="card-header">
+                                    <div class="card-icon">💾</div>
+                                    <h4>Classical Bit</h4>
+                                    <div class="card-tag deterministic" id="bit-tag">Deterministic</div>
                                 </div>
-                                <button class="btn-secondary" onclick="toggleClassicalBit()">Toggle (0 ↔ 1)</button>
-                                <p class="panel-note">Always ONE definite value: 0 OR 1</p>
-                            </div>
-                            <div class="vs-divider">VS</div>
-                            <div class="comparison-panel" style="position: relative;">
-                                <h4>Quantum Qubit</h4>
-                                <div style="position: relative; height: 120px; display: flex; align-items: center; justify-content: center;">
-                                    <div id="qubit-particles-l3" style="position: absolute; width: 100%; height: 100%; pointer-events: none;"></div>
-                                    <div id="qubit-state-l3" class="qubit-value" style="font-size: 2.5rem; color: var(--color-green); position: relative; z-index: 2;">
-                                        <span id="qubit-icon-l3">⚛️</span>
+
+                                <div class="state-display-container">
+                                    <div class="state-circle" id="bit-circle">
+                                        <div class="state-value" id="bit-value">0</div>
+                                        <div class="state-ring"></div>
                                     </div>
                                 </div>
-                                <button class="btn-primary" id="qubit-btn-l3" onclick="putInSuperpositionL3()">Put in Superposition</button>
-                                <button class="btn-secondary" id="measure-btn-l3" onclick="measureQubitL3()" disabled>Measure</button>
-                                <p class="panel-note" id="qubit-note-l3">Can be in BOTH 0 and 1 at once!</p>
+
+                                <div class="state-label" id="bit-label">
+                                    Definite State: |0⟩
+                                </div>
+
+                                <div class="control-section">
+                                    <button class="btn-control btn-bit" onclick="toggleClassicalBit()">
+                                        <i data-lucide="repeat" style="width:16px;height:16px"></i>
+                                        Flip Bit
+                                    </button>
+                                </div>
+
+                                <div class="info-box">
+                                    <p><strong>Always definite:</strong> Either 0 <span style="color: var(--text-secondary);">OR</span> 1</p>
+                                    <p><small>No superposition possible</small></p>
+                                </div>
+                            </div>
+
+                            <!-- VS Divider -->
+                            <div class="comparison-divider">
+                                <div class="divider-circle">
+                                    <span>VS</span>
+                                </div>
+                                <div class="divider-line"></div>
+                            </div>
+
+                            <!-- Quantum Qubit Card -->
+                            <div class="comparison-card qubit-card">
+                                <div class="card-header">
+                                    <div class="card-icon">⚛️</div>
+                                    <h4>Quantum Qubit</h4>
+                                    <div class="card-tag quantum" id="qubit-tag">Probabilistic</div>
+                                </div>
+
+                                <div class="state-display-container">
+                                    <div id="qubit-particles-l3" class="particle-container"></div>
+                                    <div class="state-circle qubit-circle" id="qubit-circle">
+                                        <div class="superposition-indicator" id="superposition-indicator" style="display: none;">
+                                            <div class="dual-state">
+                                                <span class="state-part zero">0</span>
+                                                <span class="state-part one">1</span>
+                                            </div>
+                                        </div>
+                                        <div class="state-value" id="qubit-value" style="display: block;">⚛️</div>
+                                        <div class="state-ring qubit-ring"></div>
+                                        <div class="quantum-glow"></div>
+                                    </div>
+                                </div>
+
+                                <div class="state-label" id="qubit-label">
+                                    Initial State: |0⟩
+                                </div>
+
+                                <div class="control-section">
+                                    <button class="btn-control btn-qubit" id="superposition-btn" onclick="putInSuperpositionL3()">
+                                        <i data-lucide="zap" style="width:16px;height:16px"></i>
+                                        Create Superposition
+                                    </button>
+                                    <button class="btn-control btn-measure" id="measure-btn-l3" onclick="measureQubitL3()" disabled>
+                                        <i data-lucide="eye" style="width:16px;height:16px"></i>
+                                        Measure
+                                    </button>
+                                </div>
+
+                                <div class="info-box" id="qubit-info">
+                                    <p><strong>Can be both:</strong> 0 <span style="color: var(--color-green);">AND</span> 1</p>
+                                    <p><small>Superposition until measured</small></p>
+                                </div>
                             </div>
                         </div>
-                        <div id="qubit-explanation-l3" class="result-text" style="text-align: center; font-weight: 500;">
-                            Click "Put in Superposition" to see the qubit in both states, then "Measure" to see it collapse to one value!
+
+                        <!-- Result Message -->
+                        <div id="qubit-explanation-l3" class="comparison-result">
+                            <i data-lucide="info" style="width:18px;height:18px"></i>
+                            <span>Click "Create Superposition" to put the qubit in both states, then "Measure" to collapse it!</span>
+                        </div>
+
+                        <!-- Note on Probabilistic -->
+                        <div style="margin-top: 1.5rem; padding: 1rem 1.5rem; background: var(--bg-accent); border-radius: 8px; font-size: 0.875rem; color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">💡 Why "Probabilistic"?</strong> Quantum physics follows predictable rules, but when you measure a qubit in superposition, you get a random result. We can only predict the <em>chances</em> of each outcome!
                         </div>
                     </div>
                 </div>
@@ -255,13 +385,13 @@
                     <p><strong>Real Application:</strong> Google's Sycamore quantum computer uses 53 qubits in superposition to perform calculations in 200 seconds that would take the world's fastest classical supercomputer 10,000 years!</p>
                 </div>
 
-                <div class="callout" style="margin: 2rem 0; background: #fef3c7; border-left: 4px solid #f59e0b;">
-                    <div class="callout-title">
+                <div class="callout" style="margin: 2rem 0; background: rgba(251, 191, 36, 0.1); border-left: 4px solid var(--color-amber);">
+                    <div class="callout-title" style="color: var(--color-amber);">
                         <i data-lucide="alert-triangle" style="width:16px;height:16px"></i>
                         Common Misconception
                     </div>
-                    <p style="margin: 0.5rem 0;"><strong>❌ Wrong:</strong> "Superposition means the qubit is rapidly switching between 0 and 1, we just don't know which"</p>
-                    <p style="margin: 0.5rem 0;"><strong>✓ Correct:</strong> The qubit is genuinely in BOTH states at once—not switching, not unknown—it's fundamentally both until measured!</p>
+                    <p style="margin: 0.5rem 0; color: var(--text-primary);"><strong style="color: #ef4444;">❌ Wrong:</strong> "Superposition means the qubit is rapidly switching between 0 and 1, we just don't know which"</p>
+                    <p style="margin: 0.5rem 0; color: var(--text-primary);"><strong style="color: var(--color-green);">✓ Correct:</strong> The qubit is genuinely in BOTH states at once—not switching, not unknown—it's fundamentally both until measured!</p>
                 </div>
 
                 <details class="advanced-section type-math">
@@ -304,19 +434,75 @@
                         <div class="demo-icon"><i data-lucide="bar-chart-2" style="width:18px;height:18px"></i></div>
                         <span class="demo-title">Interactive: Measurement Statistics</span>
                     </div>
-                    <div class="demo-content">
-                        <div class="measurement-setup">
-                            <p><strong>Setup:</strong> Qubit in equal superposition |+⟩ (50% chance each)</p>
+                    <div class="demo-content" style="position: relative; overflow: hidden;">
+                        <!-- Control Panel -->
+                        <div style="text-align: center; margin-bottom: 2rem;">
+                            <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: linear-gradient(135deg, var(--color-green), var(--color-green-dark)); color: white; border-radius: 100px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;">
+                                <i data-lucide="zap" style="width:14px;height:14px"></i>
+                                <span>Quantum State: |+⟩</span>
+                            </div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Expected: 50% each</div>
+
+                            <div class="button-group">
+                                <button class="btn-primary" onclick="measureOnce()">Measure 1x</button>
+                                <button class="btn-primary" onclick="measure10()">Measure 10x</button>
+                                <button class="btn-primary" onclick="measure100()">Measure 100x</button>
+                                <button class="btn-secondary" onclick="resetMeasurements()">
+                                    <i data-lucide="refresh-ccw" style="width:14px;height:14px;margin-right:0.25rem"></i>
+                                    Reset
+                                </button>
+                            </div>
                         </div>
-                        <div class="button-group">
-                            <button class="btn-primary" onclick="measureOnce()">Measure Once</button>
-                            <button class="btn-secondary" onclick="measure10()">Measure 10 Times</button>
-                            <button class="btn-secondary" onclick="measure100()">Measure 100 Times</button>
-                            <button class="btn-secondary" onclick="resetMeasurements()">Reset</button>
+
+                        <!-- Statistics Cards -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; border: 2px solid rgba(59, 130, 246, 0.3); text-align: center;">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--text-primary);" id="total-measurements">0</div>
+                                <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">Total Measurements</div>
+                            </div>
+
+                            <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; border: 2px solid rgba(22, 163, 74, 0.3); text-align: center;">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">0️⃣</div>
+                                <div>
+                                    <span style="font-size: 2rem; font-weight: 700; color: var(--text-primary);" id="zero-count">0</span>
+                                    <span style="font-size: 1.125rem; font-weight: 600; color: var(--text-secondary); margin-left: 0.5rem;" id="zero-percent">0%</span>
+                                </div>
+                                <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">Measured |0⟩</div>
+                            </div>
+
+                            <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; border: 2px solid rgba(251, 191, 36, 0.3); text-align: center;">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">1️⃣</div>
+                                <div>
+                                    <span style="font-size: 2rem; font-weight: 700; color: var(--text-primary);" id="one-count">0</span>
+                                    <span style="font-size: 1.125rem; font-weight: 600; color: var(--text-secondary); margin-left: 0.5rem;" id="one-percent">0%</span>
+                                </div>
+                                <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">Measured |1⟩</div>
+                            </div>
                         </div>
-                        <div id="measurement-history" class="measurement-history"></div>
-                        <div id="measurement-histogram" class="histogram-container"></div>
-                        <div id="measurement-stats" class="stats-display"></div>
+
+                        <!-- Visual Histogram -->
+                        <div style="background: var(--bg-card); border-radius: 12px; padding: 2rem; border: 2px solid var(--border-subtle);">
+                            <div style="margin-bottom: 1.5rem;">
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="font-size: 1.125rem; font-weight: 700; min-width: 50px; color: var(--color-green);">|0⟩</div>
+                                    <div style="flex: 1; height: 40px; background: var(--bg-secondary); border-radius: 20px; position: relative; overflow: hidden;">
+                                        <div id="zero-bar" style="height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--color-green), var(--color-green-dark)); box-shadow: 0 0 20px rgba(22, 163, 74, 0.4); width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                                    </div>
+                                    <div style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); min-width: 40px; text-align: right;" id="zero-bar-value">0</div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="font-size: 1.125rem; font-weight: 700; min-width: 50px; color: var(--color-amber);">|1⟩</div>
+                                    <div style="flex: 1; height: 40px; background: var(--bg-secondary); border-radius: 20px; position: relative; overflow: hidden;">
+                                        <div id="one-bar" style="height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--color-amber), #f59e0b); box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                                    </div>
+                                    <div style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); min-width: 40px; text-align: right;" id="one-bar-value">0</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -696,19 +882,23 @@
         }
 
         // Bit vs Qubit Interactive Functions
+        // Bit vs Qubit Advanced Interactive
         function toggleClassicalBit() {
-            const bitValue = document.getElementById('classical-bit-value');
+            const bitValue = document.getElementById('bit-value');
+            const bitLabel = document.getElementById('bit-label');
             if (!bitValue) return;
+
             const newValue = bitValue.textContent === '0' ? '1' : '0';
 
-            bitValue.style.transform = 'scale(0) rotateY(90deg)';
+            bitValue.style.transform = 'scale(0) rotateY(180deg)';
             bitValue.style.opacity = '0';
 
             setTimeout(() => {
                 bitValue.textContent = newValue;
+                bitLabel.textContent = `Definite State: |${newValue}⟩`;
                 bitValue.style.transform = 'scale(1) rotateY(0deg)';
                 bitValue.style.opacity = '1';
-            }, 150);
+            }, 200);
         }
 
         let qubitInSuperpositionL3 = false;
@@ -719,7 +909,7 @@
             if (!container) return;
 
             const particle = document.createElement('div');
-            const size = Math.random() * 6 + 3;
+            const size = Math.random() * 8 + 4;
             const isZero = Math.random() > 0.5;
 
             particle.textContent = isZero ? '0' : '1';
@@ -730,9 +920,10 @@
                 font-size: ${size}px;
                 color: ${isZero ? 'var(--color-green)' : 'var(--color-amber)'};
                 font-weight: 700;
-                opacity: 0.6;
-                animation: particle-float 2s ease-in-out;
+                opacity: 0.7;
+                animation: particle-float 2s ease-out;
                 pointer-events: none;
+                z-index: 1;
             `;
 
             container.appendChild(particle);
@@ -745,75 +936,161 @@
         }
 
         function putInSuperpositionL3() {
+            if (qubitInSuperpositionL3) return;
             qubitInSuperpositionL3 = true;
 
-            const qubitState = document.getElementById('qubit-state-l3');
-            const qubitIcon = document.getElementById('qubit-icon-l3');
-            const explanation = document.getElementById('qubit-explanation-l3');
+            const qubitCircle = document.getElementById('qubit-circle');
+            const qubitValue = document.getElementById('qubit-value');
+            const superpositionIndicator = document.getElementById('superposition-indicator');
+            const qubitLabel = document.getElementById('qubit-label');
+            const qubitTag = document.getElementById('qubit-tag');
             const measureBtn = document.getElementById('measure-btn-l3');
-            const qubitNote = document.getElementById('qubit-note-l3');
+            const superpositionBtn = document.getElementById('superposition-btn');
+            const explanation = document.getElementById('qubit-explanation-l3');
 
-            if (!qubitState || !qubitIcon || !explanation || !measureBtn || !qubitNote) return;
+            if (!qubitCircle || !qubitValue || !superpositionIndicator) return;
 
-            qubitIcon.innerHTML = '<span style="color: var(--color-green);">0</span> <span style="color: var(--color-amber);">AND</span> <span style="color: var(--color-green);">1</span>';
-            qubitState.style.animation = 'qubit-pulse 1.5s ease-in-out infinite';
-            qubitNote.innerHTML = '<strong style="color: var(--color-green);">Qubit is in superposition!</strong>';
-            explanation.innerHTML = '✨ The qubit is in <strong>BOTH states at once!</strong> Click "Measure" to collapse it to a single value.';
-            explanation.style.color = 'var(--color-green)';
+            // Hide initial value, show superposition
+            qubitValue.style.display = 'none';
+            superpositionIndicator.style.display = 'flex';
 
-            particleIntervalL3 = setInterval(createParticleL3, 200);
+            // Add active state
+            qubitCircle.classList.add('active');
 
-            measureBtn.disabled = false;
+            // Update tag
+            if (qubitTag) {
+                qubitTag.className = 'card-tag superposition';
+                qubitTag.textContent = 'In Superposition';
+            }
+
+            // Update label
+            if (qubitLabel) {
+                qubitLabel.innerHTML = 'Superposition: <span style="color: var(--color-green);">α|0⟩ + β|1⟩</span>';
+            }
+
+            // Update explanation
+            if (explanation) {
+                const icon = explanation.querySelector('i');
+                explanation.innerHTML = '';
+                if (icon) explanation.appendChild(icon.cloneNode());
+                const span = document.createElement('span');
+                span.innerHTML = '✨ Qubit is in <strong>both states</strong> simultaneously! Click "Measure" to collapse the superposition.';
+                span.style.color = 'var(--color-green)';
+                explanation.appendChild(span);
+            }
+
+            // Start particle effects
+            particleIntervalL3 = setInterval(createParticleL3, 150);
+
+            // Enable measure button
+            if (measureBtn) measureBtn.disabled = false;
+            if (superpositionBtn) superpositionBtn.disabled = true;
         }
 
         function measureQubitL3() {
             if (!qubitInSuperpositionL3) return;
 
+            // Stop particle effects
             if (particleIntervalL3) {
                 clearInterval(particleIntervalL3);
                 particleIntervalL3 = null;
             }
 
-            const qubitState = document.getElementById('qubit-state-l3');
-            const qubitIcon = document.getElementById('qubit-icon-l3');
-            const explanation = document.getElementById('qubit-explanation-l3');
+            const qubitCircle = document.getElementById('qubit-circle');
+            const qubitValue = document.getElementById('qubit-value');
+            const superpositionIndicator = document.getElementById('superposition-indicator');
+            const qubitLabel = document.getElementById('qubit-label');
+            const qubitTag = document.getElementById('qubit-tag');
             const measureBtn = document.getElementById('measure-btn-l3');
-            const qubitNote = document.getElementById('qubit-note-l3');
+            const superpositionBtn = document.getElementById('superposition-btn');
             const particles = document.getElementById('qubit-particles-l3');
+            const explanation = document.getElementById('qubit-explanation-l3');
 
-            if (!qubitState || !qubitIcon || !explanation || !measureBtn || !qubitNote || !particles) return;
-
+            // Measure (50/50 chance)
             const result = Math.random() < 0.5 ? '0' : '1';
             const resultColor = result === '0' ? 'var(--color-green)' : 'var(--color-amber)';
 
-            qubitState.style.animation = 'none';
-            qubitState.style.transform = 'scale(0.5)';
-            qubitState.style.opacity = '0';
+            // Animate collapse
+            if (qubitCircle) {
+                qubitCircle.style.transform = 'scale(0.8)';
+                qubitCircle.style.opacity = '0.5';
+            }
 
             setTimeout(() => {
-                qubitIcon.innerHTML = `<span style="color: ${resultColor}; font-size: 3rem; font-weight: 700;">${result}</span>`;
-                qubitState.style.transform = 'scale(1)';
-                qubitState.style.opacity = '1';
-                qubitState.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
+                // Hide superposition, show result
+                if (superpositionIndicator) superpositionIndicator.style.display = 'none';
+                if (qubitValue) {
+                    qubitValue.style.display = 'block';
+                    qubitValue.textContent = result;
+                    qubitValue.style.color = resultColor;
+                    qubitValue.style.fontSize = '5rem';
+                }
 
-                qubitNote.innerHTML = `Collapsed to <strong style="color: ${resultColor};">${result}</strong>!`;
-                explanation.innerHTML = `💥 Superposition destroyed! The qubit collapsed to <strong>${result}</strong>. Try again to see randomness!`;
-                explanation.style.color = 'var(--text-secondary)';
+                // Remove active state
+                if (qubitCircle) {
+                    qubitCircle.classList.remove('active');
+                    qubitCircle.style.transform = 'scale(1)';
+                    qubitCircle.style.opacity = '1';
+                }
 
-                particles.innerHTML = '';
-            }, 300);
+                // Update tag
+                if (qubitTag) {
+                    qubitTag.className = 'card-tag quantum';
+                    qubitTag.textContent = 'Collapsed';
+                }
 
-            measureBtn.disabled = true;
-            qubitInSuperpositionL3 = false;
+                // Update label
+                if (qubitLabel) {
+                    qubitLabel.innerHTML = `Measured: <strong style="color: ${resultColor};">|${result}⟩</strong>`;
+                }
 
-            setTimeout(() => {
-                qubitIcon.innerHTML = '⚛️';
-                qubitState.style.animation = 'none';
-                qubitState.style.transform = 'none';
-                qubitState.style.transition = 'none';
-                explanation.innerHTML = 'Click "Put in Superposition" to see the qubit in both states again!';
-                explanation.style.color = 'var(--text-secondary)';
-            }, 3500);
+                // Update explanation
+                if (explanation) {
+                    const icon = explanation.querySelector('i');
+                    explanation.innerHTML = '';
+                    if (icon) explanation.appendChild(icon.cloneNode());
+                    const span = document.createElement('span');
+                    span.innerHTML = `💥 Wave function collapsed to <strong style="color: ${resultColor};">|${result}⟩</strong>! Click "Create Superposition" to try again.`;
+                    explanation.appendChild(span);
+                }
+
+                // Clear particles
+                if (particles) particles.innerHTML = '';
+
+                // Update buttons
+                if (measureBtn) measureBtn.disabled = true;
+
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    qubitInSuperpositionL3 = false;
+
+                    if (qubitValue) {
+                        qubitValue.textContent = '⚛️';
+                        qubitValue.style.color = 'var(--color-green)';
+                        qubitValue.style.fontSize = '';
+                    }
+
+                    if (qubitLabel) {
+                        qubitLabel.textContent = 'Initial State: |0⟩';
+                    }
+
+                    if (qubitTag) {
+                        qubitTag.className = 'card-tag quantum';
+                        qubitTag.textContent = 'Ready';
+                    }
+
+                    if (explanation) {
+                        const icon = explanation.querySelector('i');
+                        explanation.innerHTML = '';
+                        if (icon) explanation.appendChild(icon.cloneNode());
+                        const span = document.createElement('span');
+                        span.textContent = 'Click "Create Superposition" to put the qubit in both states, then "Measure" to collapse it!';
+                        explanation.appendChild(span);
+                    }
+
+                    if (superpositionBtn) superpositionBtn.disabled = false;
+                }, 3000);
+            }, 400);
         }
 
         lucide.createIcons();

@@ -451,7 +451,7 @@
                 <div class="demo" id="playground-demo">
                     <div class="demo-header">
                         <div class="demo-icon"><i data-lucide="wrench" style="width:18px;height:18px"></i></div>
-                        <span class="demo-title">Q.js Circuit Builder</span>
+                        <span class="demo-title">Circuit Builder</span>
                     </div>
                     <div class="demo-content">
                         <div class="qjs-circuit">
@@ -720,6 +720,53 @@
                 hhCircuit.sort$()
                 hhCircuit.toDom( hhDomEl )
                 hhCircuit.evaluate$()
+
+                // Make input qubit clickable to toggle between |0⟩ and |1⟩
+                const inputEl = hhDomEl.querySelector('.Q-circuit-input')
+                if( inputEl ){
+                    inputEl.style.cursor = 'pointer'
+                    inputEl.style.userSelect = 'none'
+                    inputEl.setAttribute('title', 'Qubit #0 starting value (click to toggle between |0⟩ and |1⟩)')
+
+                    inputEl.addEventListener('click', function(){
+                        // Toggle between |0⟩ and |1⟩
+                        // NOTE: Q.js limitation - always starts from |0⟩
+                        // We use an X gate to simulate |1⟩ initial state
+                        const currentBeta = hhCircuit.qubits[0].beta.real
+
+                        const existingXGate = hhCircuit.operations.find(op =>
+                            op.momentIndex === 1 &&
+                            op.registerIndices[0] === 1 &&
+                            op.gate === Q.Gate.PAULI_X
+                        )
+
+                        if( Math.abs(currentBeta) < 0.5 ){
+                            // Currently |0⟩, switch to |1⟩
+                            hhCircuit.qubits[0] = new Q.Qubit(0, 1, 'V', 'Vertical')
+                            if( !existingXGate ){
+                                hhCircuit.set$( 'X', 1, 1 )
+                            }
+                        } else {
+                            // Currently |1⟩, switch to |0⟩
+                            hhCircuit.qubits[0] = new Q.Qubit(1, 0, 'H', 'Horizontal')
+                            if( existingXGate ){
+                                hhCircuit.clear$( 1, 1 )
+                            }
+                        }
+
+                        hhCircuit.evaluate$()
+
+                        const currentInputEl = hhDomEl.querySelector('.Q-circuit-input')
+                        if( currentInputEl ){
+                            currentInputEl.innerText = hhCircuit.qubits[0].beta.toText()
+                        }
+
+                        const reportEl = document.getElementById('hh-identity-report')
+                        if( reportEl ) {
+                            reportEl.innerText = hhCircuit.report$()
+                        }
+                    })
+                }
             }
 
             // H and X combinations circuit (1 qubit, 7 moments)

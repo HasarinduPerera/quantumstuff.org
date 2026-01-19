@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Theme persistence - keeps user's theme choice -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- TODO: Update title with your lesson name -->
+    <title>Your Lesson Title - quantumstuff.org</title>
+
+    <!-- Core styles - adjust path based on your lesson location -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Lucide Icons - for UI icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Optional: Confetti for quiz celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* ============================================
+           LESSON-SPECIFIC STYLES
+           Add your custom styles here
+           ============================================ */
+
+        /* Example: Custom interactive component styles */
+        .your-custom-component {
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .your-custom-component {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Accessibility: Skip to main content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <header class="header">
+        <div class="header-content">
+            <a href="../../../index.html" class="logo">quantumstuff</a>
+
+            <!-- Progress tracker - update active step based on lesson number -->
+            <div class="progress-track">
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+            </div>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+                    <i data-lucide="sun" style="width:18px;height:18px"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile menu toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <div class="layout">
+        <!-- ============================================
+             SIDEBAR NAVIGATION
+             Update the active link to match your lesson
+             ============================================ -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Foundations</div>
+                <nav class="sidebar-nav">
+                    <a href="lesson1.html" class="sidebar-link">1. Welcome to Quantum Computing</a>
+                    <a href="lesson2.html" class="sidebar-link">2. Classical Computing Foundations</a>
+                    <a href="lesson3.html" class="sidebar-link">3. Qubits and Superposition</a>
+                    <a href="lesson4.html" class="sidebar-link">4. The X Gate</a>
+                    <a href="lesson5.html" class="sidebar-link">5. The Hadamard Gate</a>
+                    <a href="lesson6.html" class="sidebar-link">6. Multiple Qubits</a>
+                    <a href="lesson7.html" class="sidebar-link">7. The CNOT Gate</a>
+                    <a href="lesson8.html" class="sidebar-link">8. Entanglement and Quantum Power</a>
+
+                    <!-- TODO: Add your lesson here with class="sidebar-link active" -->
+                </nav>
+            </div>
+        </aside>
+
+        <!-- ============================================
+             MAIN CONTENT
+             This is where your lesson content goes
+             ============================================ -->
+        <main class="content" id="main-content">
+            <!-- Lesson Header -->
+            <header class="lesson-header">
+                <div class="lesson-meta">
+                    <span class="lesson-number">Lesson X</span>
+                    <span>XX min read</span>
+                </div>
+                <h1>Your Lesson Title</h1>
+                <p class="subtitle">A brief, engaging description of what this lesson covers and why it's exciting!</p>
+            </header>
+
+            <!-- ============================================
+                 LEARNING OBJECTIVES
+                 ============================================ -->
+            <section class="section">
+                <h2 class="section-title">About This Lesson</h2>
+                <ul>
+                    <li>Learning objective 1</li>
+                    <li>Learning objective 2</li>
+                    <li>Learning objective 3</li>
+                </ul>
+                <p><strong>Prerequisites:</strong> List any prerequisite knowledge or previous lessons.</p>
+
+                <!-- Optional: Callout box -->
+                <div class="callout callout-recall">
+                    <div class="callout-title">
+                        <i data-lucide="sparkles" style="width:16px;height:16px"></i>
+                        Important Note
+                    </div>
+                    <p>Use callouts to highlight important information or motivational messages!</p>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 CONTENT SECTIONS
+                 Add your teaching content here
+                 ============================================ -->
+            <section class="section" id="section1">
+                <h2 class="section-title">Section Title</h2>
+                <p>Your content here. Use <span class="term" data-tooltip="Explanation appears on hover">tooltips</span> for terminology.</p>
+
+                <h3>Subsection</h3>
+                <p>More content...</p>
+
+                <!-- Interactive Demo Example -->
+                <div class="demo">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="zap" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Interactive: Demo Title</span>
+                    </div>
+                    <div class="demo-content">
+                        <!-- Your interactive content here -->
+                        <p>Interactive demonstrations help students learn by doing!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 GLOSSARY (Optional)
+                 ============================================ -->
+            <section class="section" id="glossary">
+                <h2 class="section-title">Glossary</h2>
+                <dl class="term-list">
+                    <dt>Term Name</dt>
+                    <dd><strong>Pronunciation:</strong> How to say it<br><strong>Definition:</strong> What it means</dd>
+
+                    <dt>Another Term</dt>
+                    <dd><strong>Definition:</strong> Clear, simple explanation</dd>
+                </dl>
+            </section>
+
+            <!-- ============================================
+                 QUIZ SECTION
+                 ============================================ -->
+            <section class="section quiz-section" id="quiz">
+                <h2 class="section-title">Test Your Understanding</h2>
+
+                <div class="quiz-question" data-question="1">
+                    <p class="question-text"><strong>Q1:</strong> Your question here?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q1" value="a"><span>Option A</span></label>
+                        <label class="option"><input type="radio" name="q1" value="b"><span>Option B (Correct)</span></label>
+                        <label class="option"><input type="radio" name="q1" value="c"><span>Option C</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-1"></div>
+                </div>
+
+                <div class="quiz-question" data-question="2">
+                    <p class="question-text"><strong>Q2:</strong> Another question?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q2" value="a"><span>Option A (Correct)</span></label>
+                        <label class="option"><input type="radio" name="q2" value="b"><span>Option B</span></label>
+                        <label class="option"><input type="radio" name="q2" value="c"><span>Option C</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-2"></div>
+                </div>
+
+                <button class="btn-primary" onclick="checkAnswers(this)">Check Answers</button>
+                <div id="quiz-score" class="quiz-result"></div>
+            </section>
+
+            <!-- Navigation Footer -->
+            <nav class="nav-footer">
+                <a href="previous-lesson.html" class="nav-btn nav-btn-prev">← Previous: Previous Lesson</a>
+                <a href="next-lesson.html" class="nav-btn nav-btn-next">Next: Next Lesson →</a>
+            </nav>
+        </main>
+
+        <!-- ============================================
+             TABLE OF CONTENTS (Right sidebar)
+             Update links to match your section IDs
+             ============================================ -->
+        <aside class="toc">
+            <div class="toc-title">On This Page</div>
+            <nav class="toc-list">
+                <a href="#section1" class="toc-link">Section 1</a>
+                <a href="#glossary" class="toc-link">Glossary</a>
+                <a href="#quiz" class="toc-link">Quiz</a>
+            </nav>
+        </aside>
+    </div>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile sidebar toggle
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.querySelector('.sidebar-overlay').classList.toggle('open');
+        }
+
+        // Quiz checking function
+        function checkAnswers(btn) {
+            // Define correct answers (update these!)
+            const answers = {
+                q1: 'b',  // Update with correct answer
+                q2: 'a'   // Update with correct answer
+            };
+
+            let score = 0;
+            const totalQuestions = Object.keys(answers).length;
+
+            for (let q in answers) {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                const feedback = document.getElementById('feedback-' + q.slice(1));
+
+                if (selected) {
+                    if (selected.value === answers[q]) {
+                        feedback.textContent = '✓ Correct!';
+                        feedback.className = 'feedback correct';
+                        score++;
+                    } else {
+                        feedback.textContent = '✗ Try again';
+                        feedback.className = 'feedback incorrect';
+                    }
+                }
+            }
+
+            const scoreEl = document.getElementById('quiz-score');
+            scoreEl.textContent = `Score: ${score}/${totalQuestions}`;
+
+            // Celebrate perfect score!
+            if (score === totalQuestions) {
+                scoreEl.textContent += ' 🎉 Perfect!';
+                if (typeof confetti !== 'undefined' && btn) {
+                    setTimeout(() => {
+                        const rect = btn.getBoundingClientRect();
+                        const x = (rect.left + rect.width / 2) / window.innerWidth;
+                        const y = (rect.top + rect.height / 2) / window.innerHeight;
+                        confetti({
+                            particleCount: 150,
+                            spread: 70,
+                            origin: { x: x, y: y }
+                        });
+                    }, 100);
+                }
+            }
+        }
+
+        // Add your custom JavaScript here
+        // For interactive demos, visualizations, etc.
+    </script>
+
+    <!-- Main site JavaScript (theme toggle, etc.) -->
+    <script src="../../../js/main.js"></script>
+</body>
+
+</html>

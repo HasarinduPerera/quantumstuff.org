@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example: Circuit Simulation</title>
+    <link rel="stylesheet" href="../tutorials/basics/css/styles.css">
+    <style>
+        body {
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .example-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-card, #fff);
+            border-radius: 8px;
+            border: 2px solid var(--color-green, #16a34a);
+        }
+        .gate-selector {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .gate-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-green, #16a34a);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .gate-btn:hover {
+            background: var(--color-green-dark, #15803d);
+        }
+        .circuit-display {
+            background: var(--bg-secondary, #f0ebe0);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+        .gate-chip {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--color-amber, #fbbf24);
+            color: white;
+            border-radius: 4px;
+            margin: 0 0.25rem;
+            font-weight: 600;
+        }
+        #results {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-highlight, #e8f5e9);
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Example: Quantum Circuit Simulation</h1>
+    <p>Build and simulate quantum circuits using <code>quantum-utils.js</code>.</p>
+
+    <div class="example-section">
+        <h2>Circuit Builder</h2>
+
+        <div>
+            <label><strong>Initial State:</strong></label><br>
+            <input type="radio" name="initial" value="0" checked> |0⟩
+            <input type="radio" name="initial" value="1"> |1⟩
+        </div>
+
+        <div style="margin: 1.5rem 0;">
+            <label><strong>Add Gates:</strong></label>
+            <div class="gate-selector">
+                <button class="gate-btn" onclick="addGate('H')">Add H (Hadamard)</button>
+                <button class="gate-btn" onclick="addGate('X')">Add X (NOT)</button>
+                <button class="gate-btn" onclick="clearCircuit()">Clear Circuit</button>
+            </div>
+        </div>
+
+        <div class="circuit-display" id="circuit-display">
+            <strong>Circuit:</strong> |0⟩ →
+        </div>
+
+        <button class="gate-btn" onclick="simulateAndMeasure()">Simulate & Measure</button>
+
+        <div id="results" style="display: none;"></div>
+        <div id="histogram" style="margin-top: 1rem;"></div>
+    </div>
+
+    <div class="example-section">
+        <h2>Pre-built Examples</h2>
+        <p>Try these common quantum circuits:</p>
+
+        <button class="gate-btn" onclick="loadExample('superposition')">Superposition: |0⟩ → H</button>
+        <button class="gate-btn" onclick="loadExample('flip')">Bit Flip: |0⟩ → X</button>
+        <button class="gate-btn" onclick="loadExample('flipback')">Flip & Back: |0⟩ → X → X</button>
+        <button class="gate-btn" onclick="loadExample('hxh')">H-X-H: |0⟩ → H → X → H</button>
+    </div>
+
+    <div class="example-section">
+        <h2>Code Example</h2>
+        <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto;"><code>// Define circuit
+const initialState = 0;  // Start with |0⟩
+const gates = ['H', 'X', 'H'];  // Apply H, then X, then H
+
+// Simulate circuit
+const result = simulateCircuit(initialState, gates);
+
+// Access results
+console.log(result.finalProb0);       // Final probability of |0⟩
+console.log(result.inSuperposition);  // Is state in superposition?
+console.log(result.measurements);     // Sample measurement statistics
+
+// Visualize
+createHistogram(result.measurements, 'histogram-container');
+</code></pre>
+    </div>
+
+    <!-- Include quantum-utils.js -->
+    <script src="../tutorials/basics/js/quantum-utils.js"></script>
+
+    <script>
+        let circuitGates = [];
+
+        function addGate(gate) {
+            circuitGates.push(gate);
+            updateCircuitDisplay();
+        }
+
+        function clearCircuit() {
+            circuitGates = [];
+            updateCircuitDisplay();
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('histogram').innerHTML = '';
+        }
+
+        function updateCircuitDisplay() {
+            const initialState = document.querySelector('input[name="initial"]:checked').value;
+            let display = `<strong>Circuit:</strong> |${initialState}⟩ → `;
+
+            circuitGates.forEach(gate => {
+                display += `<span class="gate-chip">${gate}</span> → `;
+            });
+
+            display += ' Measure';
+
+            document.getElementById('circuit-display').innerHTML = display;
+        }
+
+        function simulateAndMeasure() {
+            const initialState = parseInt(document.querySelector('input[name="initial"]:checked').value);
+
+            if (circuitGates.length === 0) {
+                // No gates, just measure initial state
+                const prob0 = initialState === 0 ? 1.0 : 0.0;
+                const stats = performMeasurements(prob0, 100);
+                displayResults(prob0, false, stats);
+                return;
+            }
+
+            // Simulate circuit with gates
+            const result = simulateCircuit(initialState, circuitGates);
+            displayResults(result.finalProb0, result.inSuperposition, result.measurements);
+        }
+
+        function displayResults(prob0, inSuperposition, measurements) {
+            const stateDesc = describeState(prob0);
+            const ketNotation = toKetNotation(prob0);
+
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').innerHTML = `
+                <h3>Simulation Results</h3>
+                <p><strong>Final State:</strong> ${stateDesc}</p>
+                <p><strong>Ket Notation:</strong> ${ketNotation}</p>
+                <p><strong>Superposition?</strong> ${inSuperposition ? 'Yes ✓' : 'No (definite state)'}</p>
+                <p><strong>Sample Measurements (100 shots):</strong></p>
+                <p>|0⟩: ${measurements.zeros} (${(measurements.prob0 * 100).toFixed(1)}%)</p>
+                <p>|1⟩: ${measurements.ones} (${(measurements.prob1 * 100).toFixed(1)}%)</p>
+            `;
+
+            createHistogram(measurements, 'histogram', 150);
+            highlightElement('results', 800);
+        }
+
+        function loadExample(example) {
+            clearCircuit();
+
+            switch(example) {
+                case 'superposition':
+                    document.querySelector('input[name="initial"][value="0"]').checked = true;
+                    addGate('H');
+                    break;
+                case 'flip':
+                    document.querySelector('input[name="initial"][value="0"]').checked = true;
+                    addGate('X');
+                    break;
+                case 'flipback':
+                    document.querySelector('input[name="initial"][value="0"]').checked = true;
+                    addGate('X');
+                    addGate('X');
+                    break;
+                case 'hxh':
+                    document.querySelector('input[name="initial"][value="0"]').checked = true;
+                    addGate('H');
+                    addGate('X');
+                    addGate('H');
+                    break;
+            }
+
+            simulateAndMeasure();
+        }
+
+        // Initialize display
+        updateCircuitDisplay();
+    </script>
+</body>
+</html>

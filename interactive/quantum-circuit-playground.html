@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <!-- Theme Persistence (MUST load before CSS) -->
+    <!-- Theme Persistence -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme') || 'light';
@@ -11,50 +11,45 @@
         })();
     </script>
 
-	<title>Quantum JavaScript (Q.js)</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<meta name="description" content="Quantum computing in your browser.">
-	<meta name="copyright" content="Stewart Smith 2019–2020">
-	<meta name="keywords" content="
-			Q, Q.js, Q-js, Qjs, quantum JavaScript,
-			quantum, quantum physics, quantum mechanics, superposition,
-			quantum computer, quantum computer programming, quantum computing, QC, 
-			quantum simulator, quantum computer simulator, 
-			qubit, qbit, gate, Hadamard, Bloch, Bloch Sphere,
-			Web, Web site, website, Web browser, browser, HTML, HTML5, JavaScript, ES6, CSS,
-			Chrome, Firefox, Safari, Opera, Brave, Edge, WebKit, Blink, Gecko, Mozilla,
-			Stewart Smith, Stewart, Stew, Stuart, Steven, Steve, Stewdio, stewartsmith, stew_rtsmith, @stew_rtsmith,
-			Moar, Moar Technologies Corp, MTC,
-			Google, IBM, Microsoft, Amazon, NASA, DWave, D-Wave,
-			Quil, OpenQASM,
-				ProjectQ, Qiskit, 
-				Quantum Development Kit, Cirq, Strawberry Fields, t|ket>,
-				QCL, Quantum pseudocode, Q#, Q|SI>, Q language, qGCL, QFC, QML, LIQUi|>, Quipper,
-			Stanford CS 269 Q: Quantum Computer Programming">
+	<title>Quantum Circuit Playground - quantumstuff.org</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Interactive quantum circuit playground - Build and simulate quantum circuits with drag-and-drop gates">
+	<meta name="keywords" content="quantum circuit, quantum computing, quantum gates, interactive simulator, Hadamard, CNOT, Pauli">
 
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:site" content="@stew_rtsmith">
-	<meta name="twitter:creator" content="@stew_rtsmith">
-	<meta name="twitter:title" content="Quantum JavaScript (Q.js)">
-	<meta name="twitter:description" content="Quantum computing in your browser.">
-	<meta name="twitter:image" content="https://quantumjavascript.app/assets/Q-website-preview.jpg">
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
 
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="Quantum JavaScript (Q.js)">
-	<meta property="og:description" content="Quantum computing in your browser.">
-	<meta property="og:image" content="https://quantumjavascript.app/assets/Q-website-preview.jpg">
-	<meta property="og:url" content="https://quantumjavascript.app/">
-
-	<link rel="canonical" href="https://quantumjavascript.app/">
-	<link href="../libraries/q.js/assets/Q-favicon-064.png" rel="icon" type="image/png">
-	<link href="../libraries/q.js/assets/Q-favicon-144.png" rel="apple-touch-icon">
-
+	<!-- Q.js Library CSS -->
 	<link rel="stylesheet" href="../libraries/q.js/Q/Q.css">
 	<link rel="stylesheet" href="../libraries/q.js/Q/Q-Circuit-Editor.css">
-	<link rel="stylesheet" href="../libraries/q.js/assets/documentation.css">
+
+	<!-- Lucide Icons -->
 	<script src="https://unpkg.com/lucide@latest"></script>
 	<style>
+		/* Reset */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		/* Q.js elements need content-box */
+		.Q-circuit,
+		.Q-circuit *,
+		.Q-circuit-palette,
+		.Q-circuit-palette * {
+			box-sizing: content-box !important;
+		}
+
+		/* Keep border-box for Q.js wires */
+		.Q-circuit-register-wire,
+		.Q-circuit-register-wire * {
+			box-sizing: border-box !important;
+		}
+
 		:root,
 		[data-theme="light"] {
 			--bg-primary: #faf8f3;
@@ -105,6 +100,15 @@
 			opacity: 0.3;
 		}
 
+		/* Base Styles */
+		body {
+			font-family: 'Inter', sans-serif;
+			background: var(--bg-primary);
+			color: var(--text-primary);
+			line-height: 1.7;
+			min-height: 100vh;
+		}
+
 		/* Page Layout */
 		.container {
 			max-width: 1200px;
@@ -120,10 +124,12 @@
 		}
 
 		.page-header h1 {
+			font-family: 'Crimson Pro', serif;
 			font-size: 2.5rem;
 			font-weight: 600;
 			color: var(--text-primary);
 			margin-bottom: 0.75rem;
+			line-height: 1.2;
 		}
 
 		.page-header p {
@@ -177,6 +183,7 @@
 		}
 
 		.section-title {
+			font-family: 'Crimson Pro', serif;
 			display: flex;
 			align-items: center;
 			gap: 0.75rem;
@@ -246,15 +253,107 @@
 			margin: 0;
 		}
 
+		/* Footer Navigation */
+		.nav-footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1rem;
+			padding: 2rem 0;
+			margin-top: 3rem;
+			border-top: 1px solid var(--border-subtle);
+		}
+
+		.nav-btn {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.75rem 1.5rem;
+			background: var(--bg-card);
+			border: 1px solid var(--border-subtle);
+			border-radius: 8px;
+			color: var(--text-primary);
+			text-decoration: none;
+			font-weight: 500;
+			transition: all 0.2s;
+		}
+
+		.nav-btn:hover {
+			background: var(--color-green);
+			color: white;
+			border-color: var(--color-green);
+			transform: translateY(-2px);
+		}
+
+		.nav-btn-prev {
+			margin-right: auto;
+		}
+
+		.nav-btn-next {
+			margin-left: auto;
+		}
+
+		/* Footer */
+		footer {
+			border-top: 1px solid var(--border-subtle);
+			padding: 2rem 0;
+			margin-top: 2rem;
+		}
+
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 2rem;
+			text-align: center;
+			color: var(--text-secondary);
+			font-size: 0.875rem;
+		}
+
+		.footer-content a {
+			color: var(--color-green);
+			text-decoration: none;
+		}
+
+		.footer-content a:hover {
+			text-decoration: underline;
+		}
+
+		/* Responsive */
 		@media (max-width: 768px) {
+			.page-header h1 {
+				font-size: 2rem;
+			}
+
+			.container {
+				padding: 1.5rem;
+			}
+
+			.playground-section {
+				padding: 1.5rem;
+			}
+
+			.qjs-circuit {
+				padding: 0.75rem;
+			}
+
+			.nav-footer {
+				flex-direction: column;
+			}
+
+			.nav-btn-prev,
+			.nav-btn-next {
+				margin: 0;
+				width: 100%;
+				justify-content: center;
+			}
+
 			.info-grid {
 				grid-template-columns: 1fr;
 			}
 		}
 	</style>
 
-	<script src="https://www.googletagmanager.com/gtag/js" async></script>
-	<script src="../libraries/q.js/assets/ga.js"></script> <!-- Load Q.js -->
+	<!-- Q.js Scripts -->
 	<script src="../libraries/q.js/Q/Q.js"></script>
 	<script src="../libraries/q.js/Q/Q-ComplexNumber.js"></script>
 	<script src="../libraries/q.js/Q/Q-Matrix.js"></script>
@@ -263,7 +362,6 @@
 	<script src="../libraries/q.js/Q/Q-History.js"></script>
 	<script src="../libraries/q.js/Q/Q-Circuit.js"></script>
 	<script src="../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
-	<script src="../libraries/q.js/assets/navigation.js"></script>
 
 </head>
 
@@ -339,7 +437,29 @@
 				</div>
 			</div>
 		</section>
+
+		<!-- Navigation -->
+		<nav class="nav-footer">
+			<a href="../tutorials/basics/lessons/lesson4.html" class="nav-btn nav-btn-prev">
+				<i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+				Back to Lessons
+			</a>
+			<a href="../index.html" class="nav-btn nav-btn-next">
+				Home
+				<i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+			</a>
+		</nav>
 	</main>
+
+	<!-- Footer -->
+	<footer>
+		<div class="footer-content">
+			<p>
+				Built with <a href="https://quantumjavascript.app/" target="_blank">Q.js</a> - Quantum Circuit Simulator<br>
+				Part of <a href="../index.html">quantumstuff.org</a> learning platform
+			</p>
+		</div>
+	</footer>
 
 	<script>
 		// Create gate palette (from lesson 4 playground)

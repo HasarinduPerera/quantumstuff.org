@@ -264,23 +264,19 @@
 
             <section class="section" id="playground-section">
                 <h2 class="section-title">Interactive Circuit Playground</h2>
-                <p>Build and experiment with your own quantum circuits using the interactive Q.js circuit builder below.
-                    Drag gates from the palette onto the circuit board and see the results update in real-time!</p>
+                <p>Want to build and experiment with your own quantum circuits? Check out our dedicated Circuit Playground!</p>
 
-                <div class="demo" id="playground-demo">
-                    <div class="demo-header">
-                        <div class="demo-icon"><i data-lucide="wrench" style="width:18px;height:18px"></i></div>
-                        <span class="demo-title">Circuit Builder</span>
+                <div class="callout" style="background: var(--bg-highlight); border-left: 4px solid var(--color-green);">
+                    <div class="callout-title">
+                        <i data-lucide="external-link" style="width:16px;height:16px"></i>
+                        Circuit Playground
                     </div>
-                    <div class="demo-content">
-                        <div class="qjs-circuit">
-                            <div class='Q-circuit-palette'></div>
-                            <div id="playground"></div>
-                            <div class="truth-table">
-                                <h4>Result probabilities</h4>
-                                <pre><samp id="playground-report"></samp></pre>
-                            </div>
-                        </div>
+                    <div class="callout-content">
+                        <p>Use the interactive quantum circuit builder to create and test your own circuits with drag-and-drop gates.</p>
+                        <a href="../../../interactive/quantum-circuit-playground.html" style="display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; padding: 0.75rem 1.25rem; background: var(--color-green); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s;">
+                            Open Circuit Playground
+                            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -521,37 +517,6 @@
                 cnotExpCircuit.evaluate$()
             }
 
-            // Main playground circuit (3 qubits, 7 moments)
-            const circuit = new Q.Circuit( 3, 7 )
-            circuit.name = 'playground'
-            const domEl = document.getElementById( 'playground' )
-            if( domEl ){
-                circuit.sort$()
-                circuit.toDom( domEl )
-                circuit.evaluate$()
-            }
-        })
-
-        // Update circuit parts helper function (EXACT copy from playground.html)
-        function updateCircuitParts( circuit ){
-            const reportEl = document.getElementById( circuit.name +'-report' )
-            if( reportEl ) reportEl.innerText = circuit.report$()
-        }
-
-        // Update when circuit is modified via GUI (EXACT copy from playground.html)
-        function updatePlaygroundFromDom( circuit ){
-            circuit.evaluate$()
-        }
-
-        // Event listener: evaluation completed (EXACT copy from playground.html)
-        window.addEventListener( 'Q.Circuit.evaluate completed', function( event ){
-            const circuit = event.detail.circuit
-            updateCircuitParts( circuit )
-        })
-
-        // Event listener: GUI altered circuit (EXACT copy from playground.html)
-        window.addEventListener( 'Q gui altered circuit', function( event ){
-            updatePlaygroundFromDom( event.detail.circuit )
         })
     </script>
 

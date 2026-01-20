@@ -449,20 +449,21 @@ Object.assign( Q.Circuit, {
 		//  │ . │
 		//  └   ┘
 
-		const state = new Q.Matrix( 1, Math.pow( 2, circuit.bandwidth ))
-		state.write$( 0, 0, 1 )
+		// COMMENTED OUT: Hard-coded |0⟩ initialization
+		// const state = new Q.Matrix( 1, Math.pow( 2, circuit.bandwidth ))
+		// state.write$( 0, 0, 1 )
 
 
 
 
-		//  Create a state matrix from this circuit’s input qubits.
-		
-		// const state2 = circuit.qubits.reduce( function( state, qubit, i ){
+		//  Create a state matrix from this circuit's input qubits.
 
-		// 	if( i > 0 ) return state.multiplyTensor( qubit )
-		// 	else return state
+		const state = circuit.qubits.reduce( function( state, qubit, i ){
 
-		// }, circuit.qubits[ 0 ])
+			if( i > 0 ) return state.multiplyTensor( qubit )
+			else return state
+
+		}, circuit.qubits[ 0 ])
 		// console.log( 'Initial state', state2.toTsv() )
 		// console.log( 'multiplied', state2.multiplyTensor( state ).toTsv() )
 		

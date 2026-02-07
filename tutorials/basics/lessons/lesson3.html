@@ -21,7 +21,20 @@
 
     <header class="header">
         <div class="header-content">
-            <a href="../../../index.html" class="logo">quantumstuff</a>
+            <a href="../../../index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="#16a34a" stroke-width="4" />
+                    <ellipse cx="50" cy="50" rx="45" ry="15" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 4"
+                        fill="none" />
+                    <line x1="50" y1="95" x2="50" y2="5" stroke="#16a34a" stroke-width="3" />
+                    <polygon points="50,2 46,12 54,12" fill="#16a34a" />
+                    <line x1="50" y1="50" x2="75" y2="25" stroke="#f5b208" stroke-width="5" stroke-linecap="round" />
+                    <polygon points="78,22 68,22 78,32" fill="#f5b208" transform="rotate(-45 78 22)" />
+                </svg>
+                <span style="font-size: 18px; font-weight: 700; white-space: nowrap;">
+                    <span style="color: #16a34a;">Quantum</span> <span style="color: #f5b208;">Stuff</span>
+                </span>
+            </a>
             <div class="progress-track">
                 <div class="progress-step completed"></div>
                 <div class="progress-step completed"></div>
@@ -84,37 +97,58 @@
 
             <section class="section" id="qubit">
                 <h2 class="section-title">Introducing the Qubit</h2>
-                <p>A classical bit can only be 0 or 1. But a <span class="term" data-tooltip="Quantum bit - can be in superposition"><strong>qubit</strong></span> (quantum bit) can be in a
-                    <span class="term" data-tooltip="Being in multiple states simultaneously"><strong>superposition</strong></span> of both 0 and 1 simultaneously!</p>
+                <p>A classical bit can only be 0 or 1. But a <span class="term"
+                        data-tooltip="Quantum bit - can be in superposition"><strong>qubit</strong></span> (quantum bit)
+                    can be in a
+                    <span class="term"
+                        data-tooltip="Being in multiple states simultaneously"><strong>superposition</strong></span> of
+                    both 0 and 1 simultaneously!
+                </p>
 
                 <h3>The Coin Analogy</h3>
                 <p>Imagine a coin spinning in the air. While it's spinning, is it heads or tails? Neither—and both! Only
                     when you catch it does it "decide" to be heads or tails.</p>
 
                 <ul>
-                    <li><strong>Before <span class="term" data-tooltip="Observing causes collapse to definite state">measurement</span>:</strong> The qubit is in both states simultaneously</li>
+                    <li><strong>Before <span class="term"
+                                data-tooltip="Observing causes collapse to definite state">measurement</span>:</strong>
+                        The qubit is in both states simultaneously</li>
                     <li><strong>During measurement:</strong> The qubit "collapses" to one definite value</li>
                     <li><strong>After measurement:</strong> The qubit is now definitely 0 or 1</li>
                 </ul>
 
-                <div style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border: 2px solid var(--color-green); box-shadow: 0 4px 16px rgba(22, 163, 74, 0.08);">
-                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem; text-align: center; font-size: 1.5rem;">The Spinning Coin Analogy</h3>
+                <div
+                    style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border: 2px solid var(--color-green); box-shadow: 0 4px 16px rgba(22, 163, 74, 0.08);">
+                    <h3
+                        style="color: var(--color-green); margin-bottom: 1.5rem; text-align: center; font-size: 1.5rem;">
+                        The Spinning Coin Analogy</h3>
 
-                    <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center; margin: 2rem 0;">
-                        <div style="text-align: center; padding: 2rem; background: var(--bg-secondary); border-radius: 12px;">
+                    <div
+                        style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center; margin: 2rem 0;">
+                        <div
+                            style="text-align: center; padding: 2rem; background: var(--bg-secondary); border-radius: 12px;">
                             <div style="font-size: 4rem; margin-bottom: 1rem;">🪙</div>
                             <h4 style="color: var(--text-primary); margin-bottom: 0.75rem;">Classical Bit</h4>
-                            <p style="color: var(--text-secondary); font-size: 0.9375rem;">A coin sitting on a table<br/>Definitely heads OR tails</p>
-                            <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-card); border-radius: 8px; font-weight: 600; color: var(--color-amber);">ONE state only</div>
+                            <p style="color: var(--text-secondary); font-size: 0.9375rem;">A coin sitting on a
+                                table<br />Definitely heads OR tails</p>
+                            <div
+                                style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-card); border-radius: 8px; font-weight: 600; color: var(--color-amber);">
+                                ONE state only</div>
                         </div>
 
                         <div style="font-size: 2rem; color: var(--color-green); font-weight: 700;">→</div>
 
-                        <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(22, 163, 74, 0.05), rgba(251, 191, 36, 0.05)); border-radius: 12px; border: 2px dashed var(--color-green);">
-                            <div style="font-size: 4rem; margin-bottom: 1rem; animation: qubit-spin 3s linear infinite;">🪙</div>
+                        <div
+                            style="text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(22, 163, 74, 0.05), rgba(251, 191, 36, 0.05)); border-radius: 12px; border: 2px dashed var(--color-green);">
+                            <div
+                                style="font-size: 4rem; margin-bottom: 1rem; animation: qubit-spin 3s linear infinite;">
+                                🪙</div>
                             <h4 style="color: var(--color-green); margin-bottom: 0.75rem;">Quantum Qubit</h4>
-                            <p style="color: var(--text-secondary); font-size: 0.9375rem;">A coin spinning in the air<br/>Both heads AND tails!</p>
-                            <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-card); border-radius: 8px; font-weight: 600; color: var(--color-green);">BOTH states at once</div>
+                            <p style="color: var(--text-secondary); font-size: 0.9375rem;">A coin spinning in the
+                                air<br />Both heads AND tails!</p>
+                            <div
+                                style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-card); border-radius: 8px; font-weight: 600; color: var(--color-green);">
+                                BOTH states at once</div>
                         </div>
                     </div>
 
@@ -124,42 +158,64 @@
                             Key Concept: Superposition
                         </div>
                         <p>While the coin is spinning, is it heads or tails? It's <em>neither—and both!</em>
-                            Only when you catch it (measure it) does it "decide" to be heads or tails. A <span class="term" data-tooltip="Being in multiple states simultaneously">superposition</span> is like that spinning coin: the qubit is in BOTH states at once!</p>
+                            Only when you catch it (measure it) does it "decide" to be heads or tails. A <span
+                                class="term" data-tooltip="Being in multiple states simultaneously">superposition</span>
+                            is like that spinning coin: the qubit is in BOTH states at once!</p>
                     </div>
 
                     <div style="margin-top: 2rem;">
-                        <h4 style="color: var(--text-primary); margin-bottom: 1rem; text-align: center;">Three Ways to Understand Superposition</h4>
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem; text-align: center;">Three Ways to
+                            Understand Superposition</h4>
                         <div style="display: grid; gap: 1rem;">
                             <!-- Analogy Approach -->
-                            <details style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-subtle);">
-                                <summary style="cursor: pointer; font-weight: 600; color: var(--color-green); display: flex; align-items: center; gap: 0.5rem;">
+                            <details
+                                style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                                <summary
+                                    style="cursor: pointer; font-weight: 600; color: var(--color-green); display: flex; align-items: center; gap: 0.5rem;">
                                     <span>🎭</span> Through Analogy
                                 </summary>
                                 <div style="margin-top: 1rem; color: var(--text-secondary); line-height: 1.7;">
-                                    <p>Think of a spinning coin in the air, or a room where the light switch is both ON and OFF until you look. Imagine Schrödinger's famous cat that's both alive and dead in a box—that's superposition! The qubit exists in this "in-between" state until you measure it.</p>
+                                    <p>Think of a spinning coin in the air, or a room where the light switch is both ON
+                                        and OFF until you look. Imagine Schrödinger's famous cat that's both alive and
+                                        dead in a box—that's superposition! The qubit exists in this "in-between" state
+                                        until you measure it.</p>
                                 </div>
                             </details>
 
                             <!-- Visual Approach -->
-                            <details style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-subtle);">
-                                <summary style="cursor: pointer; font-weight: 600; color: var(--color-amber); display: flex; align-items: center; gap: 0.5rem;">
+                            <details
+                                style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                                <summary
+                                    style="cursor: pointer; font-weight: 600; color: var(--color-amber); display: flex; align-items: center; gap: 0.5rem;">
                                     <span>📊</span> Through Visualization
                                 </summary>
                                 <div style="margin-top: 1rem; color: var(--text-secondary); line-height: 1.7;">
-                                    <p>Imagine a bag with 5 red marbles and 5 blue marbles. Without looking inside, you have a 50% chance of pulling red and 50% chance of pulling blue. But once you reach in and grab one, you get a definite color—either red or blue, not both. A qubit in superposition is like that bag before you reach in: both outcomes exist with their probabilities. Measurement is like pulling out one marble—you get one definite result, and the superposition collapses.</p>
+                                    <p>Imagine a bag with 5 red marbles and 5 blue marbles. Without looking inside, you
+                                        have a 50% chance of pulling red and 50% chance of pulling blue. But once you
+                                        reach in and grab one, you get a definite color—either red or blue, not both. A
+                                        qubit in superposition is like that bag before you reach in: both outcomes exist
+                                        with their probabilities. Measurement is like pulling out one marble—you get one
+                                        definite result, and the superposition collapses.</p>
                                 </div>
                             </details>
 
                             <!-- Logical Approach -->
-                            <details style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-subtle);">
-                                <summary style="cursor: pointer; font-weight: 600; color: #b45309; display: flex; align-items: center; gap: 0.5rem;">
+                            <details
+                                style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                                <summary
+                                    style="cursor: pointer; font-weight: 600; color: #b45309; display: flex; align-items: center; gap: 0.5rem;">
                                     <span>🔢</span> Through Logic
                                 </summary>
                                 <div style="margin-top: 1rem; color: var(--text-secondary); line-height: 1.7;">
-                                    <p><strong>Step 1:</strong> A classical bit has a definite state: 0 OR 1 (one is true).<br>
-                                    <strong>Step 2:</strong> A qubit in superposition has probability for each: it could be 0 AND could be 1 (both have non-zero probability).<br>
-                                    <strong>Step 3:</strong> Measurement forces a choice, giving you one outcome randomly based on those probabilities.<br>
-                                    <strong>Conclusion:</strong> Before measurement = both possibilities exist. After measurement = one definite answer.</p>
+                                    <p><strong>Step 1:</strong> A classical bit has a definite state: 0 OR 1 (one is
+                                        true).<br>
+                                        <strong>Step 2:</strong> A qubit in superposition has probability for each: it
+                                        could be 0 AND could be 1 (both have non-zero probability).<br>
+                                        <strong>Step 3:</strong> Measurement forces a choice, giving you one outcome
+                                        randomly based on those probabilities.<br>
+                                        <strong>Conclusion:</strong> Before measurement = both possibilities exist.
+                                        After measurement = one definite answer.
+                                    </p>
                                 </div>
                             </details>
                         </div>
@@ -194,7 +250,8 @@
                     </div>
                     <div class="demo-content">
                         <p style="text-align: center; margin-bottom: 1.5rem; color: var(--text-secondary);">
-                            The famous thought experiment: a cat in a box is in superposition—both alive AND dead—until we observe!
+                            The famous thought experiment: a cat in a box is in superposition—both alive AND dead—until
+                            we observe!
                         </p>
 
                         <!-- Advanced Quantum Box -->
@@ -263,7 +320,8 @@
                                 <i data-lucide="eye" style="width:16px;height:16px;margin-right:0.5rem"></i>
                                 Observe (Measure!)
                             </button>
-                            <button class="btn-secondary" id="reset-box-btn" onclick="resetSchrodingerBox()" style="display: none;">
+                            <button class="btn-secondary" id="reset-box-btn" onclick="resetSchrodingerBox()"
+                                style="display: none;">
                                 <i data-lucide="refresh-cw" style="width:16px;height:16px;margin-right:0.5rem"></i>
                                 Reset Experiment
                             </button>
@@ -309,7 +367,8 @@
                                 </div>
 
                                 <div class="info-box">
-                                    <p><strong>Always definite:</strong> Either 0 <span style="color: var(--text-secondary);">OR</span> 1</p>
+                                    <p><strong>Always definite:</strong> Either 0 <span
+                                            style="color: var(--text-secondary);">OR</span> 1</p>
                                     <p><small>No superposition possible</small></p>
                                 </div>
                             </div>
@@ -333,7 +392,8 @@
                                 <div class="state-display-container">
                                     <div id="qubit-particles-l3" class="particle-container"></div>
                                     <div class="state-circle qubit-circle" id="qubit-circle">
-                                        <div class="superposition-indicator" id="superposition-indicator" style="display: none;">
+                                        <div class="superposition-indicator" id="superposition-indicator"
+                                            style="display: none;">
                                             <div class="dual-state">
                                                 <span class="state-part zero">0</span>
                                                 <span class="state-part one">1</span>
@@ -350,18 +410,21 @@
                                 </div>
 
                                 <div class="control-section">
-                                    <button class="btn-control btn-qubit" id="superposition-btn" onclick="putInSuperpositionL3()">
+                                    <button class="btn-control btn-qubit" id="superposition-btn"
+                                        onclick="putInSuperpositionL3()">
                                         <i data-lucide="zap" style="width:16px;height:16px"></i>
                                         Create Superposition
                                     </button>
-                                    <button class="btn-control btn-measure" id="measure-btn-l3" onclick="measureQubitL3()" disabled>
+                                    <button class="btn-control btn-measure" id="measure-btn-l3"
+                                        onclick="measureQubitL3()" disabled>
                                         <i data-lucide="eye" style="width:16px;height:16px"></i>
                                         Measure
                                     </button>
                                 </div>
 
                                 <div class="info-box" id="qubit-info">
-                                    <p><strong>Can be both:</strong> 0 <span style="color: var(--color-green);">AND</span> 1</p>
+                                    <p><strong>Can be both:</strong> 0 <span
+                                            style="color: var(--color-green);">AND</span> 1</p>
                                     <p><small>Superposition until measured</small></p>
                                 </div>
                             </div>
@@ -370,42 +433,59 @@
                         <!-- Result Message -->
                         <div id="qubit-explanation-l3" class="comparison-result">
                             <i data-lucide="info" style="width:18px;height:18px"></i>
-                            <span>Click "Create Superposition" to put the qubit in both states, then "Measure" to collapse it!</span>
+                            <span>Click "Create Superposition" to put the qubit in both states, then "Measure" to
+                                collapse it!</span>
                         </div>
 
                         <!-- Note on Probabilistic -->
-                        <div style="margin-top: 1.5rem; padding: 1rem 1.5rem; background: var(--bg-accent); border-radius: 8px; font-size: 0.875rem; color: var(--text-secondary);">
-                            <strong style="color: var(--text-primary);">💡 Why "Probabilistic"?</strong> Quantum physics follows predictable rules, but when you measure a qubit in superposition, you get a random result. We can only predict the <em>chances</em> of each outcome!
+                        <div
+                            style="margin-top: 1.5rem; padding: 1rem 1.5rem; background: var(--bg-accent); border-radius: 8px; font-size: 0.875rem; color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">💡 Why "Probabilistic"?</strong> Quantum physics
+                            follows predictable rules, but when you measure a qubit in superposition, you get a random
+                            result. We can only predict the <em>chances</em> of each outcome!
                         </div>
                     </div>
                 </div>
 
                 <div class="why-matters">
                     <h4>💡 Why This Matters</h4>
-                    <p><strong>Real Application:</strong> Google's Sycamore quantum computer uses 53 qubits in superposition to perform calculations in 200 seconds that would take the world's fastest classical supercomputer 10,000 years!</p>
+                    <p><strong>Real Application:</strong> Google's Sycamore quantum computer uses 53 qubits in
+                        superposition to perform calculations in 200 seconds that would take the world's fastest
+                        classical supercomputer 10,000 years!</p>
                 </div>
 
-                <div class="callout" style="margin: 2rem 0; background: rgba(251, 191, 36, 0.1); border-left: 4px solid var(--color-amber);">
+                <div class="callout"
+                    style="margin: 2rem 0; background: rgba(251, 191, 36, 0.1); border-left: 4px solid var(--color-amber);">
                     <div class="callout-title" style="color: var(--color-amber);">
                         <i data-lucide="alert-triangle" style="width:16px;height:16px"></i>
                         Common Misconception
                     </div>
-                    <p style="margin: 0.5rem 0; color: var(--text-primary);"><strong style="color: #ef4444;">❌ Wrong:</strong> "Superposition means the qubit is rapidly switching between 0 and 1, we just don't know which"</p>
-                    <p style="margin: 0.5rem 0; color: var(--text-primary);"><strong style="color: var(--color-green);">✓ Correct:</strong> The qubit is genuinely in BOTH states at once—not switching, not unknown—it's fundamentally both until measured!</p>
+                    <p style="margin: 0.5rem 0; color: var(--text-primary);"><strong style="color: #ef4444;">❌
+                            Wrong:</strong> "Superposition means the qubit is rapidly switching between 0 and 1, we just
+                        don't know which"</p>
+                    <p style="margin: 0.5rem 0; color: var(--text-primary);"><strong
+                            style="color: var(--color-green);">✓ Correct:</strong> The qubit is genuinely in BOTH states
+                        at once—not switching, not unknown—it's fundamentally both until measured!</p>
                 </div>
 
                 <details class="advanced-section type-math">
                     <summary>🔬 For Advanced Learners: The Mathematics</summary>
                     <div class="advanced-content">
-                        <p>Mathematically, a qubit in <span class="term" data-tooltip="Being in multiple states simultaneously">superposition</span> is written as:</p>
-                        <div style="text-align: center; font-size: 1.25rem; margin: 1rem 0; font-family: 'Monaco', monospace;">
+                        <p>Mathematically, a qubit in <span class="term"
+                                data-tooltip="Being in multiple states simultaneously">superposition</span> is written
+                            as:</p>
+                        <div
+                            style="text-align: center; font-size: 1.25rem; margin: 1rem 0; font-family: 'Monaco', monospace;">
                             |ψ⟩ = α|0⟩ + β|1⟩
                         </div>
                         <p>Where:</p>
                         <ul>
-                            <li><strong>|ψ⟩</strong> (pronounced "ket sigh" or "ket psi") represents the quantum state</li>
-                            <li><strong>α and β</strong> (pronounced "alpha" and "beta") are complex numbers called "amplitudes"</li>
-                            <li><strong>|0⟩ and |1⟩</strong> (pronounced "ket zero" and "ket one") are the basis states</li>
+                            <li><strong>|ψ⟩</strong> (pronounced "ket sigh" or "ket psi") represents the quantum state
+                            </li>
+                            <li><strong>α and β</strong> (pronounced "alpha" and "beta") are complex numbers called
+                                "amplitudes"</li>
+                            <li><strong>|0⟩ and |1⟩</strong> (pronounced "ket zero" and "ket one") are the basis states
+                            </li>
                         </ul>
                         <p>The probabilities come from squaring the amplitudes:</p>
                         <ul>
@@ -420,7 +500,9 @@
             <section class="section" id="measurement">
                 <h2 class="section-title">Quantum Measurement</h2>
                 <p>When you measure a qubit in superposition, you can't predict which result you'll get! It's truly
-                    random. But you CAN predict the <span class="term" data-tooltip="Likelihood of measuring a state"><strong>probability</strong></span> of each outcome.</p>
+                    random. But you CAN predict the <span class="term"
+                        data-tooltip="Likelihood of measuring a state"><strong>probability</strong></span> of each
+                    outcome.</p>
 
                 <ul>
                     <li><strong>Measurement is destructive:</strong> Once measured, superposition is destroyed</li>
@@ -437,69 +519,99 @@
                     <div class="demo-content" style="position: relative; overflow: hidden;">
                         <!-- Control Panel -->
                         <div style="text-align: center; margin-bottom: 2rem;">
-                            <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: linear-gradient(135deg, var(--color-green), var(--color-green-dark)); color: white; border-radius: 100px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;">
+                            <div
+                                style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: linear-gradient(135deg, var(--color-green), var(--color-green-dark)); color: white; border-radius: 100px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;">
                                 <i data-lucide="zap" style="width:14px;height:14px"></i>
                                 <span>Quantum State: |+⟩</span>
                             </div>
-                            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Expected: 50% each</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                                Expected: 50% each</div>
 
                             <div class="button-group">
                                 <button class="btn-primary" onclick="measureOnce()">Measure 1x</button>
                                 <button class="btn-primary" onclick="measure10()">Measure 10x</button>
                                 <button class="btn-primary" onclick="measure100()">Measure 100x</button>
                                 <button class="btn-secondary" onclick="resetMeasurements()">
-                                    <i data-lucide="refresh-ccw" style="width:14px;height:14px;margin-right:0.25rem"></i>
+                                    <i data-lucide="refresh-ccw"
+                                        style="width:14px;height:14px;margin-right:0.25rem"></i>
                                     Reset
                                 </button>
                             </div>
                         </div>
 
                         <!-- Statistics Cards -->
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-                            <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; border: 2px solid rgba(59, 130, 246, 0.3); text-align: center;">
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div
+                                style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; border: 2px solid rgba(59, 130, 246, 0.3); text-align: center;">
                                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
-                                <div style="font-size: 2rem; font-weight: 700; color: var(--text-primary);" id="total-measurements">0</div>
-                                <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">Total Measurements</div>
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--text-primary);"
+                                    id="total-measurements">0</div>
+                                <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                                    Total Measurements</div>
                             </div>
 
-                            <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; border: 2px solid rgba(22, 163, 74, 0.3); text-align: center;">
+                            <div
+                                style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; border: 2px solid rgba(22, 163, 74, 0.3); text-align: center;">
                                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">0️⃣</div>
                                 <div>
-                                    <span style="font-size: 2rem; font-weight: 700; color: var(--text-primary);" id="zero-count">0</span>
-                                    <span style="font-size: 1.125rem; font-weight: 600; color: var(--text-secondary); margin-left: 0.5rem;" id="zero-percent">0%</span>
+                                    <span style="font-size: 2rem; font-weight: 700; color: var(--text-primary);"
+                                        id="zero-count">0</span>
+                                    <span
+                                        style="font-size: 1.125rem; font-weight: 600; color: var(--text-secondary); margin-left: 0.5rem;"
+                                        id="zero-percent">0%</span>
                                 </div>
-                                <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">Measured |0⟩</div>
+                                <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                                    Measured |0⟩</div>
                             </div>
 
-                            <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; border: 2px solid rgba(251, 191, 36, 0.3); text-align: center;">
+                            <div
+                                style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; border: 2px solid rgba(251, 191, 36, 0.3); text-align: center;">
                                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">1️⃣</div>
                                 <div>
-                                    <span style="font-size: 2rem; font-weight: 700; color: var(--text-primary);" id="one-count">0</span>
-                                    <span style="font-size: 1.125rem; font-weight: 600; color: var(--text-secondary); margin-left: 0.5rem;" id="one-percent">0%</span>
+                                    <span style="font-size: 2rem; font-weight: 700; color: var(--text-primary);"
+                                        id="one-count">0</span>
+                                    <span
+                                        style="font-size: 1.125rem; font-weight: 600; color: var(--text-secondary); margin-left: 0.5rem;"
+                                        id="one-percent">0%</span>
                                 </div>
-                                <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">Measured |1⟩</div>
+                                <div style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                                    Measured |1⟩</div>
                             </div>
                         </div>
 
                         <!-- Visual Histogram -->
-                        <div style="background: var(--bg-card); border-radius: 12px; padding: 2rem; border: 2px solid var(--border-subtle);">
+                        <div
+                            style="background: var(--bg-card); border-radius: 12px; padding: 2rem; border: 2px solid var(--border-subtle);">
                             <div style="margin-bottom: 1.5rem;">
                                 <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div style="font-size: 1.125rem; font-weight: 700; min-width: 50px; color: var(--color-green);">|0⟩</div>
-                                    <div style="flex: 1; height: 40px; background: var(--bg-secondary); border-radius: 20px; position: relative; overflow: hidden;">
-                                        <div id="zero-bar" style="height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--color-green), var(--color-green-dark)); box-shadow: 0 0 20px rgba(22, 163, 74, 0.4); width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                                    <div
+                                        style="font-size: 1.125rem; font-weight: 700; min-width: 50px; color: var(--color-green);">
+                                        |0⟩</div>
+                                    <div
+                                        style="flex: 1; height: 40px; background: var(--bg-secondary); border-radius: 20px; position: relative; overflow: hidden;">
+                                        <div id="zero-bar"
+                                            style="height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--color-green), var(--color-green-dark)); box-shadow: 0 0 20px rgba(22, 163, 74, 0.4); width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);">
+                                        </div>
                                     </div>
-                                    <div style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); min-width: 40px; text-align: right;" id="zero-bar-value">0</div>
+                                    <div style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); min-width: 40px; text-align: right;"
+                                        id="zero-bar-value">0</div>
                                 </div>
                             </div>
 
                             <div>
                                 <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div style="font-size: 1.125rem; font-weight: 700; min-width: 50px; color: var(--color-amber);">|1⟩</div>
-                                    <div style="flex: 1; height: 40px; background: var(--bg-secondary); border-radius: 20px; position: relative; overflow: hidden;">
-                                        <div id="one-bar" style="height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--color-amber), #f59e0b); box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                                    <div
+                                        style="font-size: 1.125rem; font-weight: 700; min-width: 50px; color: var(--color-amber);">
+                                        |1⟩</div>
+                                    <div
+                                        style="flex: 1; height: 40px; background: var(--bg-secondary); border-radius: 20px; position: relative; overflow: hidden;">
+                                        <div id="one-bar"
+                                            style="height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--color-amber), #f59e0b); box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);">
+                                        </div>
                                     </div>
-                                    <div style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); min-width: 40px; text-align: right;" id="one-bar-value">0</div>
+                                    <div style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); min-width: 40px; text-align: right;"
+                                        id="one-bar-value">0</div>
                                 </div>
                             </div>
                         </div>
@@ -509,7 +621,9 @@
 
             <section class="section" id="notation">
                 <h2 class="section-title">Quantum Notation (Ket Notation)</h2>
-                <p>Quantum physicists use <span class="term" data-tooltip="Notation for quantum states like |0⟩"><strong>ket notation</strong></span> to represent quantum states:</p>
+                <p>Quantum physicists use <span class="term"
+                        data-tooltip="Notation for quantum states like |0⟩"><strong>ket notation</strong></span> to
+                    represent quantum states:</p>
 
                 <ul>
                     <li><strong>|0⟩</strong> — "ket zero" — the qubit is definitely in state 0</li>
@@ -519,7 +633,10 @@
 
                 <div class="formula-box">|ψ⟩ = α|0⟩ + β|1⟩</div>
 
-                <p>Where <strong>α</strong> and <strong>β</strong> are complex numbers called <span class="term" data-tooltip="Complex number determining probability"><strong>amplitudes</strong></span>, and |α|² is the <strong>probability</strong> of measuring 0 and |β|² is the <strong>probability</strong> of measuring 1.</p>
+                <p>Where <strong>α</strong> and <strong>β</strong> are complex numbers called <span class="term"
+                        data-tooltip="Complex number determining probability"><strong>amplitudes</strong></span>, and
+                    |α|² is the <strong>probability</strong> of measuring 0 and |β|² is the <strong>probability</strong>
+                    of measuring 1.</p>
 
                 <div class="callout" style="margin: 2rem 0;">
                     <div class="callout-title">
@@ -593,36 +710,51 @@
 
             <section class="section" id="measurement">
                 <h2 class="section-title">Understanding Measurement</h2>
-                <p>Measurement is one of the most fascinating and important aspects of quantum computing. When you measure a qubit in superposition, something dramatic happens...</p>
+                <p>Measurement is one of the most fascinating and important aspects of quantum computing. When you
+                    measure a qubit in superposition, something dramatic happens...</p>
 
-                <div style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border: 2px solid var(--color-amber);">
+                <div
+                    style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border: 2px solid var(--color-amber);">
                     <h3 style="color: var(--color-amber); margin-bottom: 1.5rem;">What Happens During Measurement?</h3>
 
                     <div style="display: grid; gap: 1.5rem;">
                         <div style="display: flex; align-items: start; gap: 1rem;">
-                            <div style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">1</div>
+                            <div
+                                style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
+                                1</div>
                             <div>
-                                <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Before Measurement: Superposition</h4>
+                                <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Before Measurement:
+                                    Superposition</h4>
                                 <p style="margin: 0;">The qubit exists in a superposition: |ψ⟩ = α|0⟩ + β|1⟩</p>
-                                <p style="margin-top: 0.5rem; font-style: italic; color: var(--text-secondary);">The qubit is "both 0 and 1" simultaneously</p>
+                                <p style="margin-top: 0.5rem; font-style: italic; color: var(--text-secondary);">The
+                                    qubit is "both 0 and 1" simultaneously</p>
                             </div>
                         </div>
 
                         <div style="display: flex; align-items: start; gap: 1rem;">
-                            <div style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-amber); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">2</div>
+                            <div
+                                style="flex-shrink: 0; width: 40px; height: 40px; background: var(--color-amber); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
+                                2</div>
                             <div>
-                                <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">During Measurement: Collapse</h4>
-                                <p style="margin: 0;">The superposition <strong>collapses</strong> to either |0⟩ or |1⟩</p>
-                                <p style="margin-top: 0.5rem; font-style: italic; color: var(--text-secondary);">This collapse is random, but follows probability rules</p>
+                                <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">During Measurement:
+                                    Collapse</h4>
+                                <p style="margin: 0;">The superposition <strong>collapses</strong> to either |0⟩ or |1⟩
+                                </p>
+                                <p style="margin-top: 0.5rem; font-style: italic; color: var(--text-secondary);">This
+                                    collapse is random, but follows probability rules</p>
                             </div>
                         </div>
 
                         <div style="display: flex; align-items: start; gap: 1rem;">
-                            <div style="flex-shrink: 0; width: 40px; height: 40px; background: #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">3</div>
+                            <div
+                                style="flex-shrink: 0; width: 40px; height: 40px; background: #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
+                                3</div>
                             <div>
-                                <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">After Measurement: Classical Bit</h4>
+                                <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">After Measurement:
+                                    Classical Bit</h4>
                                 <p style="margin: 0;">You get a definite result: either 0 or 1</p>
-                                <p style="margin-top: 0.5rem; font-style: italic; color: var(--text-secondary);">The superposition is destroyed—you can't "unmeasure"!</p>
+                                <p style="margin-top: 0.5rem; font-style: italic; color: var(--text-secondary);">The
+                                    superposition is destroyed—you can't "unmeasure"!</p>
                             </div>
                         </div>
                     </div>
@@ -646,7 +778,8 @@
                     </ul>
                 </div>
 
-                <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(251, 191, 36, 0.05); border-left: 4px solid var(--color-amber); border-radius: 8px;">
+                <div
+                    style="margin: 2rem 0; padding: 1.5rem; background: rgba(251, 191, 36, 0.05); border-left: 4px solid var(--color-amber); border-radius: 8px;">
                     <h4 style="color: var(--color-amber); margin-bottom: 0.75rem;">⚠️ Key Facts About Measurement</h4>
                     <ul style="margin: 0;">
                         <li><strong>Measurement is destructive:</strong> It destroys the superposition</li>
@@ -656,23 +789,31 @@
                     </ul>
                 </div>
 
-                <p style="margin-top: 2rem;">This is why quantum computing is tricky! We need to design algorithms that extract useful information through measurements while carefully preserving superposition where we need it.</p>
+                <p style="margin-top: 2rem;">This is why quantum computing is tricky! We need to design algorithms that
+                    extract useful information through measurements while carefully preserving superposition where we
+                    need it.</p>
             </section>
 
             <!-- Learning Checkpoint -->
-            <div class="callout" style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
+            <div class="callout"
+                style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
                 <div class="callout-title">
                     <i data-lucide="check-circle" style="width:16px;height:16px"></i>
                     ✓ Learning Checkpoint
                 </div>
                 <p style="margin-bottom: 0.75rem;"><strong>Before moving on, can you:</strong></p>
                 <ul class="checklist" style="list-style: none; padding-left: 0;">
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain what superposition means in your own words?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Describe what happens when you measure a qubit?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain the difference between amplitude and probability?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Calculate |α|² given an amplitude α?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain what
+                        superposition means in your own words?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Describe what
+                        happens when you measure a qubit?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain the
+                        difference between amplitude and probability?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Calculate |α|²
+                        given an amplitude α?</li>
                 </ul>
-                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>If you checked all boxes, excellent! You've mastered the core concepts. If not, review the sections above.</em></p>
+                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>If you checked all boxes, excellent!
+                        You've mastered the core concepts. If not, review the sections above.</em></p>
             </div>
 
             <div class="callout" style="margin: 2rem 0;">
@@ -680,50 +821,71 @@
                     <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
                     What's Next: Quantum Gates
                 </div>
-                <p>You now understand superposition and measurement—the core concepts of quantum computing! But how do we <strong>create</strong> superposition? How do we <strong>manipulate</strong> qubits to perform computations?</p>
-                <p style="margin-top: 1rem;">That's where <strong>quantum gates</strong> come in! Quantum gates are operations that transform qubit states:</p>
+                <p>You now understand superposition and measurement—the core concepts of quantum computing! But how do
+                    we <strong>create</strong> superposition? How do we <strong>manipulate</strong> qubits to perform
+                    computations?</p>
+                <p style="margin-top: 1rem;">That's where <strong>quantum gates</strong> come in! Quantum gates are
+                    operations that transform qubit states:</p>
                 <ul style="margin-top: 0.5rem;">
                     <li><strong>X gate:</strong> Flips |0⟩ ↔ |1⟩ (like classical NOT)</li>
                     <li><strong>H gate:</strong> Creates and destroys superposition</li>
                     <li><strong>And many more...</strong></li>
                 </ul>
-                <p style="margin-top: 1rem; font-style: italic; color: var(--text-secondary);">Ready to start building quantum circuits? Let's learn the gates!</p>
+                <p style="margin-top: 1rem; font-style: italic; color: var(--text-secondary);">Ready to start building
+                    quantum circuits? Let's learn the gates!</p>
             </div>
 
             <!-- Quick Reference Card -->
             <section class="section" id="quick-reference">
                 <h2 class="section-title">📋 Quick Reference Card</h2>
-                <div style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
-                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">Qubits & Superposition Cheat Sheet</h3>
+                <div
+                    style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">Qubits & Superposition Cheat Sheet
+                    </h3>
 
                     <div style="display: grid; gap: 1.5rem;">
                         <div>
                             <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">Key Notation</h4>
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr style="background: var(--bg-secondary);">
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Notation</th>
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Pronunciation</th>
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Meaning</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Notation</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Pronunciation</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Meaning</th>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|0⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>|0⟩</strong></td>
                                     <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">ket zero</td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Definitely in state 0</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Definitely in
+                                        state 0</td>
                                 </tr>
                                 <tr style="background: var(--bg-secondary);">
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|1⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>|1⟩</strong></td>
                                     <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">ket one</td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Definitely in state 1</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Definitely in
+                                        state 1</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|+⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>|+⟩</strong></td>
                                     <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">ket plus</td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Equal superposition (50% each)</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Equal
+                                        superposition (50% each)</td>
                                 </tr>
                                 <tr style="background: var(--bg-secondary);">
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|ψ⟩</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">ket sigh (or psi)</td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">General quantum state</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>|ψ⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">ket sigh (or
+                                        psi)</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">General
+                                        quantum state</td>
                                 </tr>
                             </table>
                         </div>
@@ -732,26 +894,40 @@
                             <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">Amplitude vs Probability</h4>
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr style="background: var(--bg-secondary);">
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Concept</th>
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">What It Is</th>
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Key Property</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Concept</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        What It Is</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Key Property</th>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>Amplitude (α, β)</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Complex numbers</td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Describe the quantum state</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>Amplitude (α, β)</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Complex
+                                        numbers</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Describe the
+                                        quantum state</td>
                                 </tr>
                                 <tr style="background: var(--bg-secondary);">
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>Probability (|α|², |β|²)</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Real numbers (0-1)</td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">What you measure</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>Probability (|α|², |β|²)</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Real numbers
+                                        (0-1)</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">What you
+                                        measure</td>
                                 </tr>
                             </table>
                         </div>
 
                         <div>
-                            <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">General Superposition Formula</h4>
-                            <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px; font-family: 'Courier New', monospace; text-align: center; font-size: 1.125rem;">
+                            <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">General Superposition Formula
+                            </h4>
+                            <div
+                                style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px; font-family: 'Courier New', monospace; text-align: center; font-size: 1.125rem;">
                                 |ψ⟩ = α|0⟩ + β|1⟩
                             </div>
                             <p style="margin-top: 0.75rem; font-size: 0.9375rem;"><strong>Where:</strong></p>
@@ -763,8 +939,11 @@
                             </ul>
                         </div>
 
-                        <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-green);">
-                            <p style="margin: 0; font-size: 0.9375rem;"><strong>💡 Key Insight:</strong> Measurement <strong>collapses</strong> superposition to either |0⟩ or |1⟩. The probabilities are determined by the squared amplitudes (Born rule).</p>
+                        <div
+                            style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-green);">
+                            <p style="margin: 0; font-size: 0.9375rem;"><strong>💡 Key Insight:</strong> Measurement
+                                <strong>collapses</strong> superposition to either |0⟩ or |1⟩. The probabilities are
+                                determined by the squared amplitudes (Born rule).</p>
                         </div>
                     </div>
                 </div>
@@ -775,40 +954,52 @@
                 <h2 class="section-title">Glossary</h2>
                 <dl class="term-list">
                     <dt>Qubit</dt>
-                    <dd><strong>Pronunciation:</strong> KYOO-bit<br><strong>Definition:</strong> A quantum bit—the basic unit of quantum information that can be in superposition</dd>
+                    <dd><strong>Pronunciation:</strong> KYOO-bit<br><strong>Definition:</strong> A quantum bit—the basic
+                        unit of quantum information that can be in superposition</dd>
 
                     <dt>Superposition</dt>
-                    <dd><strong>Pronunciation:</strong> soo-per-puh-ZI-shun<br><strong>Definition:</strong> The ability of a quantum system to be in multiple states simultaneously</dd>
+                    <dd><strong>Pronunciation:</strong> soo-per-puh-ZI-shun<br><strong>Definition:</strong> The ability
+                        of a quantum system to be in multiple states simultaneously</dd>
 
                     <dt>Ket Notation</dt>
-                    <dd><strong>Pronunciation:</strong> ket<br><strong>Definition:</strong> A mathematical notation using |⟩ to represent quantum states (e.g., |0⟩, |1⟩, |+⟩)</dd>
+                    <dd><strong>Pronunciation:</strong> ket<br><strong>Definition:</strong> A mathematical notation
+                        using |⟩ to represent quantum states (e.g., |0⟩, |1⟩, |+⟩)</dd>
 
                     <dt>|0⟩</dt>
-                    <dd><strong>Pronunciation:</strong> ket zero<br><strong>Definition:</strong> The quantum state representing definitely 0</dd>
+                    <dd><strong>Pronunciation:</strong> ket zero<br><strong>Definition:</strong> The quantum state
+                        representing definitely 0</dd>
 
                     <dt>|1⟩</dt>
-                    <dd><strong>Pronunciation:</strong> ket one<br><strong>Definition:</strong> The quantum state representing definitely 1</dd>
+                    <dd><strong>Pronunciation:</strong> ket one<br><strong>Definition:</strong> The quantum state
+                        representing definitely 1</dd>
 
                     <dt>|+⟩</dt>
-                    <dd><strong>Pronunciation:</strong> ket plus<br><strong>Definition:</strong> Equal superposition state: 50% chance of measuring 0 or 1</dd>
+                    <dd><strong>Pronunciation:</strong> ket plus<br><strong>Definition:</strong> Equal superposition
+                        state: 50% chance of measuring 0 or 1</dd>
 
                     <dt>|ψ⟩</dt>
-                    <dd><strong>Pronunciation:</strong> ket sigh (or ket psi)<br><strong>Definition:</strong> Symbol for a general quantum state</dd>
+                    <dd><strong>Pronunciation:</strong> ket sigh (or ket psi)<br><strong>Definition:</strong> Symbol for
+                        a general quantum state</dd>
 
                     <dt>Amplitude</dt>
-                    <dd><strong>Pronunciation:</strong> AM-plih-tood<br><strong>Definition:</strong> A complex number (α or β) that determines the probability of measuring a state. The probability is |amplitude|²</dd>
+                    <dd><strong>Pronunciation:</strong> AM-plih-tood<br><strong>Definition:</strong> A complex number (α
+                        or β) that determines the probability of measuring a state. The probability is |amplitude|²</dd>
 
                     <dt>Measurement</dt>
-                    <dd><strong>Definition:</strong> The act of observing a qubit, which collapses superposition to either |0⟩ or |1⟩</dd>
+                    <dd><strong>Definition:</strong> The act of observing a qubit, which collapses superposition to
+                        either |0⟩ or |1⟩</dd>
 
                     <dt>Collapse</dt>
-                    <dd><strong>Definition:</strong> When measurement causes a superposition to become a definite state (|0⟩ or |1⟩)</dd>
+                    <dd><strong>Definition:</strong> When measurement causes a superposition to become a definite state
+                        (|0⟩ or |1⟩)</dd>
 
                     <dt>Born Rule</dt>
-                    <dd><strong>Definition:</strong> The probability of measuring a state is the squared magnitude of its amplitude: P = |α|²</dd>
+                    <dd><strong>Definition:</strong> The probability of measuring a state is the squared magnitude of
+                        its amplitude: P = |α|²</dd>
 
                     <dt>Normalization</dt>
-                    <dd><strong>Definition:</strong> The requirement that all probabilities sum to 1: |α|² + |β|² = 1</dd>
+                    <dd><strong>Definition:</strong> The requirement that all probabilities sum to 1: |α|² + |β|² = 1
+                    </dd>
                 </dl>
             </section>
 

@@ -20,62 +20,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-    <style>
-        /* White container for Q.js circuit (matching classical circuit style) */
-        .qjs-circuit {
-            background: #fff;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem auto;
-            width: fit-content;
-            max-width: 100%;
-        }
 
-        /* Hide the JavaScript console reference text */
-        .Q-circuit > p {
-            display: none !important;
-        }
-
-        /* Ensure proper z-index stacking for wires to be visible */
-        .Q-circuit-board-background {
-            z-index: 0;
-        }
-
-        .Q-circuit-board-foreground {
-            z-index: 1;
-        }
-
-        /* Fix stacking effect visibility */
-        .Q-circuit-palette {
-            position: relative;
-            isolation: isolate;
-        }
-
-        /* Remove scrollbars and center circuit */
-        .Q-circuit-board-container {
-            overflow: visible !important;
-            max-height: none !important;
-            display: flex !important;
-            justify-content: center !important;
-        }
-
-        /* Style results output */
-        #playground-report {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .qjs-circuit .truth-table {
-            margin: 2rem 0;
-        }
-
-        .qjs-circuit .truth-table pre {
-            margin: 0;
-            padding: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -83,7 +28,20 @@
 
     <header class="header">
         <div class="header-content">
-            <a href="../../../index.html" class="logo">quantumstuff</a>
+            <a href="../../../index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="#16a34a" stroke-width="4" />
+                    <ellipse cx="50" cy="50" rx="45" ry="15" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 4"
+                        fill="none" />
+                    <line x1="50" y1="95" x2="50" y2="5" stroke="#16a34a" stroke-width="3" />
+                    <polygon points="50,2 46,12 54,12" fill="#16a34a" />
+                    <line x1="50" y1="50" x2="75" y2="25" stroke="#f5b208" stroke-width="5" stroke-linecap="round" />
+                    <polygon points="78,22 68,22 78,32" fill="#f5b208" transform="rotate(-45 78 22)" />
+                </svg>
+                <span style="font-size: 18px; font-weight: 700; white-space: nowrap;">
+                    <span style="color: #16a34a;">Quantum</span> <span style="color: #f5b208;">Stuff</span>
+                </span>
+            </a>
             <div class="progress-track">
                 <div class="progress-step completed"></div>
                 <div class="progress-step completed"></div>
@@ -147,17 +105,24 @@
 
             <section class="section" id="special">
                 <h2 class="section-title">What Makes Hadamard Special?</h2>
-                <p>The <span class="term" data-tooltip="Creates equal superposition"><strong>Hadamard gate</strong></span> (H) is the <strong>most important gate in quantum computing</strong>. It creates
-                    <em>superposition</em>—the quintessentially quantum phenomenon that gives quantum computers their power.</p>
+                <p>The <span class="term" data-tooltip="Creates equal superposition"><strong>Hadamard
+                            gate</strong></span> (H) is the <strong>most important gate in quantum computing</strong>.
+                    It creates
+                    <em>superposition</em>—the quintessentially quantum phenomenon that gives quantum computers their
+                    power.
+                </p>
 
                 <div class="callout">
                     <div class="callout-title">
                         <i data-lucide="zap" style="width:16px;height:16px"></i>
                         Key Concept: Creating Equal Superposition
                     </div>
-                    <p>When you apply H to |0⟩, it creates an equal superposition: 50% chance of measuring 0, 50% chance of measuring 1.</p>
-                    <p>When you apply H to |1⟩, it also creates an equal superposition: 50% chance of measuring 0, 50% chance of measuring 1.</p>
-                    <p style="margin-top: 1rem; color: var(--text-secondary); font-style: italic;">They look the same when you measure them... but are they really the same? 🤔</p>
+                    <p>When you apply H to |0⟩, it creates an equal superposition: 50% chance of measuring 0, 50% chance
+                        of measuring 1.</p>
+                    <p>When you apply H to |1⟩, it also creates an equal superposition: 50% chance of measuring 0, 50%
+                        chance of measuring 1.</p>
+                    <p style="margin-top: 1rem; color: var(--text-secondary); font-style: italic;">They look the same
+                        when you measure them... but are they really the same? 🤔</p>
                 </div>
 
                 <div class="demo">
@@ -166,7 +131,8 @@
                         <span class="demo-title">Interactive: H Gate Creates Superposition</span>
                     </div>
                     <div class="demo-content">
-                        <p style="margin-bottom: 1rem;">Try applying H to |0⟩ or |1⟩. Drag an H gate onto the circuit and run it. Notice both give 50/50 results!</p>
+                        <p style="margin-bottom: 1rem;">Try applying H to |0⟩ or |1⟩. Drag an H gate onto the circuit
+                            and run it. Notice both give 50/50 results!</p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
                             <div id="h-superposition"></div>
@@ -181,7 +147,8 @@
 
             <section class="section" id="mystery">
                 <h2 class="section-title">The Mystery Revealed: They're Different!</h2>
-                <p>Both H|0⟩ and H|1⟩ give 50/50 measurement results. They seem identical. But here's the test: <strong>what happens if we apply H again?</strong></p>
+                <p>Both H|0⟩ and H|1⟩ give 50/50 measurement results. They seem identical. But here's the test:
+                    <strong>what happens if we apply H again?</strong></p>
 
                 <div class="demo">
                     <div class="demo-header">
@@ -191,12 +158,18 @@
                     <div class="demo-content">
                         <p style="margin-bottom: 1rem;">Try these experiments:</p>
                         <ul style="margin-bottom: 1rem;">
-                            <li><strong>Start with |0⟩:</strong> Apply H, then H again → You get back to |0⟩ (100% probability)</li>
-                            <li><strong>Start with |1⟩:</strong> Apply H, then H again → You get back to |1⟩ (100% probability)</li>
+                            <li><strong>Start with |0⟩:</strong> Apply H, then H again → You get back to |0⟩ (100%
+                                probability)</li>
+                            <li><strong>Start with |1⟩:</strong> Apply H, then H again → You get back to |1⟩ (100%
+                                probability)</li>
                         </ul>
-                        <p style="margin-bottom: 1rem; color: var(--text-secondary);">If H|0⟩ and H|1⟩ were truly the same, they should both return to the same state. But they don't! This proves they're secretly different.</p>
-                        <p style="margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-primary); border-left: 3px solid var(--color-green); border-radius: 4px;">
-                            <strong>💡 Tip:</strong> Click the input qubit value (the number on the left) to toggle between |0⟩ and |1⟩ initial states. Watch how the results change!
+                        <p style="margin-bottom: 1rem; color: var(--text-secondary);">If H|0⟩ and H|1⟩ were truly the
+                            same, they should both return to the same state. But they don't! This proves they're
+                            secretly different.</p>
+                        <p
+                            style="margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-primary); border-left: 3px solid var(--color-green); border-radius: 4px;">
+                            <strong>💡 Tip:</strong> Click the input qubit value (the number on the left) to toggle
+                            between |0⟩ and |1⟩ initial states. Watch how the results change!
                         </p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
@@ -214,49 +187,66 @@
                         <i data-lucide="lightbulb" style="width:16px;height:16px"></i>
                         The Key Insight
                     </div>
-                    <p>Measuring H|0⟩ and H|1⟩ gives the same probabilities (50/50). But they're <strong>different superpositions</strong>!</p>
-                    <p style="margin-top: 0.5rem;">The difference? Something called <span class="term" data-tooltip="Sign/angle of quantum amplitude"><strong>phase</strong></span>. It's invisible to measurements alone, but it affects how quantum states interfere with each other.</p>
+                    <p>Measuring H|0⟩ and H|1⟩ gives the same probabilities (50/50). But they're <strong>different
+                            superpositions</strong>!</p>
+                    <p style="margin-top: 0.5rem;">The difference? Something called <span class="term"
+                            data-tooltip="Sign/angle of quantum amplitude"><strong>phase</strong></span>. It's invisible
+                        to measurements alone, but it affects how quantum states interfere with each other.</p>
                 </div>
             </section>
 
             <section class="section" id="phase">
                 <h2 class="section-title">Understanding Phase: The Wave Analogy</h2>
-                <p>Think of quantum states like waves. Two waves can have the same height (amplitude) but start at different points in their cycle—this is what we call <strong>phase</strong>.</p>
+                <p>Think of quantum states like waves. Two waves can have the same height (amplitude) but start at
+                    different points in their cycle—this is what we call <strong>phase</strong>.</p>
 
-                <div style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border: 2px solid var(--color-green);">
-                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem; text-align: center;">Wave Phase Visualization</h3>
+                <div
+                    style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border: 2px solid var(--color-green);">
+                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem; text-align: center;">Wave Phase
+                        Visualization</h3>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
                         <!-- Wave in phase -->
                         <div style="text-align: center;">
                             <h4 style="color: var(--color-green); margin-bottom: 1rem;">Wave 1: "Positive Phase"</h4>
-                            <svg width="200" height="100" viewBox="0 0 200 100" style="background: white; border-radius: 8px;">
-                                <line x1="0" y1="50" x2="200" y2="50" stroke="#ddd" stroke-width="1"/>
-                                <path d="M 0 50 Q 25 10, 50 50 T 100 50 T 150 50 T 200 50" stroke="var(--color-green)" stroke-width="3" fill="none"/>
+                            <svg width="200" height="100" viewBox="0 0 200 100"
+                                style="background: white; border-radius: 8px;">
+                                <line x1="0" y1="50" x2="200" y2="50" stroke="#ddd" stroke-width="1" />
+                                <path d="M 0 50 Q 25 10, 50 50 T 100 50 T 150 50 T 200 50" stroke="var(--color-green)"
+                                    stroke-width="3" fill="none" />
                             </svg>
-                            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem;">Starts going UP</p>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem;">Starts
+                                going UP</p>
                         </div>
 
                         <!-- Wave out of phase -->
                         <div style="text-align: center;">
                             <h4 style="color: var(--color-amber); margin-bottom: 1rem;">Wave 2: "Negative Phase"</h4>
-                            <svg width="200" height="100" viewBox="0 0 200 100" style="background: white; border-radius: 8px;">
-                                <line x1="0" y1="50" x2="200" y2="50" stroke="#ddd" stroke-width="1"/>
-                                <path d="M 0 50 Q 25 90, 50 50 T 100 50 T 150 50 T 200 50" stroke="var(--color-amber)" stroke-width="3" fill="none"/>
+                            <svg width="200" height="100" viewBox="0 0 200 100"
+                                style="background: white; border-radius: 8px;">
+                                <line x1="0" y1="50" x2="200" y2="50" stroke="#ddd" stroke-width="1" />
+                                <path d="M 0 50 Q 25 90, 50 50 T 100 50 T 150 50 T 200 50" stroke="var(--color-amber)"
+                                    stroke-width="3" fill="none" />
                             </svg>
-                            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem;">Starts going DOWN</p>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.875rem;">Starts
+                                going DOWN</p>
                         </div>
                     </div>
 
                     <div style="background: rgba(22, 163, 74, 0.05); padding: 1.5rem; border-radius: 12px;">
-                        <h4 style="color: var(--color-green); margin-bottom: 1rem;">What happens when we combine them?</h4>
+                        <h4 style="color: var(--color-green); margin-bottom: 1rem;">What happens when we combine them?
+                        </h4>
                         <div style="text-align: center; margin-top: 1rem;">
-                            <svg width="200" height="100" viewBox="0 0 200 100" style="background: white; border-radius: 8px; display: inline-block;">
-                                <line x1="0" y1="50" x2="200" y2="50" stroke="#ddd" stroke-width="1"/>
-                                <line x1="100" y1="0" x2="100" y2="100" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                            <svg width="200" height="100" viewBox="0 0 200 100"
+                                style="background: white; border-radius: 8px; display: inline-block;">
+                                <line x1="0" y1="50" x2="200" y2="50" stroke="#ddd" stroke-width="1" />
+                                <line x1="100" y1="0" x2="100" y2="100" stroke="#ddd" stroke-width="1"
+                                    stroke-dasharray="5,5" />
                                 <text x="105" y="45" fill="#666" font-size="12">They cancel!</text>
                             </svg>
-                            <p style="margin-top: 1rem; color: var(--text-secondary);">When waves with opposite phases meet, they <strong>cancel each other out</strong>. This is called <strong>destructive interference</strong>.</p>
+                            <p style="margin-top: 1rem; color: var(--text-secondary);">When waves with opposite phases
+                                meet, they <strong>cancel each other out</strong>. This is called <strong>destructive
+                                    interference</strong>.</p>
                         </div>
                     </div>
                 </div>
@@ -266,12 +256,19 @@
                         <i data-lucide="zap" style="width:16px;height:16px"></i>
                         Phase in Quantum Computing
                     </div>
-                    <p>H|0⟩ creates a superposition where both |0⟩ and |1⟩ components have <strong>positive phase</strong>. We call this state <span class="term" data-tooltip="Superposition: (|0⟩+|1⟩)/√2"><strong>|+⟩</strong></span>.</p>
-                    <p>H|1⟩ creates a superposition where |0⟩ has positive phase but |1⟩ has <strong>negative phase</strong>. We call this state <span class="term" data-tooltip="Superposition: (|0⟩−|1⟩)/√2"><strong>|−⟩</strong></span> (pronounced "ket minus").</p>
+                    <p>H|0⟩ creates a superposition where both |0⟩ and |1⟩ components have <strong>positive
+                            phase</strong>. We call this state <span class="term"
+                            data-tooltip="Superposition: (|0⟩+|1⟩)/√2"><strong>|+⟩</strong></span>.</p>
+                    <p>H|1⟩ creates a superposition where |0⟩ has positive phase but |1⟩ has <strong>negative
+                            phase</strong>. We call this state <span class="term"
+                            data-tooltip="Superposition: (|0⟩−|1⟩)/√2"><strong>|−⟩</strong></span> (pronounced "ket
+                        minus").</p>
                     <p style="margin-top: 1rem;">When we apply H again:</p>
                     <ul style="margin-top: 0.5rem;">
                         <li>For |+⟩: The phases align perfectly and we get back |0⟩</li>
-                        <li>For |−⟩: The phases cause <span class="term" data-tooltip="Amplitudes combining to amplify/cancel">interference</span> and we get back |1⟩</li>
+                        <li>For |−⟩: The phases cause <span class="term"
+                                data-tooltip="Amplitudes combining to amplify/cancel">interference</span> and we get
+                            back |1⟩</li>
                     </ul>
                 </div>
 
@@ -279,30 +276,36 @@
                     <summary>🔬 For Advanced Learners: The Mathematics of Phase</summary>
                     <div class="advanced-content">
                         <p>Mathematically, the Hadamard gate creates these states:</p>
-                        <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace;">
+                        <div
+                            style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace;">
                             H|0⟩ = |+⟩ = (1/√2)|0⟩ + (1/√2)|1⟩<br>
                             H|1⟩ = |−⟩ = (1/√2)|0⟩ − (1/√2)|1⟩
                         </div>
-                        <p>The <strong>minus sign</strong> in |−⟩ represents the negative phase on the |1⟩ component. Both states have:</p>
+                        <p>The <strong>minus sign</strong> in |−⟩ represents the negative phase on the |1⟩ component.
+                            Both states have:</p>
                         <ul>
                             <li><strong>Same amplitudes:</strong> 1/√2 for both |0⟩ and |1⟩</li>
                             <li><strong>Different phases:</strong> The sign difference creates opposite phases</li>
                             <li><strong>Same measurement probabilities:</strong> |1/√2|² = 1/2 = 50% for both</li>
                         </ul>
-                        <p style="margin-top: 1rem;">Phase matters for <strong>interference</strong>—when quantum operations combine amplitudes, the signs can add constructively or cancel destructively. This is the key to quantum algorithms!</p>
+                        <p style="margin-top: 1rem;">Phase matters for <strong>interference</strong>—when quantum
+                            operations combine amplitudes, the signs can add constructively or cancel destructively.
+                            This is the key to quantum algorithms!</p>
                     </div>
                 </details>
             </section>
 
             <section class="section" id="bloch">
                 <h2 class="section-title">Visualizing H on the Bloch Sphere</h2>
-                <p>The Bloch sphere is a beautiful 3D representation of single-qubit states. Think of it as a globe where every point represents a different quantum state:</p>
+                <p>The Bloch sphere is a beautiful 3D representation of single-qubit states. Think of it as a globe
+                    where every point represents a different quantum state:</p>
                 <ul style="margin: 1rem 0;">
                     <li><strong>North pole:</strong> |0⟩ (definitely zero)</li>
                     <li><strong>South pole:</strong> |1⟩ (definitely one)</li>
                     <li><strong>Equator:</strong> Superposition states like |+⟩ and |−⟩</li>
                 </ul>
-                <p>The Hadamard gate rotates the qubit on the Bloch sphere. Watch how H moves |0⟩ from the north pole to the equator, creating the |+⟩ state!</p>
+                <p>The Hadamard gate rotates the qubit on the Bloch sphere. Watch how H moves |0⟩ from the north pole to
+                    the equator, creating the |+⟩ state!</p>
 
                 <div class="demo">
                     <div class="demo-header">
@@ -318,8 +321,13 @@
                 <details class="advanced-section type-connections">
                     <summary>🎯 For Advanced Learners: Explore Any Quantum State</summary>
                     <div class="advanced-content">
-                        <p>Use the interactive sliders below to explore how the Hadamard gate affects any quantum state on the Bloch sphere. You can adjust the θ (theta) and φ (phi) angles to create any single-qubit state.</p>
-                        <p style="margin-top: 0.5rem; color: var(--text-secondary);"><strong>Technical details:</strong> The Bloch sphere uses spherical coordinates where θ represents the angle from the north pole (related to the probability of measuring 0 vs 1), and φ represents the phase angle around the equator.</p>
+                        <p>Use the interactive sliders below to explore how the Hadamard gate affects any quantum state
+                            on the Bloch sphere. You can adjust the θ (theta) and φ (phi) angles to create any
+                            single-qubit state.</p>
+                        <p style="margin-top: 0.5rem; color: var(--text-secondary);"><strong>Technical details:</strong>
+                            The Bloch sphere uses spherical coordinates where θ represents the angle from the north pole
+                            (related to the probability of measuring 0 vs 1), and φ represents the phase angle around
+                            the equator.</p>
                         <iframe src="../visualizations/bloch-viz-sliders.html"
                             style="width:100%;height:550px;border:none;border-radius:8px;background:white;margin-top:1rem;"></iframe>
                     </div>
@@ -335,7 +343,8 @@
                         <span class="demo-title">Experiment: H and X Combinations</span>
                     </div>
                     <div class="demo-content">
-                        <p style="margin-bottom: 1rem;">Try different combinations: H, X→H, H→X, or H→X→H. See how the order matters!</p>
+                        <p style="margin-bottom: 1rem;">Try different combinations: H, X→H, H→X, or H→X→H. See how the
+                            order matters!</p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
                             <div id="hx-combinations"></div>
@@ -350,24 +359,31 @@
 
             <section class="section" id="z-gate">
                 <h2 class="section-title">The Z Gate: Phase Flip</h2>
-                <p>You've learned two important gates: <strong>X</strong> (bit flip) and <strong>H</strong> (creates superposition). Now meet the third fundamental gate: <span class="term" data-tooltip="Phase flip gate"><strong>Z</strong></span> (phase flip)!</p>
+                <p>You've learned two important gates: <strong>X</strong> (bit flip) and <strong>H</strong> (creates
+                    superposition). Now meet the third fundamental gate: <span class="term"
+                        data-tooltip="Phase flip gate"><strong>Z</strong></span> (phase flip)!</p>
 
-                <div style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border: 2px solid #b45309;">
+                <div
+                    style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border: 2px solid #b45309;">
                     <h3 style="color: #b45309; margin-bottom: 1.5rem; text-align: center;">How Z Gate Works</h3>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
-                        <div style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border-radius: 12px;">
+                        <div
+                            style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border-radius: 12px;">
                             <div style="font-size: 3rem; margin-bottom: 1rem;">|0⟩</div>
                             <div style="font-size: 2rem; color: #b45309; margin: 1rem 0;">↓ Z</div>
                             <div style="font-size: 3rem; margin-bottom: 1rem;">|0⟩</div>
-                            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9375rem;">Z leaves |0⟩ unchanged</p>
+                            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9375rem;">Z leaves |0⟩
+                                unchanged</p>
                         </div>
 
-                        <div style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border-radius: 12px;">
+                        <div
+                            style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border-radius: 12px;">
                             <div style="font-size: 3rem; margin-bottom: 1rem;">|1⟩</div>
                             <div style="font-size: 2rem; color: #b45309; margin: 1rem 0;">↓ Z</div>
                             <div style="font-size: 3rem; margin-bottom: 1rem;">−|1⟩</div>
-                            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9375rem;">Z adds a minus sign to |1⟩</p>
+                            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9375rem;">Z adds a minus
+                                sign to |1⟩</p>
                         </div>
                     </div>
 
@@ -385,23 +401,32 @@
                         <i data-lucide="lightbulb" style="width:16px;height:16px"></i>
                         Why Does the Minus Sign Matter?
                     </div>
-                    <p>The minus sign changes the <strong>phase</strong> of the quantum state. While it doesn't affect measurement probabilities directly, it's crucial for <strong>interference</strong>!</p>
-                    <p style="margin-top: 1rem;">Remember from earlier how phases can cancel out (destructive interference)? The Z gate is how we flip phases to create those cancellation effects in quantum algorithms.</p>
+                    <p>The minus sign changes the <strong>phase</strong> of the quantum state. While it doesn't affect
+                        measurement probabilities directly, it's crucial for <strong>interference</strong>!</p>
+                    <p style="margin-top: 1rem;">Remember from earlier how phases can cancel out (destructive
+                        interference)? The Z gate is how we flip phases to create those cancellation effects in quantum
+                        algorithms.</p>
                 </div>
 
-                <div style="margin: 2rem 0; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; border: 2px solid var(--color-green);">
+                <div
+                    style="margin: 2rem 0; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; border: 2px solid var(--color-green);">
                     <h4 style="color: var(--color-green); margin-bottom: 1rem;">The Complete Pauli Gate Set</h4>
-                    <p>Together, X, Y, and Z form the <strong>Pauli gates</strong>—the fundamental building blocks of quantum computing:</p>
+                    <p>Together, X, Y, and Z form the <strong>Pauli gates</strong>—the fundamental building blocks of
+                        quantum computing:</p>
                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1rem;">
-                        <div style="text-align: center; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                        <div
+                            style="text-align: center; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">X</div>
                             <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Bit flip</p>
                         </div>
-                        <div style="text-align: center; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                        <div
+                            style="text-align: center; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">Y</div>
-                            <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Bit + phase flip</p>
+                            <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Bit + phase flip
+                            </p>
                         </div>
-                        <div style="text-align: center; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                        <div
+                            style="text-align: center; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">Z</div>
                             <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Phase flip</p>
                         </div>
@@ -414,11 +439,13 @@
                     <i data-lucide="book-open" style="width:16px;height:16px"></i>
                     Why Complex Numbers in Quantum Computing?
                 </div>
-                <p>You might have noticed we use complex numbers (like 1/√2 and −1) in quantum states. But why can't we just use regular (real) numbers?</p>
+                <p>You might have noticed we use complex numbers (like 1/√2 and −1) in quantum states. But why can't we
+                    just use regular (real) numbers?</p>
                 <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
                     <p style="margin: 0;"><strong>Real numbers aren't enough because:</strong></p>
                     <ul style="margin-top: 0.5rem;">
-                        <li>We need to represent both <strong>magnitude</strong> (how much) and <strong>direction</strong> (phase)</li>
+                        <li>We need to represent both <strong>magnitude</strong> (how much) and
+                            <strong>direction</strong> (phase)</li>
                         <li>Real numbers can only be positive or negative—one dimension</li>
                         <li>Complex numbers give us two dimensions: real and imaginary parts</li>
                     </ul>
@@ -428,7 +455,9 @@
                     <li><strong>Real number:</strong> "5 meters away" (distance, but which direction?)</li>
                     <li><strong>Complex number:</strong> "3 meters east, 4 meters north" (distance AND direction!)</li>
                 </ul>
-                <p style="margin-top: 1rem;">Phase is like the quantum "direction"—it determines how quantum states interfere with each other. Without complex numbers, we couldn't represent phase, and quantum computing wouldn't work!</p>
+                <p style="margin-top: 1rem;">Phase is like the quantum "direction"—it determines how quantum states
+                    interfere with each other. Without complex numbers, we couldn't represent phase, and quantum
+                    computing wouldn't work!</p>
             </div>
 
             <div class="callout" style="margin: 2rem 0;">
@@ -436,28 +465,35 @@
                     <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
                     What's Next: Multiple Qubits
                 </div>
-                <p>You've mastered single-qubit gates (X, H, Z) and understand phase! But a single qubit can only store one piece of quantum information. The real power of quantum computing emerges when we use <strong>multiple qubits</strong> together.</p>
+                <p>You've mastered single-qubit gates (X, H, Z) and understand phase! But a single qubit can only store
+                    one piece of quantum information. The real power of quantum computing emerges when we use
+                    <strong>multiple qubits</strong> together.</p>
                 <p style="margin-top: 1rem;"><strong>What you'll discover next:</strong></p>
                 <ul style="margin-top: 0.5rem;">
                     <li>How 2 qubits create 4 possible states</li>
                     <li>Why 300 qubits would have more states than atoms in the universe!</li>
                     <li>How to represent and manipulate multi-qubit systems</li>
                 </ul>
-                <p style="margin-top: 1rem; font-style: italic; color: var(--text-secondary);">Ready to scale up? Let's explore the exponential world of multiple qubits!</p>
+                <p style="margin-top: 1rem; font-style: italic; color: var(--text-secondary);">Ready to scale up? Let's
+                    explore the exponential world of multiple qubits!</p>
             </div>
 
             <section class="section" id="playground-section">
                 <h2 class="section-title">Interactive Circuit Playground</h2>
-                <p>Want to build and experiment with your own quantum circuits? Check out our dedicated Circuit Playground!</p>
+                <p>Want to build and experiment with your own quantum circuits? Check out our dedicated Circuit
+                    Playground!</p>
 
-                <div class="callout" style="background: var(--bg-highlight); border-left: 4px solid var(--color-green);">
+                <div class="callout"
+                    style="background: var(--bg-highlight); border-left: 4px solid var(--color-green);">
                     <div class="callout-title">
                         <i data-lucide="external-link" style="width:16px;height:16px"></i>
                         Circuit Playground
                     </div>
                     <div class="callout-content">
-                        <p>Use the interactive quantum circuit builder to create and test your own circuits with drag-and-drop gates.</p>
-                        <a href="../../../interactive/quantum-circuit-playground.html" style="display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; padding: 0.75rem 1.25rem; background: var(--color-green); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s;">
+                        <p>Use the interactive quantum circuit builder to create and test your own circuits with
+                            drag-and-drop gates.</p>
+                        <a href="../../../interactive/quantum-circuit-playground.html"
+                            style="display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; padding: 0.75rem 1.25rem; background: var(--color-green); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s;">
                             Open Circuit Playground
                             <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
                         </a>
@@ -466,19 +502,25 @@
             </section>
 
             <!-- Learning Checkpoint -->
-            <div class="callout" style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
+            <div class="callout"
+                style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
                 <div class="callout-title">
                     <i data-lucide="check-circle" style="width:16px;height:16px"></i>
                     ✓ Learning Checkpoint
                 </div>
                 <p style="margin-bottom: 0.75rem;"><strong>Before moving on, can you:</strong></p>
                 <ul class="checklist" style="list-style: none; padding-left: 0;">
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain what the H gate creates?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Understand why H·H = I (two H gates cancel)?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Describe what phase means and why it matters?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Name all three Pauli gates (X, Y, Z)?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain what the
+                        H gate creates?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Understand why
+                        H·H = I (two H gates cancel)?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Describe what
+                        phase means and why it matters?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Name all three
+                        Pauli gates (X, Y, Z)?</li>
                 </ul>
-                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>If you checked all boxes, you've mastered the gates! If not, review above.</em></p>
+                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>If you checked all boxes, you've
+                        mastered the gates! If not, review above.</em></p>
             </div>
 
             <!-- Misconception Box -->
@@ -487,39 +529,56 @@
                     <i data-lucide="alert-triangle" style="width:16px;height:16px"></i>
                     Common Misconception
                 </div>
-                <p style="margin: 0.5rem 0;"><strong>❌ Wrong:</strong> "Phase doesn't matter since |+⟩ and |−⟩ both measure 50/50"</p>
-                <p style="margin: 0.5rem 0;"><strong>✓ Correct:</strong> Phase IS crucial! It determines interference patterns. Watch: H(|+⟩) = |0⟩ but H(|−⟩) = |1⟩. Same probabilities, different outcomes after gates!</p>
+                <p style="margin: 0.5rem 0;"><strong>❌ Wrong:</strong> "Phase doesn't matter since |+⟩ and |−⟩ both
+                    measure 50/50"</p>
+                <p style="margin: 0.5rem 0;"><strong>✓ Correct:</strong> Phase IS crucial! It determines interference
+                    patterns. Watch: H(|+⟩) = |0⟩ but H(|−⟩) = |1⟩. Same probabilities, different outcomes after gates!
+                </p>
             </div>
 
             <!-- Quick Reference Card -->
             <section class="section" id="quick-reference">
                 <h2 class="section-title">📋 Quick Reference Card</h2>
-                <div style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
-                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">Hadamard & Pauli Gates Cheat Sheet</h3>
+                <div
+                    style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">Hadamard & Pauli Gates Cheat Sheet
+                    </h3>
 
                     <div style="display: grid; gap: 1.5rem;">
                         <div>
                             <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">Essential Gate Operations</h4>
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr style="background: var(--bg-secondary);">
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Gate</th>
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">H|0⟩ =</th>
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Function</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Gate</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        H|0⟩ =</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Function</th>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>H (Hadamard)</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>H
+                                            (Hadamard)</strong></td>
                                     <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|+⟩</td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Creates/destroys superposition</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        Creates/destroys superposition</td>
                                 </tr>
                                 <tr style="background: var(--bg-secondary);">
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>X (Bit flip)</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>X (Bit
+                                            flip)</strong></td>
                                     <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|1⟩</td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Flips |0⟩ ↔ |1⟩</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Flips |0⟩ ↔
+                                        |1⟩</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>Z (Phase flip)</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>Z
+                                            (Phase flip)</strong></td>
                                     <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">|0⟩</td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Adds − to |1⟩ component</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Adds − to |1⟩
+                                        component</td>
                                 </tr>
                             </table>
                         </div>
@@ -528,26 +587,39 @@
                             <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">Important Identities</h4>
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr style="background: var(--bg-secondary);">
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Identity</th>
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Meaning</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Identity</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Meaning</th>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>H·H = I</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Two H gates cancel out</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>H·H =
+                                            I</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Two H gates
+                                        cancel out</td>
                                 </tr>
                                 <tr style="background: var(--bg-secondary);">
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>X·X = I</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Two X gates cancel out</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>X·X =
+                                            I</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Two X gates
+                                        cancel out</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>Z·Z = I</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Two Z gates cancel out</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>Z·Z =
+                                            I</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Two Z gates
+                                        cancel out</td>
                                 </tr>
                             </table>
                         </div>
 
-                        <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-green);">
-                            <p style="margin: 0; font-size: 0.9375rem;"><strong>💡 Key Insight:</strong> H creates superposition, X flips bits, Z flips phase. Together (X, Y, Z) form the Pauli gates—the fundamental building blocks!</p>
+                        <div
+                            style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-green);">
+                            <p style="margin: 0; font-size: 0.9375rem;"><strong>💡 Key Insight:</strong> H creates
+                                superposition, X flips bits, Z flips phase. Together (X, Y, Z) form the Pauli gates—the
+                                fundamental building blocks!</p>
                         </div>
                     </div>
                 </div>
@@ -558,34 +630,43 @@
                 <h2 class="section-title">Glossary</h2>
                 <dl class="term-list">
                     <dt>Hadamard Gate (H)</dt>
-                    <dd><strong>Pronunciation:</strong> HAD-uh-mard<br><strong>Definition:</strong> The most important quantum gate—creates and destroys equal superposition</dd>
+                    <dd><strong>Pronunciation:</strong> HAD-uh-mard<br><strong>Definition:</strong> The most important
+                        quantum gate—creates and destroys equal superposition</dd>
 
                     <dt>Phase</dt>
-                    <dd><strong>Definition:</strong> The "direction" of a quantum amplitude in complex space, determines interference patterns</dd>
+                    <dd><strong>Definition:</strong> The "direction" of a quantum amplitude in complex space, determines
+                        interference patterns</dd>
 
                     <dt>|+⟩</dt>
-                    <dd><strong>Pronunciation:</strong> ket plus<br><strong>Definition:</strong> Equal superposition with positive phase: (|0⟩ + |1⟩)/√2</dd>
+                    <dd><strong>Pronunciation:</strong> ket plus<br><strong>Definition:</strong> Equal superposition
+                        with positive phase: (|0⟩ + |1⟩)/√2</dd>
 
                     <dt>|−⟩</dt>
-                    <dd><strong>Pronunciation:</strong> ket minus<br><strong>Definition:</strong> Equal superposition with negative phase: (|0⟩ - |1⟩)/√2</dd>
+                    <dd><strong>Pronunciation:</strong> ket minus<br><strong>Definition:</strong> Equal superposition
+                        with negative phase: (|0⟩ - |1⟩)/√2</dd>
 
                     <dt>Interference</dt>
-                    <dd><strong>Definition:</strong> When quantum amplitudes combine, phases can add (constructive) or cancel (destructive)</dd>
+                    <dd><strong>Definition:</strong> When quantum amplitudes combine, phases can add (constructive) or
+                        cancel (destructive)</dd>
 
                     <dt>X Gate (Pauli X)</dt>
                     <dd><strong>Definition:</strong> Bit flip gate: swaps |0⟩ ↔ |1⟩</dd>
 
                     <dt>Z Gate (Pauli Z)</dt>
-                    <dd><strong>Pronunciation:</strong> Z gate or zee gate<br><strong>Definition:</strong> Phase flip gate: adds minus sign to |1⟩ component</dd>
+                    <dd><strong>Pronunciation:</strong> Z gate or zee gate<br><strong>Definition:</strong> Phase flip
+                        gate: adds minus sign to |1⟩ component</dd>
 
                     <dt>Pauli Gates</dt>
-                    <dd><strong>Definition:</strong> The three fundamental single-qubit gates: X (bit flip), Y (bit+phase flip), Z (phase flip)</dd>
+                    <dd><strong>Definition:</strong> The three fundamental single-qubit gates: X (bit flip), Y
+                        (bit+phase flip), Z (phase flip)</dd>
 
                     <dt>Bloch Sphere</dt>
-                    <dd><strong>Pronunciation:</strong> BLOCK<br><strong>Definition:</strong> A 3D sphere visualization of all possible single-qubit states</dd>
+                    <dd><strong>Pronunciation:</strong> BLOCK<br><strong>Definition:</strong> A 3D sphere visualization
+                        of all possible single-qubit states</dd>
 
                     <dt>Complex Numbers</dt>
-                    <dd><strong>Definition:</strong> Numbers with real and imaginary parts (a + bi), needed to represent quantum phase</dd>
+                    <dd><strong>Definition:</strong> Numbers with real and imaginary parts (a + bi), needed to represent
+                        quantum phase</dd>
                 </dl>
             </section>
 
@@ -694,45 +775,45 @@
     <script>
         // Create gate palettes (EXACT copy from playground.html)
         Array
-        .from( document.querySelectorAll( '.Q-circuit-palette' ))
-        .forEach( function( el ){
-            Q.Circuit.Editor.createPalette( el )
-        })
+            .from(document.querySelectorAll('.Q-circuit-palette'))
+            .forEach(function (el) {
+                Q.Circuit.Editor.createPalette(el)
+            })
 
         // Initialize circuits on page load
-        window.addEventListener( 'DOMContentLoaded', function(){
+        window.addEventListener('DOMContentLoaded', function () {
             // H superposition circuit (1 qubit, 7 moments)
-            const hCircuit = new Q.Circuit( 1, 7 )
+            const hCircuit = new Q.Circuit(1, 7)
             hCircuit.name = 'h-superposition'
-            const hDomEl = document.getElementById( 'h-superposition' )
-            if( hDomEl ){
+            const hDomEl = document.getElementById('h-superposition')
+            if (hDomEl) {
                 hCircuit.sort$()
-                hCircuit.toDom( hDomEl )
+                hCircuit.toDom(hDomEl)
                 hCircuit.evaluate$()
             }
 
             // H-H identity circuit (1 qubit, 7 moments)
-            const hhCircuit = new Q.Circuit( 1, 7 )
+            const hhCircuit = new Q.Circuit(1, 7)
             hhCircuit.name = 'hh-identity'
-            const hhDomEl = document.getElementById( 'hh-identity' )
-            if( hhDomEl ){
+            const hhDomEl = document.getElementById('hh-identity')
+            if (hhDomEl) {
                 hhCircuit.sort$()
-                hhCircuit.toDom( hhDomEl )
+                hhCircuit.toDom(hhDomEl)
                 hhCircuit.evaluate$()
 
                 // Make input qubit clickable to toggle between |0⟩ and |1⟩
                 const inputEl = hhDomEl.querySelector('.Q-circuit-input')
-                if( inputEl ){
+                if (inputEl) {
                     inputEl.style.cursor = 'pointer'
                     inputEl.style.userSelect = 'none'
                     inputEl.setAttribute('title', 'Qubit #0 starting value (click to toggle between |0⟩ and |1⟩)')
 
-                    inputEl.addEventListener('click', function(){
+                    inputEl.addEventListener('click', function () {
                         // Toggle between |0⟩ and |1⟩
                         // Q.js now properly reads initial state from circuit.qubits
                         const currentBeta = hhCircuit.qubits[0].beta.real
 
-                        if( Math.abs(currentBeta) < 0.5 ){
+                        if (Math.abs(currentBeta) < 0.5) {
                             // Currently |0⟩, switch to |1⟩
                             hhCircuit.qubits[0] = new Q.Qubit(0, 1, 'V', 'Vertical')
                         } else {
@@ -743,12 +824,12 @@
                         hhCircuit.evaluate$()
 
                         const currentInputEl = hhDomEl.querySelector('.Q-circuit-input')
-                        if( currentInputEl ){
+                        if (currentInputEl) {
                             currentInputEl.innerText = hhCircuit.qubits[0].beta.toText()
                         }
 
                         const reportEl = document.getElementById('hh-identity-report')
-                        if( reportEl ) {
+                        if (reportEl) {
                             reportEl.innerText = hhCircuit.report$()
                         }
                     })
@@ -756,12 +837,12 @@
             }
 
             // H and X combinations circuit (1 qubit, 7 moments)
-            const hxCircuit = new Q.Circuit( 1, 7 )
+            const hxCircuit = new Q.Circuit(1, 7)
             hxCircuit.name = 'hx-combinations'
-            const hxDomEl = document.getElementById( 'hx-combinations' )
-            if( hxDomEl ){
+            const hxDomEl = document.getElementById('hx-combinations')
+            if (hxDomEl) {
                 hxCircuit.sort$()
-                hxCircuit.toDom( hxDomEl )
+                hxCircuit.toDom(hxDomEl)
                 hxCircuit.evaluate$()
             }
 

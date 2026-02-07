@@ -20,129 +20,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-    <style>
-        /* White container for Q.js circuit (matching classical circuit style) */
-        .qjs-circuit {
-            background: #fff;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem auto;
-            width: fit-content;
-            max-width: 100%;
-        }
 
-        /* Hide the JavaScript console reference text */
-        .Q-circuit > p {
-            display: none !important;
-        }
-
-        /* Ensure proper z-index stacking for wires to be visible */
-        .Q-circuit-board-background {
-            z-index: 0;
-        }
-
-        .Q-circuit-board-foreground {
-            z-index: 1;
-        }
-
-        /* Fix stacking effect visibility */
-        .Q-circuit-palette {
-            position: relative;
-            isolation: isolate;
-        }
-
-        /* Remove scrollbars and center circuit */
-        .Q-circuit-board-container {
-            overflow: visible !important;
-            max-height: none !important;
-            display: flex !important;
-            justify-content: center !important;
-        }
-
-        /* Style results output */
-        #playground-report {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .qjs-circuit .truth-table {
-            margin: 2rem 0;
-        }
-
-        .qjs-circuit .truth-table pre {
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Amplitude visualization styles */
-        .amplitude-visualizations {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .amplitude-viz-box {
-            background: var(--bg-card);
-            border: 2px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .amplitude-viz-box h4 {
-            margin: 0 0 1rem;
-            color: var(--text-primary);
-            font-size: 0.9375rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-        }
-
-        .timeline-canvas {
-            width: 100%;
-            height: 240px;
-            background: var(--bg-primary);
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
-        }
-
-        .waveform-canvas {
-            width: 100%;
-            height: 240px;
-            background: var(--bg-primary);
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
-        }
-
-        .viz-legend {
-            display: flex;
-            gap: 1.25rem;
-            margin-top: 0.75rem;
-            font-size: 0.8125rem;
-            color: var(--text-secondary);
-        }
-
-        .viz-legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .viz-legend-color {
-            width: 16px;
-            height: 3px;
-            border-radius: 2px;
-        }
-
-        @media (max-width: 768px) {
-            .amplitude-visualizations {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -150,7 +28,20 @@
 
     <header class="header">
         <div class="header-content">
-            <a href="../../../index.html" class="logo">quantumstuff</a>
+            <a href="../../../index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="#16a34a" stroke-width="4" />
+                    <ellipse cx="50" cy="50" rx="45" ry="15" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 4"
+                        fill="none" />
+                    <line x1="50" y1="95" x2="50" y2="5" stroke="#16a34a" stroke-width="3" />
+                    <polygon points="50,2 46,12 54,12" fill="#16a34a" />
+                    <line x1="50" y1="50" x2="75" y2="25" stroke="#f5b208" stroke-width="5" stroke-linecap="round" />
+                    <polygon points="78,22 68,22 78,32" fill="#f5b208" transform="rotate(-45 78 22)" />
+                </svg>
+                <span style="font-size: 18px; font-weight: 700; white-space: nowrap;">
+                    <span style="color: #16a34a;">Quantum</span> <span style="color: #f5b208;">Stuff</span>
+                </span>
+            </a>
             <div class="progress-track">
                 <div class="progress-step completed"></div>
                 <div class="progress-step completed"></div>
@@ -213,9 +104,14 @@
 
             <section class="section" id="basics">
                 <h2 class="section-title">The X Gate: Quantum NOT</h2>
-                <p>In the previous lesson, you learned that qubits can exist in <strong>superposition</strong>—being in both |0⟩ and |1⟩ simultaneously. But how do we <strong>manipulate</strong> qubits? How do we create superposition, flip states, or perform computations?</p>
-                <p style="margin-top: 1rem;">The answer: <strong>quantum gates</strong>! Just like classical computers use logic gates (AND, OR, NOT), quantum computers use quantum gates to transform qubit states.</p>
-                <p style="margin-top: 1rem;">Let's start with the simplest one: <span class="term" data-tooltip="Quantum NOT gate - flips |0⟩↔|1⟩"><strong>The X gate</strong></span>—the quantum version of the classical NOT gate. It flips a qubit: |0⟩ becomes |1⟩, and |1⟩ becomes |0⟩.</p>
+                <p>In the previous lesson, you learned that qubits can exist in <strong>superposition</strong>—being in
+                    both |0⟩ and |1⟩ simultaneously. But how do we <strong>manipulate</strong> qubits? How do we create
+                    superposition, flip states, or perform computations?</p>
+                <p style="margin-top: 1rem;">The answer: <strong>quantum gates</strong>! Just like classical computers
+                    use logic gates (AND, OR, NOT), quantum computers use quantum gates to transform qubit states.</p>
+                <p style="margin-top: 1rem;">Let's start with the simplest one: <span class="term"
+                        data-tooltip="Quantum NOT gate - flips |0⟩↔|1⟩"><strong>The X gate</strong></span>—the quantum
+                    version of the classical NOT gate. It flips a qubit: |0⟩ becomes |1⟩, and |1⟩ becomes |0⟩.</p>
 
                 <div class="callout">
                     <div class="callout-title">
@@ -233,7 +129,8 @@
                         <span class="demo-title">Interactive: X Gate on Basis States</span>
                     </div>
                     <div class="demo-content">
-                        <p style="margin-bottom: 1rem;">Try applying X to |0⟩ or |1⟩. Drag an X gate onto the circuit!</p>
+                        <p style="margin-bottom: 1rem;">Try applying X to |0⟩ or |1⟩. Drag an X gate onto the circuit!
+                        </p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
                             <div id="x-basis"></div>
@@ -257,7 +154,8 @@
                                     <canvas id="x-basis-waveform" class="waveform-canvas"></canvas>
                                     <div class="viz-legend">
                                         <div class="viz-legend-item">
-                                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Oscillating waves showing amplitude magnitude and phase</span>
+                                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Oscillating
+                                                waves showing amplitude magnitude and phase</span>
                                         </div>
                                     </div>
                                 </div>
@@ -273,39 +171,51 @@
                 <details class="advanced-section type-math">
                     <summary>🔬 For Advanced Learners: The Pauli Matrices</summary>
                     <div class="advanced-content">
-                        <p>The X gate is one of three fundamental gates called the <strong>Pauli matrices</strong>, named after physicist Wolfgang Pauli. These three gates are the quantum building blocks:</p>
+                        <p>The X gate is one of three fundamental gates called the <strong>Pauli matrices</strong>,
+                            named after physicist Wolfgang Pauli. These three gates are the quantum building blocks:</p>
 
-                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">The Three Pauli Gates</h4>
-                        <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
-                            <p style="margin-bottom: 0.75rem;"><strong>X (<span class="term" data-tooltip="Also called X gate or bit flip">Pauli-X</span>):</strong> Bit flip</p>
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">The Three
+                            Pauli Gates</h4>
+                        <div
+                            style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+                            <p style="margin-bottom: 0.75rem;"><strong>X (<span class="term"
+                                        data-tooltip="Also called X gate or bit flip">Pauli-X</span>):</strong> Bit flip
+                            </p>
                             <div style="margin-left: 1rem; margin-bottom: 1rem;">
-                                X = [0  1]<br>
-                                    [1  0]
+                                X = [0 1]<br>
+                                [1 0]
                             </div>
 
-                            <p style="margin-bottom: 0.75rem;"><strong>Y (Pauli-Y):</strong> Bit and phase flip (you'll learn about this in advanced courses)</p>
+                            <p style="margin-bottom: 0.75rem;"><strong>Y (Pauli-Y):</strong> Bit and phase flip (you'll
+                                learn about this in advanced courses)</p>
                             <div style="margin-left: 1rem; margin-bottom: 1rem;">
-                                Y = [0  -i]<br>
-                                    [i   0]
+                                Y = [0 -i]<br>
+                                [i 0]
                             </div>
 
-                            <p style="margin-bottom: 0.75rem;"><strong>Z (Pauli-Z):</strong> Phase flip (keeps |0⟩, negates |1⟩)</p>
+                            <p style="margin-bottom: 0.75rem;"><strong>Z (Pauli-Z):</strong> Phase flip (keeps |0⟩,
+                                negates |1⟩)</p>
                             <div style="margin-left: 1rem;">
-                                Z = [1   0]<br>
-                                    [0  -1]
+                                Z = [1 0]<br>
+                                [0 -1]
                             </div>
                         </div>
 
-                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Key Properties</h4>
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Key
+                            Properties</h4>
                         <ul>
-                            <li><strong>Hermitian:</strong> Each Pauli matrix is its own conjugate transpose (X† = X)</li>
+                            <li><strong>Hermitian:</strong> Each Pauli matrix is its own conjugate transpose (X† = X)
+                            </li>
                             <li><strong>Unitary:</strong> X·X† = I (identity matrix)</li>
                             <li><strong>Self-inverse:</strong> X² = I (applying twice returns to original state)</li>
                             <li><strong>Traceless:</strong> Sum of diagonal elements = 0</li>
                         </ul>
 
-                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
-                            <p style="margin: 0; color: var(--text-secondary);"><strong>Why it matters:</strong> The Pauli matrices form a complete basis for describing single-qubit operations. Any single-qubit gate can be expressed as a combination of Pauli matrices and rotations!</p>
+                        <div
+                            style="margin-top: 1rem; padding: 1rem; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
+                            <p style="margin: 0; color: var(--text-secondary);"><strong>Why it matters:</strong> The
+                                Pauli matrices form a complete basis for describing single-qubit operations. Any
+                                single-qubit gate can be expressed as a combination of Pauli matrices and rotations!</p>
                         </div>
                     </div>
                 </details>
@@ -323,7 +233,8 @@
                         <span class="demo-title">Interactive: X Gate on Superposition</span>
                     </div>
                     <div class="demo-content">
-                        <p style="margin-bottom: 1rem;">Build an H-X circuit. H creates superposition, then X swaps the amplitudes!</p>
+                        <p style="margin-bottom: 1rem;">Build an H-X circuit. H creates superposition, then X swaps the
+                            amplitudes!</p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
                             <div id="x-superposition"></div>
@@ -371,7 +282,8 @@
                         <span class="demo-title">Experiment: Different Circuits</span>
                     </div>
                     <div class="demo-content">
-                        <p style="margin-bottom: 1rem;">Try different combinations: X, H→X, X→X, or X→H→X. Experiment!</p>
+                        <p style="margin-bottom: 1rem;">Try different combinations: X, H→X, X→X, or X→H→X. Experiment!
+                        </p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
                             <div id="x-experiments"></div>
@@ -416,7 +328,9 @@
 
             <section class="section" id="reversibility">
                 <h2 class="section-title">Multiple X Gates: Reversibility</h2>
-                <p>Quantum gates are <span class="term" data-tooltip="Can undo the operation"><strong>reversible</strong></span>. The X gate is its own inverse: X · X = I (identity).
+                <p>Quantum gates are <span class="term"
+                        data-tooltip="Can undo the operation"><strong>reversible</strong></span>. The X gate is its own
+                    inverse: X · X = I (identity).
                 </p>
                 <p>Flip a qubit twice, and you're back where you started!</p>
 
@@ -426,7 +340,8 @@
                         <span class="demo-title">Interactive: X Applied Multiple Times</span>
                     </div>
                     <div class="demo-content">
-                        <p style="margin-bottom: 1rem;">Apply multiple X gates. Try 2, 3, 4, or 5 X gates and observe the pattern!</p>
+                        <p style="margin-bottom: 1rem;">Apply multiple X gates. Try 2, 3, 4, or 5 X gates and observe
+                            the pattern!</p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
                             <div id="x-reversibility"></div>
@@ -480,25 +395,37 @@
                 <details class="advanced-section type-math">
                     <summary>🔬 For Advanced Learners: Eigenvalues and Eigenstates</summary>
                     <div class="advanced-content">
-                        <p>An <strong>eigenstate</strong> of a gate is a special quantum state that the gate "keeps in place" - it only changes by a multiplicative factor (the <strong>eigenvalue</strong>).</p>
+                        <p>An <strong>eigenstate</strong> of a gate is a special quantum state that the gate "keeps in
+                            place" - it only changes by a multiplicative factor (the <strong>eigenvalue</strong>).</p>
 
-                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">X Gate Eigenstates</h4>
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">X Gate
+                            Eigenstates</h4>
                         <p>For the X gate, the eigenstates are |+⟩ and |−⟩:</p>
-                        <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace;">
-                            X|+⟩ = +1 · |+⟩   (eigenvalue: +1)<br>
-                            X|−⟩ = −1 · |−⟩   (eigenvalue: −1)
+                        <div
+                            style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace;">
+                            X|+⟩ = +1 · |+⟩ (eigenvalue: +1)<br>
+                            X|−⟩ = −1 · |−⟩ (eigenvalue: −1)
                         </div>
-                        <p>When you apply X to |+⟩, the state stays |+⟩ (eigenvalue +1 means no change). When you apply X to |−⟩, the state stays |−⟩ but picks up a minus sign (eigenvalue −1 means phase flip).</p>
+                        <p>When you apply X to |+⟩, the state stays |+⟩ (eigenvalue +1 means no change). When you apply
+                            X to |−⟩, the state stays |−⟩ but picks up a minus sign (eigenvalue −1 means phase flip).
+                        </p>
 
-                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Why Eigenvalues Matter</h4>
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Why
+                            Eigenvalues Matter</h4>
                         <ul>
-                            <li><strong>Measurement outcomes:</strong> When you measure an observable (like energy), you always get one of its eigenvalues</li>
-                            <li><strong>Gate composition:</strong> Understanding eigenvalues helps predict what happens when gates are combined</li>
-                            <li><strong>Quantum algorithms:</strong> Many algorithms (like quantum phase estimation) rely on eigenvalue extraction</li>
+                            <li><strong>Measurement outcomes:</strong> When you measure an observable (like energy), you
+                                always get one of its eigenvalues</li>
+                            <li><strong>Gate composition:</strong> Understanding eigenvalues helps predict what happens
+                                when gates are combined</li>
+                            <li><strong>Quantum algorithms:</strong> Many algorithms (like quantum phase estimation)
+                                rely on eigenvalue extraction</li>
                         </ul>
 
-                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
-                            <p style="margin: 0; color: var(--text-secondary);"><strong>Mathematical note:</strong> For any matrix M, eigenstates |v⟩ and eigenvalues λ satisfy: M|v⟩ = λ|v⟩. The eigenvalues of the X gate are +1 and −1, corresponding to the eigenstates |+⟩ and |−⟩.</p>
+                        <div
+                            style="margin-top: 1rem; padding: 1rem; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
+                            <p style="margin: 0; color: var(--text-secondary);"><strong>Mathematical note:</strong> For
+                                any matrix M, eigenstates |v⟩ and eigenvalues λ satisfy: M|v⟩ = λ|v⟩. The eigenvalues of
+                                the X gate are +1 and −1, corresponding to the eigenstates |+⟩ and |−⟩.</p>
                         </div>
                     </div>
                 </details>
@@ -506,7 +433,8 @@
 
             <section class="section" id="playground-section">
                 <h2 class="section-title">Interactive Circuit Playground</h2>
-                <p>Build your own quantum circuits! Drag gates from the palette below onto the circuit board. Click <strong>RUN</strong> to evaluate your circuit and see the quantum state probabilities.</p>
+                <p>Build your own quantum circuits! Drag gates from the palette below onto the circuit board. Click
+                    <strong>RUN</strong> to evaluate your circuit and see the quantum state probabilities.</p>
 
                 <div class="demo" id="playground-demo">
                     <div class="demo-header">
@@ -539,24 +467,30 @@
             </section>
 
             <!-- Learning Checkpoint -->
-            <div class="callout" style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
+            <div class="callout"
+                style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
                 <div class="callout-title">
                     <i data-lucide="check-circle" style="width:16px;height:16px"></i>
                     ✓ Learning Checkpoint
                 </div>
                 <p style="margin-bottom: 0.75rem;"><strong>Before moving on, can you:</strong></p>
                 <ul class="checklist" style="list-style: none; padding-left: 0;">
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain what the X gate does?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Predict X|+⟩ = ?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Understand why X·X = I (self-inverse)?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain what the
+                        X gate does?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Predict X|+⟩ = ?
+                    </li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Understand why
+                        X·X = I (self-inverse)?</li>
                 </ul>
-                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>X gate mastered! Ready for the powerful H gate?</em></p>
+                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>X gate mastered! Ready for the
+                        powerful H gate?</em></p>
             </div>
 
             <!-- Quick Reference Card -->
             <section class="section" id="quick-reference">
                 <h2 class="section-title">📋 Quick Reference Card</h2>
-                <div style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                <div
+                    style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
                     <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">X Gate Cheat Sheet</h3>
 
                     <div style="display: grid; gap: 1.5rem;">
@@ -564,24 +498,39 @@
                             <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">X Gate Operations</h4>
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr style="background: var(--bg-secondary);">
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Input State</th>
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Output State</th>
-                                    <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">Description</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Input State</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Output State</th>
+                                    <th
+                                        style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-subtle);">
+                                        Description</th>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|0⟩</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|1⟩</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Flip 0 to 1</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>|0⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>|1⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Flip 0 to 1
+                                    </td>
                                 </tr>
                                 <tr style="background: var(--bg-secondary);">
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|1⟩</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>|0⟩</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Flip 1 to 0</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>|1⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">
+                                        <strong>|0⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Flip 1 to 0
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>α|0⟩ + β|1⟩</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>α|1⟩ + β|0⟩</strong></td>
-                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Swap amplitudes</td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>α|0⟩ +
+                                            β|1⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);"><strong>α|1⟩ +
+                                            β|0⟩</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid var(--border-subtle);">Swap
+                                        amplitudes</td>
                                 </tr>
                             </table>
                         </div>
@@ -589,15 +538,18 @@
                         <div>
                             <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">Key Properties</h4>
                             <ul style="font-size: 0.9375rem; margin: 0;">
-                                <li><strong>Self-inverse:</strong> X·X = I (applying X twice returns to original state)</li>
+                                <li><strong>Self-inverse:</strong> X·X = I (applying X twice returns to original state)
+                                </li>
                                 <li><strong>Deterministic:</strong> Always flips the computational basis states</li>
                                 <li><strong>Reversible:</strong> No information is lost</li>
                                 <li><strong>Preserves superposition:</strong> Just swaps the amplitudes</li>
                             </ul>
                         </div>
 
-                        <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-green);">
-                            <p style="margin: 0; font-size: 0.9375rem;"><strong>💡 Remember:</strong> X is the quantum NOT gate—it's like the classical NOT but works on superpositions too!</p>
+                        <div
+                            style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-green);">
+                            <p style="margin: 0; font-size: 0.9375rem;"><strong>💡 Remember:</strong> X is the quantum
+                                NOT gate—it's like the classical NOT but works on superpositions too!</p>
                         </div>
                     </div>
                 </div>
@@ -617,13 +569,16 @@
                     <dd><strong>Definition:</strong> An operation that swaps 0 and 1</dd>
 
                     <dt>Self-Inverse</dt>
-                    <dd><strong>Definition:</strong> A gate that undoes itself: X·X = I (applying twice returns to original state)</dd>
+                    <dd><strong>Definition:</strong> A gate that undoes itself: X·X = I (applying twice returns to
+                        original state)</dd>
 
                     <dt>Reversibility</dt>
-                    <dd><strong>Definition:</strong> Quantum gates never destroy information—you can always undo them</dd>
+                    <dd><strong>Definition:</strong> Quantum gates never destroy information—you can always undo them
+                    </dd>
 
                     <dt>Deterministic</dt>
-                    <dd><strong>Definition:</strong> Always produces the same output for a given input (X always flips)</dd>
+                    <dd><strong>Definition:</strong> Always produces the same output for a given input (X always flips)
+                    </dd>
 
                     <dt>Identity (I)</dt>
                     <dd><strong>Definition:</strong> The "do nothing" gate—leaves the state unchanged</dd>
@@ -704,381 +659,381 @@
     <script src="../js/lesson4.js"></script>
     <script>
 
-// Create gate palettes (EXACT copy from playground.html)
-Array
-.from( document.querySelectorAll( '.Q-circuit-palette' ))
-.forEach( function( el ){
-    Q.Circuit.Editor.createPalette( el )
-})
+        // Create gate palettes (EXACT copy from playground.html)
+        Array
+            .from(document.querySelectorAll('.Q-circuit-palette'))
+            .forEach(function (el) {
+                Q.Circuit.Editor.createPalette(el)
+            })
 
-// Initialize circuits on page load
-window.addEventListener( 'DOMContentLoaded', function(){
-    // X gate on basis states circuit (1 qubit, 7 moments)
-    const xBasisCircuit = new Q.Circuit( 1, 7 )
-    xBasisCircuit.name = 'x-basis'
-    const xBasisDomEl = document.getElementById( 'x-basis' )
-    if( xBasisDomEl ){
-        xBasisCircuit.sort$()
-        xBasisCircuit.toDom( xBasisDomEl )
-        xBasisCircuit.evaluate$()
-    }
+        // Initialize circuits on page load
+        window.addEventListener('DOMContentLoaded', function () {
+            // X gate on basis states circuit (1 qubit, 7 moments)
+            const xBasisCircuit = new Q.Circuit(1, 7)
+            xBasisCircuit.name = 'x-basis'
+            const xBasisDomEl = document.getElementById('x-basis')
+            if (xBasisDomEl) {
+                xBasisCircuit.sort$()
+                xBasisCircuit.toDom(xBasisDomEl)
+                xBasisCircuit.evaluate$()
+            }
 
-    // X gate on superposition circuit (1 qubit, 7 moments)
-    const xSuperCircuit = new Q.Circuit( 1, 7 )
-    xSuperCircuit.name = 'x-superposition'
-    const xSuperDomEl = document.getElementById( 'x-superposition' )
-    if( xSuperDomEl ){
-        xSuperCircuit.sort$()
-        xSuperCircuit.toDom( xSuperDomEl )
-        xSuperCircuit.evaluate$()
-    }
+            // X gate on superposition circuit (1 qubit, 7 moments)
+            const xSuperCircuit = new Q.Circuit(1, 7)
+            xSuperCircuit.name = 'x-superposition'
+            const xSuperDomEl = document.getElementById('x-superposition')
+            if (xSuperDomEl) {
+                xSuperCircuit.sort$()
+                xSuperCircuit.toDom(xSuperDomEl)
+                xSuperCircuit.evaluate$()
+            }
 
-    // X gate experiments circuit (1 qubit, 7 moments)
-    const xExpCircuit = new Q.Circuit( 1, 7 )
-    xExpCircuit.name = 'x-experiments'
-    const xExpDomEl = document.getElementById( 'x-experiments' )
-    if( xExpDomEl ){
-        xExpCircuit.sort$()
-        xExpCircuit.toDom( xExpDomEl )
-        xExpCircuit.evaluate$()
-    }
+            // X gate experiments circuit (1 qubit, 7 moments)
+            const xExpCircuit = new Q.Circuit(1, 7)
+            xExpCircuit.name = 'x-experiments'
+            const xExpDomEl = document.getElementById('x-experiments')
+            if (xExpDomEl) {
+                xExpCircuit.sort$()
+                xExpCircuit.toDom(xExpDomEl)
+                xExpCircuit.evaluate$()
+            }
 
-    // X gate reversibility circuit (1 qubit, 7 moments for multiple X gates)
-    const xRevCircuit = new Q.Circuit( 1, 7 )
-    xRevCircuit.name = 'x-reversibility'
-    const xRevDomEl = document.getElementById( 'x-reversibility' )
-    if( xRevDomEl ){
-        xRevCircuit.sort$()
-        xRevCircuit.toDom( xRevDomEl )
-        xRevCircuit.evaluate$()
-    }
+            // X gate reversibility circuit (1 qubit, 7 moments for multiple X gates)
+            const xRevCircuit = new Q.Circuit(1, 7)
+            xRevCircuit.name = 'x-reversibility'
+            const xRevDomEl = document.getElementById('x-reversibility')
+            if (xRevDomEl) {
+                xRevCircuit.sort$()
+                xRevCircuit.toDom(xRevDomEl)
+                xRevCircuit.evaluate$()
+            }
 
-    // Main playground circuit (3 qubits, 7 moments)
-    const circuit = new Q.Circuit( 3, 7 )
-    circuit.name = 'playground'
-    const domEl = document.getElementById( 'playground' )
-    if( domEl ){
-        circuit.sort$()
-        circuit.toDom( domEl )
-        circuit.evaluate$()
-    }
-})
-
-// Update circuit parts helper function (EXACT copy from playground.html)
-function updateCircuitParts( circuit ){
-
-    const reportEl = document.getElementById( circuit.name +'-report' )
-    if( reportEl ) reportEl.innerText = circuit.report$()
-
-    // Update amplitude visualization
-    renderAmplitudes( circuit )
-}
-
-// Store timeline history for each circuit
-const circuitTimelines = {}
-
-// Initialize timeline for a circuit
-function initTimeline(circuitName) {
-    if (!circuitTimelines[circuitName]) {
-        circuitTimelines[circuitName] = {
-            steps: [],
-            amp0: [],
-            amp1: []
-        }
-    }
-}
-
-// Rebuild timeline based on current circuit state
-function addToTimeline(circuit) {
-    initTimeline(circuit.name)
-    const timeline = circuitTimelines[circuit.name]
-
-    const matrixRows = circuit.matrix && circuit.matrix.rows
-    if (!matrixRows || !matrixRows.length) return
-
-    // Get current operations
-    const operations = circuit.operations || []
-
-    // Always rebuild timeline to match current circuit
-    timeline.steps = []
-    timeline.amp0 = []
-    timeline.amp1 = []
-    timeline.gates = []
-
-    // Start with initial state |0⟩
-    timeline.steps.push(0)
-    timeline.amp0.push(1.0)
-    timeline.amp1.push(0.0)
-    timeline.gates.push('|0⟩')
-
-    // Simulate each gate application
-    let state = { amp0: 1.0, amp1: 0.0 } // Start in |0⟩
-
-    for (let i = 0; i < operations.length; i++) {
-        const operation = operations[i]
-        const gate = operation.gate
-        const gateName = (gate && gate.symbol) || 'G'
-
-        // Apply gate to current state
-        if (gate && gate.matrix && gate.matrix.rows) {
-            const m = gate.matrix.rows
-            // Matrix multiplication: [m00 m01] [amp0]
-            //                        [m10 m11] [amp1]
-            const newAmp0Real = m[0][0].real * state.amp0 + m[0][1].real * state.amp1
-            const newAmp0Imag = m[0][0].imaginary * state.amp0 + m[0][1].imaginary * state.amp1
-            const newAmp1Real = m[1][0].real * state.amp0 + m[1][1].real * state.amp1
-            const newAmp1Imag = m[1][0].imaginary * state.amp0 + m[1][1].imaginary * state.amp1
-
-            const mag0 = Math.sqrt(newAmp0Real * newAmp0Real + newAmp0Imag * newAmp0Imag)
-            const mag1 = Math.sqrt(newAmp1Real * newAmp1Real + newAmp1Imag * newAmp1Imag)
-
-            state.amp0 = mag0
-            state.amp1 = mag1
-        }
-
-        timeline.steps.push(i + 1)
-        timeline.amp0.push(state.amp0)
-        timeline.amp1.push(state.amp1)
-        timeline.gates.push(gateName)
-    }
-}
-
-// Draw timeline canvas
-function drawTimeline(circuit) {
-    const canvas = document.getElementById(circuit.name + '-timeline')
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    const width = canvas.width = canvas.offsetWidth * window.devicePixelRatio
-    const height = canvas.height = canvas.offsetHeight * window.devicePixelRatio
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
-
-    const displayWidth = canvas.offsetWidth
-    const displayHeight = canvas.offsetHeight
-
-    ctx.clearRect(0, 0, width, height)
-
-    initTimeline(circuit.name)
-    const timeline = circuitTimelines[circuit.name]
-
-    if (timeline.steps.length === 0) return
-
-    // Enable smoothing for better rendering
-    ctx.imageSmoothingEnabled = true
-    ctx.imageSmoothingQuality = 'high'
-
-    // Draw grid with better visibility
-    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-subtle') || '#e5e7eb'
-    ctx.lineWidth = 1
-    ctx.setLineDash([3, 3]) // Dashed grid lines
-    for (let i = 0; i <= 4; i++) {
-        const y = (displayHeight - 40) * (i / 4) + 20
-        ctx.beginPath()
-        ctx.moveTo(40, y)
-        ctx.lineTo(displayWidth - 10, y)
-        ctx.stroke()
-    }
-    ctx.setLineDash([]) // Reset to solid lines
-
-    // Draw axes labels with better font
-    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') || '#6b7280'
-    ctx.font = 'bold 11px Inter, Arial, sans-serif'
-    ctx.textAlign = 'right'
-    for (let i = 0; i <= 4; i++) {
-        const y = (displayHeight - 40) * (1 - i / 4) + 20
-        ctx.fillText((i * 0.25).toFixed(2), 35, y + 4)
-    }
-
-    // Draw Y-axis label (moved further left to avoid overlap)
-    ctx.save()
-    ctx.translate(8, displayHeight / 2)
-    ctx.rotate(-Math.PI / 2)
-    ctx.textAlign = 'center'
-    ctx.font = 'bold 10px Inter, Arial, sans-serif'
-    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
-    ctx.fillText('Amplitude', 0, 0)
-    ctx.restore()
-
-    // Draw X-axis label
-    ctx.textAlign = 'center'
-    ctx.font = 'bold 11px Inter, Arial, sans-serif'
-    ctx.fillText('Circuit Steps', displayWidth / 2, displayHeight - 5)
-
-    // Draw lines with enhanced styling
-    function drawLine(data, color, isFirstLine) {
-        if (data.length < 2) return
-
-        const xStep = (displayWidth - 50) / Math.max(data.length - 1, 1)
-
-        // Draw line shadow for depth
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)'
-        ctx.lineWidth = 4
-        ctx.lineJoin = 'round'
-        ctx.lineCap = 'round'
-        ctx.beginPath()
-        data.forEach((val, i) => {
-            const x = 40 + i * xStep
-            const y = displayHeight - 20 - (val * (displayHeight - 40))
-            if (i === 0) ctx.moveTo(x, y + 1)
-            else ctx.lineTo(x, y + 1)
-        })
-        ctx.stroke()
-
-        // Draw main line
-        ctx.strokeStyle = color
-        ctx.lineWidth = 2
-        ctx.lineJoin = 'round'
-        ctx.lineCap = 'round'
-        ctx.beginPath()
-        data.forEach((val, i) => {
-            const x = 40 + i * xStep
-            const y = displayHeight - 20 - (val * (displayHeight - 40))
-            if (i === 0) ctx.moveTo(x, y)
-            else ctx.lineTo(x, y)
-        })
-        ctx.stroke()
-
-        // Draw data point markers
-        ctx.fillStyle = color
-        data.forEach((val, i) => {
-            const x = 40 + i * xStep
-            const y = displayHeight - 20 - (val * (displayHeight - 40))
-
-            // Outer circle (white border)
-            ctx.beginPath()
-            ctx.arc(x, y, 5, 0, Math.PI * 2)
-            ctx.fillStyle = '#ffffff'
-            ctx.fill()
-
-            // Inner circle (colored)
-            ctx.beginPath()
-            ctx.arc(x, y, 3.5, 0, Math.PI * 2)
-            ctx.fillStyle = color
-            ctx.fill()
-
-            // Draw gate label only for the first line to avoid duplicates
-            if (isFirstLine && timeline.gates && timeline.gates[i]) {
-                const gateName = timeline.gates[i]
-
-                // Draw background for gate label
-                ctx.font = 'bold 10px Inter, Arial, sans-serif'
-                const textWidth = ctx.measureText(gateName).width
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)'
-                ctx.fillRect(x - textWidth / 2 - 3, y - 20, textWidth + 6, 14)
-
-                // Draw border
-                ctx.strokeStyle = color
-                ctx.lineWidth = 1.5
-                ctx.strokeRect(x - textWidth / 2 - 3, y - 20, textWidth + 6, 14)
-
-                // Draw gate text
-                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
-                ctx.textAlign = 'center'
-                ctx.textBaseline = 'middle'
-                ctx.fillText(gateName, x, y - 13)
+            // Main playground circuit (3 qubits, 7 moments)
+            const circuit = new Q.Circuit(3, 7)
+            circuit.name = 'playground'
+            const domEl = document.getElementById('playground')
+            if (domEl) {
+                circuit.sort$()
+                circuit.toDom(domEl)
+                circuit.evaluate$()
             }
         })
-    }
 
-    drawLine(timeline.amp0, '#10b981', true)
-    drawLine(timeline.amp1, '#3b82f6', false)
-}
+        // Update circuit parts helper function (EXACT copy from playground.html)
+        function updateCircuitParts(circuit) {
 
-// Draw wave representation
-function drawWaveform(circuit) {
-    const canvas = document.getElementById(circuit.name + '-waveform')
-    if (!canvas) return
+            const reportEl = document.getElementById(circuit.name + '-report')
+            if (reportEl) reportEl.innerText = circuit.report$()
 
-    const ctx = canvas.getContext('2d')
-    const width = canvas.width = canvas.offsetWidth * window.devicePixelRatio
-    const height = canvas.height = canvas.offsetHeight * window.devicePixelRatio
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
-
-    const w = canvas.offsetWidth
-    const h = canvas.offsetHeight
-
-    ctx.clearRect(0, 0, width, height)
-
-    const matrixRows = circuit.matrix && circuit.matrix.rows
-    if (!matrixRows || !matrixRows.length) return
-
-    const amp0 = matrixRows[0][0]
-    const amp1 = matrixRows[1][0]
-
-    // Draw wave for amplitude
-    function drawWave(label, real, imag, centerY) {
-        const mag = Math.sqrt(real * real + imag * imag)
-        const phase = Math.atan2(imag, real)
-
-        // Label - positioned above the wave area
-        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
-        ctx.font = 'bold 13px Inter, Arial, sans-serif'
-        ctx.textAlign = 'left'
-        ctx.fillText(label, 10, centerY - 50)
-
-        // Baseline
-        ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-subtle') || '#ddd'
-        ctx.lineWidth = 1
-        ctx.beginPath()
-        ctx.moveTo(50, centerY)
-        ctx.lineTo(w - 10, centerY)
-        ctx.stroke()
-
-        // Draw sinusoidal wave
-        const amplitude = mag * 35 // scale for display (reduced from 40)
-        const frequency = 2 // 2 cycles across canvas
-
-        ctx.strokeStyle = '#10b981'
-        ctx.lineWidth = 2 // reduced from 3
-        ctx.lineCap = 'round'
-        ctx.lineJoin = 'round'
-        ctx.beginPath()
-
-        for (let x = 50; x < w - 10; x++) {
-            const t = ((x - 50) / (w - 60)) * frequency * 2 * Math.PI
-            const y = centerY - amplitude * Math.sin(t + phase)
-            if (x === 50) ctx.moveTo(x, y)
-            else ctx.lineTo(x, y)
+            // Update amplitude visualization
+            renderAmplitudes(circuit)
         }
-        ctx.stroke()
 
-        // Show amplitude and phase - positioned below wave
-        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') || '#6b7280'
-        ctx.font = '10px Inter, Arial, sans-serif'
-        ctx.textAlign = 'left'
-        ctx.fillText('Mag: ' + mag.toFixed(3), 50, centerY + 50)
-        ctx.fillText('Phase: ' + (phase * 180 / Math.PI).toFixed(1) + '°', 150, centerY + 50)
-    }
+        // Store timeline history for each circuit
+        const circuitTimelines = {}
 
-    drawWave('|0⟩', amp0.real || 0, amp0.imaginary || 0, h * 0.3)
-    drawWave('|1⟩', amp1.real || 0, amp1.imaginary || 0, h * 0.7)
-}
+        // Initialize timeline for a circuit
+        function initTimeline(circuitName) {
+            if (!circuitTimelines[circuitName]) {
+                circuitTimelines[circuitName] = {
+                    steps: [],
+                    amp0: [],
+                    amp1: []
+                }
+            }
+        }
 
-// Render both visualizations
-function renderAmplitudes(circuit) {
-    addToTimeline(circuit)
-    drawTimeline(circuit)
-    drawWaveform(circuit)
-}
+        // Rebuild timeline based on current circuit state
+        function addToTimeline(circuit) {
+            initTimeline(circuit.name)
+            const timeline = circuitTimelines[circuit.name]
 
-// Update when circuit is modified via GUI (EXACT copy from playground.html)
-function updatePlaygroundFromDom( circuit ){
+            const matrixRows = circuit.matrix && circuit.matrix.rows
+            if (!matrixRows || !matrixRows.length) return
 
-    circuit.evaluate$()
-}
+            // Get current operations
+            const operations = circuit.operations || []
 
-// Event listener: evaluation completed (EXACT copy from playground.html)
-window.addEventListener( 'Q.Circuit.evaluate completed', function( event ){
+            // Always rebuild timeline to match current circuit
+            timeline.steps = []
+            timeline.amp0 = []
+            timeline.amp1 = []
+            timeline.gates = []
 
-    const circuit = event.detail.circuit
-    updateCircuitParts( circuit )
-})
+            // Start with initial state |0⟩
+            timeline.steps.push(0)
+            timeline.amp0.push(1.0)
+            timeline.amp1.push(0.0)
+            timeline.gates.push('|0⟩')
 
-// Event listener: GUI altered circuit (EXACT copy from playground.html)
-window.addEventListener( 'Q gui altered circuit', function( event ){
+            // Simulate each gate application
+            let state = { amp0: 1.0, amp1: 0.0 } // Start in |0⟩
 
-    updatePlaygroundFromDom( event.detail.circuit )
-})
+            for (let i = 0; i < operations.length; i++) {
+                const operation = operations[i]
+                const gate = operation.gate
+                const gateName = (gate && gate.symbol) || 'G'
+
+                // Apply gate to current state
+                if (gate && gate.matrix && gate.matrix.rows) {
+                    const m = gate.matrix.rows
+                    // Matrix multiplication: [m00 m01] [amp0]
+                    //                        [m10 m11] [amp1]
+                    const newAmp0Real = m[0][0].real * state.amp0 + m[0][1].real * state.amp1
+                    const newAmp0Imag = m[0][0].imaginary * state.amp0 + m[0][1].imaginary * state.amp1
+                    const newAmp1Real = m[1][0].real * state.amp0 + m[1][1].real * state.amp1
+                    const newAmp1Imag = m[1][0].imaginary * state.amp0 + m[1][1].imaginary * state.amp1
+
+                    const mag0 = Math.sqrt(newAmp0Real * newAmp0Real + newAmp0Imag * newAmp0Imag)
+                    const mag1 = Math.sqrt(newAmp1Real * newAmp1Real + newAmp1Imag * newAmp1Imag)
+
+                    state.amp0 = mag0
+                    state.amp1 = mag1
+                }
+
+                timeline.steps.push(i + 1)
+                timeline.amp0.push(state.amp0)
+                timeline.amp1.push(state.amp1)
+                timeline.gates.push(gateName)
+            }
+        }
+
+        // Draw timeline canvas
+        function drawTimeline(circuit) {
+            const canvas = document.getElementById(circuit.name + '-timeline')
+            if (!canvas) return
+
+            const ctx = canvas.getContext('2d')
+            const width = canvas.width = canvas.offsetWidth * window.devicePixelRatio
+            const height = canvas.height = canvas.offsetHeight * window.devicePixelRatio
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
+
+            const displayWidth = canvas.offsetWidth
+            const displayHeight = canvas.offsetHeight
+
+            ctx.clearRect(0, 0, width, height)
+
+            initTimeline(circuit.name)
+            const timeline = circuitTimelines[circuit.name]
+
+            if (timeline.steps.length === 0) return
+
+            // Enable smoothing for better rendering
+            ctx.imageSmoothingEnabled = true
+            ctx.imageSmoothingQuality = 'high'
+
+            // Draw grid with better visibility
+            ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-subtle') || '#e5e7eb'
+            ctx.lineWidth = 1
+            ctx.setLineDash([3, 3]) // Dashed grid lines
+            for (let i = 0; i <= 4; i++) {
+                const y = (displayHeight - 40) * (i / 4) + 20
+                ctx.beginPath()
+                ctx.moveTo(40, y)
+                ctx.lineTo(displayWidth - 10, y)
+                ctx.stroke()
+            }
+            ctx.setLineDash([]) // Reset to solid lines
+
+            // Draw axes labels with better font
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') || '#6b7280'
+            ctx.font = 'bold 11px Inter, Arial, sans-serif'
+            ctx.textAlign = 'right'
+            for (let i = 0; i <= 4; i++) {
+                const y = (displayHeight - 40) * (1 - i / 4) + 20
+                ctx.fillText((i * 0.25).toFixed(2), 35, y + 4)
+            }
+
+            // Draw Y-axis label (moved further left to avoid overlap)
+            ctx.save()
+            ctx.translate(8, displayHeight / 2)
+            ctx.rotate(-Math.PI / 2)
+            ctx.textAlign = 'center'
+            ctx.font = 'bold 10px Inter, Arial, sans-serif'
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
+            ctx.fillText('Amplitude', 0, 0)
+            ctx.restore()
+
+            // Draw X-axis label
+            ctx.textAlign = 'center'
+            ctx.font = 'bold 11px Inter, Arial, sans-serif'
+            ctx.fillText('Circuit Steps', displayWidth / 2, displayHeight - 5)
+
+            // Draw lines with enhanced styling
+            function drawLine(data, color, isFirstLine) {
+                if (data.length < 2) return
+
+                const xStep = (displayWidth - 50) / Math.max(data.length - 1, 1)
+
+                // Draw line shadow for depth
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)'
+                ctx.lineWidth = 4
+                ctx.lineJoin = 'round'
+                ctx.lineCap = 'round'
+                ctx.beginPath()
+                data.forEach((val, i) => {
+                    const x = 40 + i * xStep
+                    const y = displayHeight - 20 - (val * (displayHeight - 40))
+                    if (i === 0) ctx.moveTo(x, y + 1)
+                    else ctx.lineTo(x, y + 1)
+                })
+                ctx.stroke()
+
+                // Draw main line
+                ctx.strokeStyle = color
+                ctx.lineWidth = 2
+                ctx.lineJoin = 'round'
+                ctx.lineCap = 'round'
+                ctx.beginPath()
+                data.forEach((val, i) => {
+                    const x = 40 + i * xStep
+                    const y = displayHeight - 20 - (val * (displayHeight - 40))
+                    if (i === 0) ctx.moveTo(x, y)
+                    else ctx.lineTo(x, y)
+                })
+                ctx.stroke()
+
+                // Draw data point markers
+                ctx.fillStyle = color
+                data.forEach((val, i) => {
+                    const x = 40 + i * xStep
+                    const y = displayHeight - 20 - (val * (displayHeight - 40))
+
+                    // Outer circle (white border)
+                    ctx.beginPath()
+                    ctx.arc(x, y, 5, 0, Math.PI * 2)
+                    ctx.fillStyle = '#ffffff'
+                    ctx.fill()
+
+                    // Inner circle (colored)
+                    ctx.beginPath()
+                    ctx.arc(x, y, 3.5, 0, Math.PI * 2)
+                    ctx.fillStyle = color
+                    ctx.fill()
+
+                    // Draw gate label only for the first line to avoid duplicates
+                    if (isFirstLine && timeline.gates && timeline.gates[i]) {
+                        const gateName = timeline.gates[i]
+
+                        // Draw background for gate label
+                        ctx.font = 'bold 10px Inter, Arial, sans-serif'
+                        const textWidth = ctx.measureText(gateName).width
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)'
+                        ctx.fillRect(x - textWidth / 2 - 3, y - 20, textWidth + 6, 14)
+
+                        // Draw border
+                        ctx.strokeStyle = color
+                        ctx.lineWidth = 1.5
+                        ctx.strokeRect(x - textWidth / 2 - 3, y - 20, textWidth + 6, 14)
+
+                        // Draw gate text
+                        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
+                        ctx.textAlign = 'center'
+                        ctx.textBaseline = 'middle'
+                        ctx.fillText(gateName, x, y - 13)
+                    }
+                })
+            }
+
+            drawLine(timeline.amp0, '#10b981', true)
+            drawLine(timeline.amp1, '#3b82f6', false)
+        }
+
+        // Draw wave representation
+        function drawWaveform(circuit) {
+            const canvas = document.getElementById(circuit.name + '-waveform')
+            if (!canvas) return
+
+            const ctx = canvas.getContext('2d')
+            const width = canvas.width = canvas.offsetWidth * window.devicePixelRatio
+            const height = canvas.height = canvas.offsetHeight * window.devicePixelRatio
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
+
+            const w = canvas.offsetWidth
+            const h = canvas.offsetHeight
+
+            ctx.clearRect(0, 0, width, height)
+
+            const matrixRows = circuit.matrix && circuit.matrix.rows
+            if (!matrixRows || !matrixRows.length) return
+
+            const amp0 = matrixRows[0][0]
+            const amp1 = matrixRows[1][0]
+
+            // Draw wave for amplitude
+            function drawWave(label, real, imag, centerY) {
+                const mag = Math.sqrt(real * real + imag * imag)
+                const phase = Math.atan2(imag, real)
+
+                // Label - positioned above the wave area
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-primary') || '#111827'
+                ctx.font = 'bold 13px Inter, Arial, sans-serif'
+                ctx.textAlign = 'left'
+                ctx.fillText(label, 10, centerY - 50)
+
+                // Baseline
+                ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-subtle') || '#ddd'
+                ctx.lineWidth = 1
+                ctx.beginPath()
+                ctx.moveTo(50, centerY)
+                ctx.lineTo(w - 10, centerY)
+                ctx.stroke()
+
+                // Draw sinusoidal wave
+                const amplitude = mag * 35 // scale for display (reduced from 40)
+                const frequency = 2 // 2 cycles across canvas
+
+                ctx.strokeStyle = '#10b981'
+                ctx.lineWidth = 2 // reduced from 3
+                ctx.lineCap = 'round'
+                ctx.lineJoin = 'round'
+                ctx.beginPath()
+
+                for (let x = 50; x < w - 10; x++) {
+                    const t = ((x - 50) / (w - 60)) * frequency * 2 * Math.PI
+                    const y = centerY - amplitude * Math.sin(t + phase)
+                    if (x === 50) ctx.moveTo(x, y)
+                    else ctx.lineTo(x, y)
+                }
+                ctx.stroke()
+
+                // Show amplitude and phase - positioned below wave
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') || '#6b7280'
+                ctx.font = '10px Inter, Arial, sans-serif'
+                ctx.textAlign = 'left'
+                ctx.fillText('Mag: ' + mag.toFixed(3), 50, centerY + 50)
+                ctx.fillText('Phase: ' + (phase * 180 / Math.PI).toFixed(1) + '°', 150, centerY + 50)
+            }
+
+            drawWave('|0⟩', amp0.real || 0, amp0.imaginary || 0, h * 0.3)
+            drawWave('|1⟩', amp1.real || 0, amp1.imaginary || 0, h * 0.7)
+        }
+
+        // Render both visualizations
+        function renderAmplitudes(circuit) {
+            addToTimeline(circuit)
+            drawTimeline(circuit)
+            drawWaveform(circuit)
+        }
+
+        // Update when circuit is modified via GUI (EXACT copy from playground.html)
+        function updatePlaygroundFromDom(circuit) {
+
+            circuit.evaluate$()
+        }
+
+        // Event listener: evaluation completed (EXACT copy from playground.html)
+        window.addEventListener('Q.Circuit.evaluate completed', function (event) {
+
+            const circuit = event.detail.circuit
+            updateCircuitParts(circuit)
+        })
+
+        // Event listener: GUI altered circuit (EXACT copy from playground.html)
+        window.addEventListener('Q gui altered circuit', function (event) {
+
+            updatePlaygroundFromDom(event.detail.circuit)
+        })
 
         function toggleSidebar() {
             document.querySelector('.sidebar').classList.toggle('open');

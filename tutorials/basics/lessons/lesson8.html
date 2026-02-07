@@ -20,62 +20,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-    <style>
-        /* White container for Q.js circuit (matching classical circuit style) */
-        .qjs-circuit {
-            background: #fff;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem auto;
-            width: fit-content;
-            max-width: 100%;
-        }
 
-        /* Hide the JavaScript console reference text */
-        .Q-circuit > p {
-            display: none !important;
-        }
-
-        /* Ensure proper z-index stacking for wires to be visible */
-        .Q-circuit-board-background {
-            z-index: 0;
-        }
-
-        .Q-circuit-board-foreground {
-            z-index: 1;
-        }
-
-        /* Fix stacking effect visibility */
-        .Q-circuit-palette {
-            position: relative;
-            isolation: isolate;
-        }
-
-        /* Remove scrollbars and center circuit */
-        .Q-circuit-board-container {
-            overflow: visible !important;
-            max-height: none !important;
-            display: flex !important;
-            justify-content: center !important;
-        }
-
-        /* Style results output */
-        #playground-report {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .qjs-circuit .truth-table {
-            margin: 2rem 0;
-        }
-
-        .qjs-circuit .truth-table pre {
-            margin: 0;
-            padding: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -83,7 +28,20 @@
 
     <header class="header">
         <div class="header-content">
-            <a href="../../../index.html" class="logo">quantumstuff</a>
+            <a href="../../../index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="#16a34a" stroke-width="4" />
+                    <ellipse cx="50" cy="50" rx="45" ry="15" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 4"
+                        fill="none" />
+                    <line x1="50" y1="95" x2="50" y2="5" stroke="#16a34a" stroke-width="3" />
+                    <polygon points="50,2 46,12 54,12" fill="#16a34a" />
+                    <line x1="50" y1="50" x2="75" y2="25" stroke="#f5b208" stroke-width="5" stroke-linecap="round" />
+                    <polygon points="78,22 68,22 78,32" fill="#f5b208" transform="rotate(-45 78 22)" />
+                </svg>
+                <span style="font-size: 18px; font-weight: 700; white-space: nowrap;">
+                    <span style="color: #16a34a;">Quantum</span> <span style="color: #f5b208;">Stuff</span>
+                </span>
+            </a>
             <div class="progress-track">
                 <div class="progress-step completed"></div>
                 <div class="progress-step completed"></div>
@@ -147,7 +105,9 @@
 
             <section class="section" id="entanglement">
                 <h2 class="section-title">What is Quantum Entanglement?</h2>
-                <p><span class="term" data-tooltip="Qubits correlated - measuring one affects other"><strong>Quantum entanglement</strong></span> is when qubits become correlated so that each qubit <em>cannot be described
+                <p><span class="term" data-tooltip="Qubits correlated - measuring one affects other"><strong>Quantum
+                            entanglement</strong></span> is when qubits become correlated so that each qubit <em>cannot
+                        be described
                         independently</em>. Measuring one instantly determines the other!</p>
 
                 <div class="callout">
@@ -156,12 +116,14 @@
                         Key Concept: Separable vs Entangled
                     </div>
                     <p><strong>Separable:</strong> |ψ⟩ = |0⟩ ⊗ |0⟩ = |00⟩ (can describe each qubit independently)</p>
-                    <p><strong>Entangled (<span class="term" data-tooltip="Maximally entangled two-qubit state">Bell state</span>):</strong> |Φ⁺⟩ = (1/√2)(|00⟩ + |11⟩) (cannot separate!)</p>
+                    <p><strong>Entangled (<span class="term" data-tooltip="Maximally entangled two-qubit state">Bell
+                                state</span>):</strong> |Φ⁺⟩ = (1/√2)(|00⟩ + |11⟩) (cannot separate!)</p>
                 </div>
             </section>
 
             <section class="section" id="bell-states">
-                <h2 class="section-title">The Four <span class="term" data-tooltip="Maximally entangled two-qubit state">Bell States</span></h2>
+                <h2 class="section-title">The Four <span class="term"
+                        data-tooltip="Maximally entangled two-qubit state">Bell States</span></h2>
                 <div class="formula-box" style="text-align:left;line-height:2">
                     <strong>|Φ⁺⟩ = (1/√2)(|00⟩ + |11⟩)</strong> — Both qubits always match<br>
                     <strong>|Φ⁻⟩ = (1/√2)(|00⟩ − |11⟩)</strong> — Both match, different phase<br>
@@ -175,7 +137,8 @@
                         <span class="demo-title">Interactive: Bell State Creator</span>
                     </div>
                     <div class="demo-content">
-                        <p style="margin-bottom: 1rem;">Create different Bell states: |Φ⁺⟩ (H+CNOT), |Φ⁻⟩ (Z+H+CNOT), |Ψ⁺⟩ (X+H+CNOT), |Ψ⁻⟩ (X+Z+H+CNOT)!</p>
+                        <p style="margin-bottom: 1rem;">Create different Bell states: |Φ⁺⟩ (H+CNOT), |Φ⁻⟩ (Z+H+CNOT),
+                            |Ψ⁺⟩ (X+H+CNOT), |Ψ⁻⟩ (X+Z+H+CNOT)!</p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
                             <div id="bell-states"></div>
@@ -192,35 +155,55 @@
                     <div class="advanced-content">
                         <h4 style="color: var(--color-green); margin-bottom: 0.75rem;">Deriving the Bell State |Φ⁺⟩</h4>
                         <p>Let's derive how H + CNOT creates the Bell state:</p>
-                        <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.8;">
+                        <div
+                            style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.8;">
                             <strong>Step 1:</strong> Start with |00⟩<br>
                             <strong>Step 2:</strong> Apply H to first qubit:<br>
                             &nbsp;&nbsp;&nbsp;H|0⟩ ⊗ |0⟩ = (1/√2)(|0⟩ + |1⟩) ⊗ |0⟩<br>
                             &nbsp;&nbsp;&nbsp;= (1/√2)(|00⟩ + |10⟩)<br>
                             <strong>Step 3:</strong> Apply CNOT (control=first, target=second):<br>
                             &nbsp;&nbsp;&nbsp;CNOT[(1/√2)(|00⟩ + |10⟩)]<br>
-                            &nbsp;&nbsp;&nbsp;= (1/√2)(|00⟩ + |11⟩)   ← This is |Φ⁺⟩!
+                            &nbsp;&nbsp;&nbsp;= (1/√2)(|00⟩ + |11⟩) ← This is |Φ⁺⟩!
                         </div>
-                        <p>The CNOT flipped the second qubit only when the first was |1⟩, creating perfect correlation.</p>
+                        <p>The CNOT flipped the second qubit only when the first was |1⟩, creating perfect correlation.
+                        </p>
 
-                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Quantum Teleportation Protocol</h4>
-                        <p><strong>Quantum teleportation</strong> is a protocol that uses <span class="term" data-tooltip="Qubits correlated - measuring one affects other">entanglement</span> to "teleport" a quantum state from one location to another using only classical communication!</p>
+                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Quantum
+                            Teleportation Protocol</h4>
+                        <p><strong>Quantum teleportation</strong> is a protocol that uses <span class="term"
+                                data-tooltip="Qubits correlated - measuring one affects other">entanglement</span> to
+                            "teleport" a quantum state from one location to another using only classical communication!
+                        </p>
 
                         <p style="margin-top: 1rem;"><strong>How it works:</strong></p>
                         <ol style="line-height: 1.8;">
-                            <li><strong>Setup:</strong> Alice and Bob share a <span class="term" data-tooltip="Maximally entangled two-qubit state">Bell state</span> |Φ⁺⟩ (<span class="term" data-tooltip="Entangled qubit pair">EPR pair</span>)</li>
-                            <li><strong>Alice's operation:</strong> She has a qubit in unknown state |ψ⟩ that she wants to send to Bob. She performs a Bell measurement on her qubit and her half of the entangled pair.</li>
-                            <li><strong>Classical communication:</strong> Alice sends her 2-bit measurement result to Bob (via classical channel)</li>
-                            <li><strong>Bob's correction:</strong> Based on Alice's bits, Bob applies corrections (X and/or Z gates) to his qubit</li>
+                            <li><strong>Setup:</strong> Alice and Bob share a <span class="term"
+                                    data-tooltip="Maximally entangled two-qubit state">Bell state</span> |Φ⁺⟩ (<span
+                                    class="term" data-tooltip="Entangled qubit pair">EPR pair</span>)</li>
+                            <li><strong>Alice's operation:</strong> She has a qubit in unknown state |ψ⟩ that she wants
+                                to send to Bob. She performs a Bell measurement on her qubit and her half of the
+                                entangled pair.</li>
+                            <li><strong>Classical communication:</strong> Alice sends her 2-bit measurement result to
+                                Bob (via classical channel)</li>
+                            <li><strong>Bob's correction:</strong> Based on Alice's bits, Bob applies corrections (X
+                                and/or Z gates) to his qubit</li>
                             <li><strong>Result:</strong> Bob's qubit is now in state |ψ⟩—the exact state Alice had!</li>
                         </ol>
 
-                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
-                            <p style="margin: 0; color: var(--text-secondary);"><strong>Important:</strong> This doesn't violate relativity! No information travels faster than light—Bob needs Alice's classical message (which travels at light speed or slower) to complete the teleportation. It's called "teleportation" because the quantum state is destroyed at Alice's location and recreated at Bob's, as if it traveled there.</p>
+                        <div
+                            style="margin-top: 1rem; padding: 1rem; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
+                            <p style="margin: 0; color: var(--text-secondary);"><strong>Important:</strong> This doesn't
+                                violate relativity! No information travels faster than light—Bob needs Alice's classical
+                                message (which travels at light speed or slower) to complete the teleportation. It's
+                                called "teleportation" because the quantum state is destroyed at Alice's location and
+                                recreated at Bob's, as if it traveled there.</p>
                         </div>
 
                         <div style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 8px;">
-                            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;"><strong>Applications:</strong> Quantum teleportation is used in quantum networks, distributed quantum computing, and quantum repeaters for long-distance quantum communication!</p>
+                            <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">
+                                <strong>Applications:</strong> Quantum teleportation is used in quantum networks,
+                                distributed quantum computing, and quantum repeaters for long-distance quantum
+                                communication!</p>
                         </div>
                     </div>
                 </details>
@@ -237,7 +220,8 @@
                         <span class="demo-title">Interactive: Entanglement Correlations</span>
                     </div>
                     <div class="demo-content">
-                        <p style="margin-bottom: 1rem;">Create an entangled state and observe the correlations. Measure multiple times to see the pattern!</p>
+                        <p style="margin-bottom: 1rem;">Create an entangled state and observe the correlations. Measure
+                            multiple times to see the pattern!</p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
                             <div id="entanglement-measure"></div>
@@ -283,7 +267,8 @@
                 <div class="callout">
                     <div class="callout-title">
                         <i data-lucide="sparkles" style="width:16px;height:16px"></i>
-                        The Foundation of <span class="term" data-tooltip="Exponentially faster than classical">Quantum Advantage</span>
+                        The Foundation of <span class="term" data-tooltip="Exponentially faster than classical">Quantum
+                            Advantage</span>
                     </div>
                     <ul>
                         <li><strong>Superposition:</strong> Process many inputs simultaneously</li>
@@ -327,16 +312,20 @@
 
             <section class="section" id="playground-section">
                 <h2 class="section-title">Interactive Circuit Playground</h2>
-                <p>Want to build and experiment with your own quantum circuits? Check out our dedicated Circuit Playground!</p>
+                <p>Want to build and experiment with your own quantum circuits? Check out our dedicated Circuit
+                    Playground!</p>
 
-                <div class="callout" style="background: var(--bg-highlight); border-left: 4px solid var(--color-green);">
+                <div class="callout"
+                    style="background: var(--bg-highlight); border-left: 4px solid var(--color-green);">
                     <div class="callout-title">
                         <i data-lucide="external-link" style="width:16px;height:16px"></i>
                         Circuit Playground
                     </div>
                     <div class="callout-content">
-                        <p>Use the interactive quantum circuit builder to create and test your own circuits with drag-and-drop gates.</p>
-                        <a href="../../../interactive/quantum-circuit-playground.html" style="display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; padding: 0.75rem 1.25rem; background: var(--color-green); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s;">
+                        <p>Use the interactive quantum circuit builder to create and test your own circuits with
+                            drag-and-drop gates.</p>
+                        <a href="../../../interactive/quantum-circuit-playground.html"
+                            style="display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; padding: 0.75rem 1.25rem; background: var(--color-green); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.2s;">
                             Open Circuit Playground
                             <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
                         </a>
@@ -346,40 +335,64 @@
 
             <section class="section" id="synthesis">
                 <h2 class="section-title">Why Quantum Computers Are Powerful</h2>
-                <p>You've learned all the fundamental concepts of quantum computing! Now let's understand how these pieces work together to create quantum advantage.</p>
+                <p>You've learned all the fundamental concepts of quantum computing! Now let's understand how these
+                    pieces work together to create quantum advantage.</p>
 
-                <div style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border-left: 4px solid var(--color-green);">
-                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">The Three Pillars of Quantum Power</h3>
+                <div
+                    style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border-radius: 16px; border-left: 4px solid var(--color-green);">
+                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">The Three Pillars of Quantum Power
+                    </h3>
 
                     <div style="display: grid; gap: 2rem; margin-top: 1.5rem;">
                         <div style="padding: 1.5rem; background: var(--bg-secondary); border-radius: 12px;">
                             <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                                <div style="width: 40px; height: 40px; background: var(--color-green); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.25rem;">1</div>
-                                <h4 style="margin: 0; color: var(--color-green);">Superposition: Explore Many Paths at Once</h4>
+                                <div
+                                    style="width: 40px; height: 40px; background: var(--color-green); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.25rem;">
+                                    1</div>
+                                <h4 style="margin: 0; color: var(--color-green);">Superposition: Explore Many Paths at
+                                    Once</h4>
                             </div>
-                            <p style="margin: 0 0 0.75rem 0;"><strong>Classical approach:</strong> Check N possibilities one at a time → N steps</p>
-                            <p style="margin: 0; color: var(--color-green);"><strong>Quantum approach:</strong> Put qubits in superposition, explore all N possibilities simultaneously → 1 step!</p>
-                            <p style="margin-top: 1rem; font-size: 0.9375rem; opacity: 0.9;">This is what you create with the <strong>H gate</strong>—the ability to be in multiple states at once.</p>
+                            <p style="margin: 0 0 0.75rem 0;"><strong>Classical approach:</strong> Check N possibilities
+                                one at a time → N steps</p>
+                            <p style="margin: 0; color: var(--color-green);"><strong>Quantum approach:</strong> Put
+                                qubits in superposition, explore all N possibilities simultaneously → 1 step!</p>
+                            <p style="margin-top: 1rem; font-size: 0.9375rem; opacity: 0.9;">This is what you create
+                                with the <strong>H gate</strong>—the ability to be in multiple states at once.</p>
                         </div>
 
                         <div style="padding: 1.5rem; background: var(--bg-secondary); border-radius: 12px;">
                             <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                                <div style="width: 40px; height: 40px; background: var(--color-purple); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.25rem;">2</div>
-                                <h4 style="margin: 0; color: var(--color-purple);">Interference: Amplify Right Answers, Cancel Wrong Ones</h4>
+                                <div
+                                    style="width: 40px; height: 40px; background: var(--color-purple); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.25rem;">
+                                    2</div>
+                                <h4 style="margin: 0; color: var(--color-purple);">Interference: Amplify Right Answers,
+                                    Cancel Wrong Ones</h4>
                             </div>
-                            <p style="margin: 0 0 0.75rem 0;"><strong>The secret weapon:</strong> Quantum amplitudes can be negative or complex (have phase)</p>
-                            <p style="margin: 0; color: var(--color-purple);"><strong>The trick:</strong> Design circuits so wrong answers destructively interfere (cancel out) and right answers constructively interfere (reinforce each other)!</p>
-                            <p style="margin-top: 1rem; font-size: 0.9375rem; opacity: 0.9;">This is why <strong>phase matters</strong>—it enables interference. Classical bits can't do this!</p>
+                            <p style="margin: 0 0 0.75rem 0;"><strong>The secret weapon:</strong> Quantum amplitudes can
+                                be negative or complex (have phase)</p>
+                            <p style="margin: 0; color: var(--color-purple);"><strong>The trick:</strong> Design
+                                circuits so wrong answers destructively interfere (cancel out) and right answers
+                                constructively interfere (reinforce each other)!</p>
+                            <p style="margin-top: 1rem; font-size: 0.9375rem; opacity: 0.9;">This is why <strong>phase
+                                    matters</strong>—it enables interference. Classical bits can't do this!</p>
                         </div>
 
                         <div style="padding: 1.5rem; background: var(--bg-secondary); border-radius: 12px;">
                             <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                                <div style="width: 40px; height: 40px; background: var(--color-amber); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.25rem;">3</div>
-                                <h4 style="margin: 0; color: var(--color-amber);">Entanglement: Correlations Impossible Classically</h4>
+                                <div
+                                    style="width: 40px; height: 40px; background: var(--color-amber); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.25rem;">
+                                    3</div>
+                                <h4 style="margin: 0; color: var(--color-amber);">Entanglement: Correlations Impossible
+                                    Classically</h4>
                             </div>
-                            <p style="margin: 0 0 0.75rem 0;"><strong>Classical limitation:</strong> N bits can represent one of 2<sup>N</sup> values</p>
-                            <p style="margin: 0; color: var(--color-amber);"><strong>Quantum power:</strong> N qubits can be in a superposition of <em>all</em> 2<sup>N</sup> states simultaneously, with correlations between qubits that can't be replicated classically!</p>
-                            <p style="margin-top: 1rem; font-size: 0.9375rem; opacity: 0.9;">This is what <strong>CNOT + H</strong> creates—qubits whose fates are intertwined in ways classical bits never could be.</p>
+                            <p style="margin: 0 0 0.75rem 0;"><strong>Classical limitation:</strong> N bits can
+                                represent one of 2<sup>N</sup> values</p>
+                            <p style="margin: 0; color: var(--color-amber);"><strong>Quantum power:</strong> N qubits
+                                can be in a superposition of <em>all</em> 2<sup>N</sup> states simultaneously, with
+                                correlations between qubits that can't be replicated classically!</p>
+                            <p style="margin-top: 1rem; font-size: 0.9375rem; opacity: 0.9;">This is what <strong>CNOT +
+                                    H</strong> creates—qubits whose fates are intertwined in ways classical bits never
+                                could be.</p>
                         </div>
                     </div>
                 </div>
@@ -393,39 +406,57 @@
                     <ol style="margin: 1rem 0; padding-left: 2rem;">
                         <li><strong>Use superposition</strong> to explore many possibilities in parallel</li>
                         <li><strong>Use entanglement</strong> to create complex correlations between qubits</li>
-                        <li><strong>Use interference</strong> to amplify correct answers and suppress incorrect ones</li>
+                        <li><strong>Use interference</strong> to amplify correct answers and suppress incorrect ones
+                        </li>
                         <li><strong>Measure</strong> to extract the answer with high probability</li>
                     </ol>
-                    <p style="margin-top: 1.5rem;">This combination is what makes quantum computers able to solve certain problems exponentially faster than classical computers—problems that would take classical computers billions of years can potentially be solved in minutes!</p>
+                    <p style="margin-top: 1.5rem;">This combination is what makes quantum computers able to solve
+                        certain problems exponentially faster than classical computers—problems that would take
+                        classical computers billions of years can potentially be solved in minutes!</p>
                 </div>
 
-                <div style="margin: 2rem 0; padding: 2rem; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%); border-radius: 16px; border: 2px solid var(--color-green);">
+                <div
+                    style="margin: 2rem 0; padding: 2rem; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%); border-radius: 16px; border: 2px solid var(--color-green);">
                     <h3 style="color: var(--color-green); margin-bottom: 1rem;">🎓 What You've Accomplished</h3>
-                    <p style="margin-bottom: 1.5rem;">Congratulations! You now understand the fundamental building blocks of quantum computing:</p>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
-                        <div style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
+                    <p style="margin-bottom: 1.5rem;">Congratulations! You now understand the fundamental building
+                        blocks of quantum computing:</p>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                        <div
+                            style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
                             <strong style="color: var(--color-green);">✓ Qubits & Superposition</strong>
-                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">Being in multiple states simultaneously</p>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">Being in multiple states
+                                simultaneously</p>
                         </div>
-                        <div style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
+                        <div
+                            style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
                             <strong style="color: var(--color-green);">✓ Quantum Measurement</strong>
-                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">How observation collapses superposition</p>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">How observation
+                                collapses superposition</p>
                         </div>
-                        <div style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
+                        <div
+                            style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
                             <strong style="color: var(--color-green);">✓ Single-Qubit Gates</strong>
-                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">X, H, Z—the Pauli gates</p>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">X, H, Z—the Pauli gates
+                            </p>
                         </div>
-                        <div style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
+                        <div
+                            style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
                             <strong style="color: var(--color-green);">✓ Multi-Qubit Systems</strong>
-                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">Exponential state spaces</p>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">Exponential state spaces
+                            </p>
                         </div>
-                        <div style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
+                        <div
+                            style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
                             <strong style="color: var(--color-green);">✓ Multi-Qubit Gates</strong>
-                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">CNOT—controlled operations</p>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">CNOT—controlled
+                                operations</p>
                         </div>
-                        <div style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
+                        <div
+                            style="padding: 1rem; background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--color-green);">
                             <strong style="color: var(--color-green);">✓ Quantum Entanglement</strong>
-                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">Non-classical correlations</p>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem; opacity: 0.9;">Non-classical
+                                correlations</p>
                         </div>
                     </div>
                 </div>
@@ -435,43 +466,54 @@
                         <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
                         What's Next: Quantum Algorithms
                     </div>
-                    <p>You've mastered the <strong>basics</strong>—the fundamental gates and principles. Now you're ready to see these concepts in action!</p>
-                    <p style="margin-top: 1rem;">In the <strong>Quantum Algorithms</strong> section (coming next), you'll learn:</p>
+                    <p>You've mastered the <strong>basics</strong>—the fundamental gates and principles. Now you're
+                        ready to see these concepts in action!</p>
+                    <p style="margin-top: 1rem;">In the <strong>Quantum Algorithms</strong> section (coming next),
+                        you'll learn:</p>
                     <ul style="margin-top: 0.75rem;">
                         <li>How to design circuits that solve real problems</li>
                         <li>Famous algorithms like Deutsch-Josza, Grover's search, and Shor's factoring</li>
                         <li>How quantum algorithms achieve exponential speedups</li>
                         <li>Practical applications in cryptography, optimization, and simulation</li>
                     </ul>
-                    <p style="margin-top: 1.5rem; font-weight: 500;">You're now equipped with everything you need to understand quantum algorithms. Let's put this knowledge to work! 🚀</p>
+                    <p style="margin-top: 1.5rem; font-weight: 500;">You're now equipped with everything you need to
+                        understand quantum algorithms. Let's put this knowledge to work! 🚀</p>
                 </div>
             </section>
 
             <!-- Learning Checkpoint -->
-            <div class="callout" style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
+            <div class="callout"
+                style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
                 <div class="callout-title">
                     <i data-lucide="check-circle" style="width:16px;height:16px"></i>
                     ✓ Final Learning Checkpoint
                 </div>
                 <p style="margin-bottom: 0.75rem;"><strong>You've completed the basics! Can you:</strong></p>
                 <ul class="checklist" style="list-style: none; padding-left: 0;">
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain entanglement in your own words?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Describe what a Bell state is?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Understand how superposition + interference + entanglement create quantum advantage?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Build simple quantum circuits with H and CNOT?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain
+                        entanglement in your own words?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Describe what a
+                        Bell state is?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Understand how
+                        superposition + interference + entanglement create quantum advantage?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Build simple
+                        quantum circuits with H and CNOT?</li>
                 </ul>
-                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>All checked? Congratulations! You've mastered quantum computing basics! 🎉</em></p>
+                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>All checked? Congratulations! You've
+                        mastered quantum computing basics! 🎉</em></p>
             </div>
 
             <!-- Quick Reference Card -->
             <section class="section" id="quick-reference">
                 <h2 class="section-title">📋 Quick Reference Card</h2>
-                <div style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                <div
+                    style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
                     <h3 style="color: var(--color-green); margin-bottom: 1rem;">Entanglement & Quantum Power</h3>
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr style="border-bottom: 1px solid var(--border-subtle);">
                             <th style="text-align: left; padding: 0.75rem; color: var(--color-green);">Concept</th>
-                            <th style="text-align: left; padding: 0.75rem; color: var(--color-green);">Formula/Description</th>
+                            <th style="text-align: left; padding: 0.75rem; color: var(--color-green);">
+                                Formula/Description</th>
                         </tr>
                         <tr style="border-bottom: 1px solid var(--border-subtle);">
                             <td style="padding: 0.75rem;"><strong>Entangled State</strong></td>
@@ -503,8 +545,11 @@
                     <i data-lucide="alert-triangle" style="width:16px;height:16px"></i>
                     Common Misconception
                 </div>
-                <p style="margin: 0.5rem 0;"><strong>❌ Wrong:</strong> "Entanglement allows faster-than-light communication"</p>
-                <p style="margin: 0.5rem 0;"><strong>✓ Correct:</strong> No! Measurement results are random. You can't control what you measure, so you can't send information. Einstein was worried, but physics is safe! 😊</p>
+                <p style="margin: 0.5rem 0;"><strong>❌ Wrong:</strong> "Entanglement allows faster-than-light
+                    communication"</p>
+                <p style="margin: 0.5rem 0;"><strong>✓ Correct:</strong> No! Measurement results are random. You can't
+                    control what you measure, so you can't send information. Einstein was worried, but physics is safe!
+                    😊</p>
             </div>
 
             <!-- Glossary -->
@@ -512,31 +557,39 @@
                 <h2 class="section-title">Glossary</h2>
                 <dl class="term-list">
                     <dt>Entanglement</dt>
-                    <dd><strong>Definition:</strong> A quantum phenomenon where qubits become correlated in ways impossible classically—measuring one instantly affects the other</dd>
+                    <dd><strong>Definition:</strong> A quantum phenomenon where qubits become correlated in ways
+                        impossible classically—measuring one instantly affects the other</dd>
 
                     <dt>Bell States</dt>
-                    <dd><strong>Pronunciation:</strong> bell states<br><strong>Definition:</strong> The four maximally entangled two-qubit states: |Φ+⟩, |Φ-⟩, |Ψ+⟩, |Ψ-⟩</dd>
+                    <dd><strong>Pronunciation:</strong> bell states<br><strong>Definition:</strong> The four maximally
+                        entangled two-qubit states: |Φ+⟩, |Φ-⟩, |Ψ+⟩, |Ψ-⟩</dd>
 
                     <dt>|Φ+⟩</dt>
-                    <dd><strong>Pronunciation:</strong> ket phi-plus<br><strong>Definition:</strong> Bell state: (|00⟩ + |11⟩)/√2 — both qubits always measure the same</dd>
+                    <dd><strong>Pronunciation:</strong> ket phi-plus<br><strong>Definition:</strong> Bell state: (|00⟩ +
+                        |11⟩)/√2 — both qubits always measure the same</dd>
 
                     <dt>EPR Pair</dt>
-                    <dd><strong>Pronunciation:</strong> E-P-R pair<br><strong>Definition:</strong> An entangled pair of qubits (named after Einstein, Podolsky, and Rosen)</dd>
+                    <dd><strong>Pronunciation:</strong> E-P-R pair<br><strong>Definition:</strong> An entangled pair of
+                        qubits (named after Einstein, Podolsky, and Rosen)</dd>
 
                     <dt>CNOT Gate</dt>
-                    <dd><strong>Pronunciation:</strong> C-NOT or see-not<br><strong>Definition:</strong> Controlled-NOT gate—flips target qubit if control is |1⟩, creates entanglement when combined with H</dd>
+                    <dd><strong>Pronunciation:</strong> C-NOT or see-not<br><strong>Definition:</strong> Controlled-NOT
+                        gate—flips target qubit if control is |1⟩, creates entanglement when combined with H</dd>
 
                     <dt>Non-locality</dt>
-                    <dd><strong>Definition:</strong> Entangled qubits show correlations that can't be explained by local hidden variables—measurement results are connected across space</dd>
+                    <dd><strong>Definition:</strong> Entangled qubits show correlations that can't be explained by local
+                        hidden variables—measurement results are connected across space</dd>
 
                     <dt>Quantum Advantage</dt>
-                    <dd><strong>Definition:</strong> When quantum computers solve problems exponentially faster than classical computers</dd>
+                    <dd><strong>Definition:</strong> When quantum computers solve problems exponentially faster than
+                        classical computers</dd>
 
                     <dt>Superposition</dt>
                     <dd><strong>Definition:</strong> Being in multiple states simultaneously</dd>
 
                     <dt>Interference</dt>
-                    <dd><strong>Definition:</strong> Quantum amplitudes combining to amplify correct answers and cancel wrong ones</dd>
+                    <dd><strong>Definition:</strong> Quantum amplitudes combining to amplify correct answers and cancel
+                        wrong ones</dd>
                 </dl>
             </section>
 
@@ -620,30 +673,30 @@
     <script>
         // Create gate palettes (EXACT copy from playground.html)
         Array
-        .from( document.querySelectorAll( '.Q-circuit-palette' ))
-        .forEach( function( el ){
-            Q.Circuit.Editor.createPalette( el )
-        })
+            .from(document.querySelectorAll('.Q-circuit-palette'))
+            .forEach(function (el) {
+                Q.Circuit.Editor.createPalette(el)
+            })
 
         // Initialize circuits on page load
-        window.addEventListener( 'DOMContentLoaded', function(){
+        window.addEventListener('DOMContentLoaded', function () {
             // Bell states circuit (2 qubits, 7 moments)
-            const bellCircuit = new Q.Circuit( 2, 7 )
+            const bellCircuit = new Q.Circuit(2, 7)
             bellCircuit.name = 'bell-states'
-            const bellDomEl = document.getElementById( 'bell-states' )
-            if( bellDomEl ){
+            const bellDomEl = document.getElementById('bell-states')
+            if (bellDomEl) {
                 bellCircuit.sort$()
-                bellCircuit.toDom( bellDomEl )
+                bellCircuit.toDom(bellDomEl)
                 bellCircuit.evaluate$()
             }
 
             // Entanglement measurement circuit (2 qubits, 7 moments)
-            const entMeasureCircuit = new Q.Circuit( 2, 7 )
+            const entMeasureCircuit = new Q.Circuit(2, 7)
             entMeasureCircuit.name = 'entanglement-measure'
-            const entMeasureDomEl = document.getElementById( 'entanglement-measure' )
-            if( entMeasureDomEl ){
+            const entMeasureDomEl = document.getElementById('entanglement-measure')
+            if (entMeasureDomEl) {
                 entMeasureCircuit.sort$()
-                entMeasureCircuit.toDom( entMeasureDomEl )
+                entMeasureCircuit.toDom(entMeasureDomEl)
                 entMeasureCircuit.evaluate$()
             }
 

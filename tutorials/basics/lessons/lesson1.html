@@ -14,176 +14,7 @@
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <style>
-        /* Lesson 1 specific styles */
-        .speed-comparison input[type="range"] {
-            width: 100%;
-            accent-color: var(--color-green);
-        }
 
-        .size-display {
-            text-align: center;
-            margin: 1rem 0;
-            color: var(--text-secondary);
-        }
-
-        .comparison-bars {
-            margin: 1.5rem 0;
-        }
-
-        .computer-bar-container {
-            margin-bottom: 1rem;
-        }
-
-        .computer-label {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .speed-bar {
-            height: 24px;
-            border-radius: 4px;
-            transition: width 0.3s;
-        }
-
-        .speed-bar.classical {
-            background: linear-gradient(90deg, var(--color-amber), #f59e0b);
-        }
-
-        .speed-bar.quantum {
-            background: linear-gradient(90deg, var(--color-green), var(--color-green-dark));
-        }
-
-        .time-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
-        }
-
-        .speedup-display {
-            text-align: center;
-            font-weight: 600;
-            color: var(--color-green);
-            margin-top: 1rem;
-        }
-
-        .lesson-roadmap {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .roadmap-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all 0.2s;
-            border: 1px solid transparent;
-        }
-
-        .roadmap-item:hover {
-            border-color: var(--color-green);
-            background: var(--bg-highlight);
-        }
-
-        .roadmap-item.current {
-            border-color: var(--color-green);
-            background: var(--bg-highlight);
-        }
-
-        .roadmap-number {
-            width: 32px;
-            height: 32px;
-            background: var(--color-green);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .roadmap-content h4 {
-            margin: 0 0 0.25rem;
-            font-size: 1rem;
-        }
-
-        .roadmap-content p {
-            margin: 0;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        .bit-qubit-comparison {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .comparison-panel {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-        }
-
-        .comparison-panel h4 {
-            margin: 0 0 1rem;
-            color: var(--color-green);
-        }
-
-        .bit-value {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--color-green);
-        }
-
-        .qubit-mystery {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--color-amber);
-        }
-
-        .qubit-notation {
-            font-family: 'Monaco', monospace;
-            font-size: 1.25rem;
-            color: var(--color-amber);
-        }
-
-        .vs-divider {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-        }
-
-        .panel-note {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            margin-top: 1rem;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .bit-qubit-comparison {
-                grid-template-columns: 1fr;
-            }
-
-            .vs-divider {
-                padding: 1rem 0;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -191,7 +22,20 @@
 
     <header class="header">
         <div class="header-content">
-            <a href="../../../index.html" class="logo">quantumstuff</a>
+            <a href="../../../index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="#16a34a" stroke-width="4" />
+                    <ellipse cx="50" cy="50" rx="45" ry="15" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 4"
+                        fill="none" />
+                    <line x1="50" y1="95" x2="50" y2="5" stroke="#16a34a" stroke-width="3" />
+                    <polygon points="50,2 46,12 54,12" fill="#16a34a" />
+                    <line x1="50" y1="50" x2="75" y2="25" stroke="#f5b208" stroke-width="5" stroke-linecap="round" />
+                    <polygon points="78,22 68,22 78,32" fill="#f5b208" transform="rotate(-45 78 22)" />
+                </svg>
+                <span style="font-size: 18px; font-weight: 700; white-space: nowrap;">
+                    <span style="color: #16a34a;">Quantum</span> <span style="color: #f5b208;">Stuff</span>
+                </span>
+            </a>
             <div class="progress-track">
                 <div class="progress-step active"></div>
                 <div class="progress-step"></div>
@@ -246,7 +90,8 @@
                 <ul>
                     <li>Understand why quantum computing matters</li>
                     <li>Get an overview of the complete learning path</li>
-                    <li>See your first comparison between bits and <span class="term" data-tooltip="A quantum bit - the basic unit of quantum information">qubits</span></li>
+                    <li>See your first comparison between bits and <span class="term"
+                            data-tooltip="A quantum bit - the basic unit of quantum information">qubits</span></li>
                     <li>Learn what makes quantum computing different from classical computing</li>
                     <li>Get excited about learning quantum computing!</li>
                 </ul>
@@ -258,34 +103,46 @@
                         <i data-lucide="sparkles" style="width:16px;height:16px"></i>
                         Your Quantum Journey Starts Here
                     </div>
-                    <p>You're about to learn one of the most exciting technologies of the 21st century! We'll guide you step-by-step, using simple analogies and interactive examples. No background needed—just curiosity!</p>
+                    <p>You're about to learn one of the most exciting technologies of the 21st century! We'll guide you
+                        step-by-step, using simple analogies and interactive examples. No background needed—just
+                        curiosity!</p>
                 </div>
             </section>
 
-            <div style="margin: 2rem 0; padding: 1.25rem; background: rgba(22, 163, 74, 0.03); border-radius: 12px; border: 1px solid rgba(22, 163, 74, 0.2); text-align: center;">
+            <div
+                style="margin: 2rem 0; padding: 1.25rem; background: rgba(22, 163, 74, 0.03); border-radius: 12px; border: 1px solid rgba(22, 163, 74, 0.2); text-align: center;">
                 <h3 style="color: var(--color-green); margin-bottom: 0.75rem; font-size: 1rem;">
-                    <i data-lucide="book-marked" style="width:16px;height:16px;display:inline;vertical-align:middle;"></i>
+                    <i data-lucide="book-marked"
+                        style="width:16px;height:16px;display:inline;vertical-align:middle;"></i>
                     Key Terms Preview
                 </h3>
                 <p style="margin: 0.5rem 0; color: var(--text-secondary); font-size: 0.9375rem;">
-                    <strong style="color: var(--color-green);">Qubit</strong> — Quantum bit, unit of quantum information<br>
-                    <strong style="color: var(--color-amber);">Superposition</strong> — Being in multiple states simultaneously
+                    <strong style="color: var(--color-green);">Qubit</strong> — Quantum bit, unit of quantum
+                    information<br>
+                    <strong style="color: var(--color-amber);">Superposition</strong> — Being in multiple states
+                    simultaneously
                 </p>
                 <p style="margin: 0.75rem 0 0; color: var(--text-secondary); font-size: 0.875rem; font-style: italic;">
-                    You'll learn these in depth in <a href="lesson3.html" style="color: var(--color-green); text-decoration: none; border-bottom: 1px solid var(--color-green);">Lesson 3</a>!
+                    You'll learn these in depth in <a href="lesson3.html"
+                        style="color: var(--color-green); text-decoration: none; border-bottom: 1px solid var(--color-green);">Lesson
+                        3</a>!
                 </p>
             </div>
 
             <section class="section" id="why">
                 <h2 class="section-title">Why Quantum Computers?</h2>
                 <p>Imagine trying to find your friend's name in a phonebook with 1 million names. Your smartphone would
-                    check them one by one. But a <span class="term" data-tooltip="Computer using quantum mechanical phenomena to solve problems">quantum computer</span>? It can check many names simultaneously!</p>
+                    check them one by one. But a <span class="term"
+                        data-tooltip="Computer using quantum mechanical phenomena to solve problems">quantum
+                        computer</span>? It can check many names simultaneously!</p>
 
                 <h3>Real Problems Quantum Computers Can Solve</h3>
                 <ul>
                     <li><strong>Drug Discovery:</strong> Simulate molecules to design new medicines</li>
                     <li><strong>Climate Modeling:</strong> Better predictions to combat climate change</li>
-                    <li><strong>Cryptography:</strong> Break current <span class="term" data-tooltip="Method of protecting information">encryption</span>, create quantum-safe security</li>
+                    <li><strong>Cryptography:</strong> Break current <span class="term"
+                            data-tooltip="Method of protecting information">encryption</span>, create quantum-safe
+                        security</li>
                     <li><strong>Optimization:</strong> Find best routes, optimize portfolios</li>
                 </ul>
 
@@ -312,8 +169,10 @@
                                 </div>
                             </div>
                             <div class="speedup-display" id="speedup-display">Quantum is 10x faster!</div>
-                            <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-secondary); text-align: center; font-style: italic;">
-                                <strong>Note:</strong> This shows search algorithm speedup (√N). Actual speedup varies by algorithm—some problems see exponential speedup, others see polynomial or no speedup.
+                            <p
+                                style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-secondary); text-align: center; font-style: italic;">
+                                <strong>Note:</strong> This shows search algorithm speedup (√N). Actual speedup varies
+                                by algorithm—some problems see exponential speedup, others see polynomial or no speedup.
                             </p>
                         </div>
                     </div>
@@ -405,71 +264,95 @@
                 <h2 class="section-title">A First Glimpse: Bits vs Qubits</h2>
                 <p>Before diving into the details, here's a simple comparison:</p>
 
-                <div style="margin: 2rem 0; display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;">
-                    <div style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border-radius: 12px; border: 2px solid var(--color-amber);">
+                <div
+                    style="margin: 2rem 0; display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;">
+                    <div
+                        style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border-radius: 12px; border: 2px solid var(--color-amber);">
                         <div style="font-size: 3rem; margin-bottom: 0.5rem;">💻</div>
-                        <h3 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Classical Bit</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;">Either 0 <strong>OR</strong> 1</p>
+                        <h3 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.25rem;">Classical Bit
+                        </h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;">Either 0
+                            <strong>OR</strong> 1</p>
                     </div>
 
                     <div style="font-size: 2rem; color: var(--color-green); font-weight: 700;">VS</div>
 
-                    <div style="text-align: center; padding: 1.5rem; background: rgba(22, 163, 74, 0.05); border-radius: 12px; border: 2px solid var(--color-green);">
+                    <div
+                        style="text-align: center; padding: 1.5rem; background: rgba(22, 163, 74, 0.05); border-radius: 12px; border: 2px solid var(--color-green);">
                         <div style="font-size: 3rem; margin-bottom: 0.5rem;">⚛️</div>
-                        <h3 style="color: var(--color-green); margin-bottom: 0.5rem; font-size: 1.25rem;">Quantum Qubit</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;">Can be both 0 <strong>AND</strong> 1</p>
+                        <h3 style="color: var(--color-green); margin-bottom: 0.5rem; font-size: 1.25rem;">Quantum Qubit
+                        </h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;">Can be both 0
+                            <strong>AND</strong> 1</p>
                     </div>
                 </div>
 
-                <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(22, 163, 74, 0.03); border-radius: 12px; border: 1px solid rgba(22, 163, 74, 0.2); text-align: center;">
+                <div
+                    style="margin: 2rem 0; padding: 1.5rem; background: rgba(22, 163, 74, 0.03); border-radius: 12px; border: 1px solid rgba(22, 163, 74, 0.2); text-align: center;">
                     <p style="margin: 0; color: var(--text-secondary); font-size: 1.0625rem;">
-                        <strong style="color: var(--text-primary);">How is this possible?</strong> You'll learn all about this amazing property called <strong style="color: var(--color-green);">superposition</strong> in <a href="lesson3.html" style="color: var(--color-green); text-decoration: none; border-bottom: 2px solid var(--color-green);">Lesson 3</a>!
+                        <strong style="color: var(--text-primary);">How is this possible?</strong> You'll learn all
+                        about this amazing property called <strong
+                            style="color: var(--color-green);">superposition</strong> in <a href="lesson3.html"
+                            style="color: var(--color-green); text-decoration: none; border-bottom: 2px solid var(--color-green);">Lesson
+                            3</a>!
                     </p>
                 </div>
             </section>
 
             <section class="section" id="quantum-principles">
                 <h2 class="section-title">What Makes Quantum Computing Different?</h2>
-                <p style="text-align: center; font-size: 1.0625rem; margin-bottom: 2rem; color: var(--text-secondary);">Three key principles from quantum physics:</p>
+                <p style="text-align: center; font-size: 1.0625rem; margin-bottom: 2rem; color: var(--text-secondary);">
+                    Three key principles from quantum physics:</p>
 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0;">
                     <!-- Superposition -->
-                    <div style="text-align: center; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; border: 2px solid var(--color-green);">
-                        <div style="width: 48px; height: 48px; background: var(--color-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                    <div
+                        style="text-align: center; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; border: 2px solid var(--color-green);">
+                        <div
+                            style="width: 48px; height: 48px; background: var(--color-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                             <i data-lucide="layers" style="width:24px;height:24px;color:white;"></i>
                         </div>
-                        <h3 style="color: var(--color-green); margin-bottom: 0.5rem; font-size: 1.125rem;"><span class="term" data-tooltip="Being in multiple states simultaneously">Superposition</span></h3>
-                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;"><span class="term" data-tooltip="Quantum bit - basic unit of quantum information">Qubits</span> can be in multiple states at once</p>
+                        <h3 style="color: var(--color-green); margin-bottom: 0.5rem; font-size: 1.125rem;"><span
+                                class="term" data-tooltip="Being in multiple states simultaneously">Superposition</span>
+                        </h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;"><span class="term"
+                                data-tooltip="Quantum bit - basic unit of quantum information">Qubits</span> can be in
+                            multiple states at once</p>
                     </div>
 
                     <!-- Measurement -->
-                    <div style="text-align: center; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; border: 2px solid var(--color-amber);">
-                        <div style="width: 48px; height: 48px; background: var(--color-amber); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                    <div
+                        style="text-align: center; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; border: 2px solid var(--color-amber);">
+                        <div
+                            style="width: 48px; height: 48px; background: var(--color-amber); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                             <i data-lucide="eye" style="width:24px;height:24px;color:white;"></i>
                         </div>
-                        <h3 style="color: var(--color-amber); margin-bottom: 0.5rem; font-size: 1.125rem;"><span class="term" data-tooltip="Act of observing that collapses quantum state">Measurement</span></h3>
-                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;">Observing changes the quantum state</p>
+                        <h3 style="color: var(--color-amber); margin-bottom: 0.5rem; font-size: 1.125rem;"><span
+                                class="term"
+                                data-tooltip="Act of observing that collapses quantum state">Measurement</span></h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;">Observing changes the
+                            quantum state</p>
                     </div>
 
                     <!-- Entanglement -->
-                    <div style="text-align: center; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; border: 2px solid #b45309;">
-                        <div style="width: 48px; height: 48px; background: #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                    <div
+                        style="text-align: center; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; border: 2px solid #b45309;">
+                        <div
+                            style="width: 48px; height: 48px; background: #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                             <i data-lucide="link-2" style="width:24px;height:24px;color:white;"></i>
                         </div>
-                        <h3 style="color: #b45309; margin-bottom: 0.5rem; font-size: 1.125rem;"><span class="term" data-tooltip="Qubits correlated so measuring one affects the other">Entanglement</span></h3>
-                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;">Qubits can be mysteriously connected</p>
+                        <h3 style="color: #b45309; margin-bottom: 0.5rem; font-size: 1.125rem;"><span class="term"
+                                data-tooltip="Qubits correlated so measuring one affects the other">Entanglement</span>
+                        </h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin: 0;">Qubits can be
+                            mysteriously connected</p>
                     </div>
                 </div>
 
-                <style>
-                    @media (max-width: 768px) {
-                        div[style*="grid-template-columns: repeat(3, 1fr)"] {
-                            grid-template-columns: 1fr !important;
-                        }
-                    }
-                </style>
 
-                <div style="margin-top: 2rem; padding: 1.25rem; background: rgba(22, 163, 74, 0.03); border-radius: 12px; border: 1px solid rgba(22, 163, 74, 0.2); text-align: center;">
+
+                <div
+                    style="margin-top: 2rem; padding: 1.25rem; background: rgba(22, 163, 74, 0.03); border-radius: 12px; border: 1px solid rgba(22, 163, 74, 0.2); text-align: center;">
                     <p style="margin: 0; color: var(--text-secondary); font-size: 0.9375rem;">
                         You'll explore each of these principles in detail throughout this course!
                     </p>
@@ -477,29 +360,36 @@
             </section>
 
             <!-- Learning Checkpoint -->
-            <div class="callout" style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
+            <div class="callout"
+                style="margin: 2rem 0; background: var(--bg-highlight); border-left: 4px solid var(--color-purple);">
                 <div class="callout-title">
                     <i data-lucide="check-circle" style="width:16px;height:16px"></i>
                     ✓ Learning Checkpoint
                 </div>
                 <p style="margin-bottom: 0.75rem;"><strong>Before moving on, can you:</strong></p>
                 <ul class="checklist" style="list-style: none; padding-left: 0;">
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain why quantum computers are exciting?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Name the three quantum principles?</li>
-                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Describe the basic difference between a bit and a qubit?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Explain why
+                        quantum computers are exciting?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Name the three
+                        quantum principles?</li>
+                    <li style="margin: 0.5rem 0;"><input type="checkbox" style="margin-right: 0.5rem;"> Describe the
+                        basic difference between a bit and a qubit?</li>
                 </ul>
-                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>Ready to dive deeper? Let's start learning!</em></p>
+                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;"><em>Ready to dive deeper? Let's start
+                        learning!</em></p>
             </div>
 
             <!-- Quick Reference Card -->
             <section class="section" id="quick-reference">
                 <h2 class="section-title">📋 Quick Reference Card</h2>
-                <div style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                <div
+                    style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
                     <h3 style="color: var(--color-green); margin-bottom: 1rem;">Quantum Computing Fundamentals</h3>
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr style="border-bottom: 1px solid var(--border-subtle);">
                             <th style="text-align: left; padding: 0.75rem; color: var(--color-green);">Concept</th>
-                            <th style="text-align: left; padding: 0.75rem; color: var(--color-green);">What It Means</th>
+                            <th style="text-align: left; padding: 0.75rem; color: var(--color-green);">What It Means
+                            </th>
                         </tr>
                         <tr style="border-bottom: 1px solid var(--border-subtle);">
                             <td style="padding: 0.75rem;"><strong>Classical Bit</strong></td>
@@ -530,25 +420,31 @@
                 <h2 class="section-title">Glossary</h2>
                 <dl class="term-list">
                     <dt>Quantum Computing</dt>
-                    <dd><strong>Definition:</strong> Computing using quantum mechanical phenomena like superposition and entanglement to solve certain problems faster than classical computers</dd>
+                    <dd><strong>Definition:</strong> Computing using quantum mechanical phenomena like superposition and
+                        entanglement to solve certain problems faster than classical computers</dd>
 
                     <dt>Qubit</dt>
-                    <dd><strong>Pronunciation:</strong> KYOO-bit<br><strong>Definition:</strong> Quantum bit—the basic unit of quantum information. Unlike classical bits, qubits can be in superposition</dd>
+                    <dd><strong>Pronunciation:</strong> KYOO-bit<br><strong>Definition:</strong> Quantum bit—the basic
+                        unit of quantum information. Unlike classical bits, qubits can be in superposition</dd>
 
                     <dt>Superposition</dt>
-                    <dd><strong>Pronunciation:</strong> SOO-per-puh-ZI-shun<br><strong>Definition:</strong> The ability of quantum systems to be in multiple states simultaneously until measured</dd>
+                    <dd><strong>Pronunciation:</strong> SOO-per-puh-ZI-shun<br><strong>Definition:</strong> The ability
+                        of quantum systems to be in multiple states simultaneously until measured</dd>
 
                     <dt>Measurement</dt>
-                    <dd><strong>Definition:</strong> The act of observing a quantum system, which causes it to collapse from superposition to a definite state</dd>
+                    <dd><strong>Definition:</strong> The act of observing a quantum system, which causes it to collapse
+                        from superposition to a definite state</dd>
 
                     <dt>Entanglement</dt>
-                    <dd><strong>Pronunciation:</strong> en-TANG-gul-ment<br><strong>Definition:</strong> A quantum phenomenon where qubits become correlated so that measuring one instantly affects the other</dd>
+                    <dd><strong>Pronunciation:</strong> en-TANG-gul-ment<br><strong>Definition:</strong> A quantum
+                        phenomenon where qubits become correlated so that measuring one instantly affects the other</dd>
 
                     <dt>Classical Computing</dt>
                     <dd><strong>Definition:</strong> Traditional computing using bits (0 or 1) and logic gates</dd>
 
                     <dt>Quantum Advantage</dt>
-                    <dd><strong>Definition:</strong> When quantum computers can solve problems exponentially faster than classical computers</dd>
+                    <dd><strong>Definition:</strong> When quantum computers can solve problems exponentially faster than
+                        classical computers</dd>
                 </dl>
             </section>
 
@@ -556,31 +452,43 @@
                 <h2 class="section-title">Test Your Understanding</h2>
 
                 <div class="quiz-question" data-question="1">
-                    <p class="question-text"><strong>Q1:</strong> Which of these is a real-world application of quantum computing?</p>
+                    <p class="question-text"><strong>Q1:</strong> Which of these is a real-world application of quantum
+                        computing?</p>
                     <div class="quiz-options">
-                        <label class="option"><input type="radio" name="q1" value="a"><span>Drug discovery and molecule simulation</span></label>
-                        <label class="option"><input type="radio" name="q1" value="b"><span>Browsing the web faster</span></label>
-                        <label class="option"><input type="radio" name="q1" value="c"><span>Playing video games</span></label>
+                        <label class="option"><input type="radio" name="q1" value="a"><span>Drug discovery and molecule
+                                simulation</span></label>
+                        <label class="option"><input type="radio" name="q1" value="b"><span>Browsing the web
+                                faster</span></label>
+                        <label class="option"><input type="radio" name="q1" value="c"><span>Playing video
+                                games</span></label>
                     </div>
                     <div class="feedback" id="feedback-1"></div>
                 </div>
 
                 <div class="quiz-question" data-question="2">
-                    <p class="question-text"><strong>Q2:</strong> What is the key difference between a classical bit and a qubit?</p>
+                    <p class="question-text"><strong>Q2:</strong> What is the key difference between a classical bit and
+                        a qubit?</p>
                     <div class="quiz-options">
-                        <label class="option"><input type="radio" name="q2" value="a"><span>Bits are bigger than qubits</span></label>
-                        <label class="option"><input type="radio" name="q2" value="b"><span>Bits can only be 0 OR 1, qubits can be both 0 AND 1</span></label>
-                        <label class="option"><input type="radio" name="q2" value="c"><span>Qubits are only used in smartphones</span></label>
+                        <label class="option"><input type="radio" name="q2" value="a"><span>Bits are bigger than
+                                qubits</span></label>
+                        <label class="option"><input type="radio" name="q2" value="b"><span>Bits can only be 0 OR 1,
+                                qubits can be both 0 AND 1</span></label>
+                        <label class="option"><input type="radio" name="q2" value="c"><span>Qubits are only used in
+                                smartphones</span></label>
                     </div>
                     <div class="feedback" id="feedback-2"></div>
                 </div>
 
                 <div class="quiz-question" data-question="3">
-                    <p class="question-text"><strong>Q3:</strong> What are the three key principles that make quantum computing different?</p>
+                    <p class="question-text"><strong>Q3:</strong> What are the three key principles that make quantum
+                        computing different?</p>
                     <div class="quiz-options">
-                        <label class="option"><input type="radio" name="q3" value="a"><span>Speed, power, and memory</span></label>
-                        <label class="option"><input type="radio" name="q3" value="b"><span>Superposition, measurement, and entanglement</span></label>
-                        <label class="option"><input type="radio" name="q3" value="c"><span>Hardware, software, and networks</span></label>
+                        <label class="option"><input type="radio" name="q3" value="a"><span>Speed, power, and
+                                memory</span></label>
+                        <label class="option"><input type="radio" name="q3" value="b"><span>Superposition, measurement,
+                                and entanglement</span></label>
+                        <label class="option"><input type="radio" name="q3" value="c"><span>Hardware, software, and
+                                networks</span></label>
                     </div>
                     <div class="feedback" id="feedback-3"></div>
                 </div>

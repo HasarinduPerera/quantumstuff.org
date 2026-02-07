@@ -28,541 +28,7 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <style>
-        /* Earthy green palette */
-        :root,
-        [data-theme="light"] {
-            --color-green: #16a34a;
-            --color-green-dark: #15803d;
-            --color-green-light: #86efac;
-            --color-amber: #fbbf24;
-            --color-sand: #d4c5a9;
-
-            --bg-primary: #faf8f3;
-            --bg-secondary: #f0ebe0;
-            --bg-card: #fffdfb;
-            --bg-accent: #e8f5e9;
-
-            --text-primary: #2b281f;
-            --text-secondary: #6b5e4f;
-            --text-muted: #8a7d6f;
-
-            --border-subtle: rgba(107, 94, 79, 0.15);
-            --border-green: rgba(34, 197, 94, 0.2);
-
-            --badge-green-bg: #dcfce7;
-            --badge-green-text: #166534;
-            --badge-amber-bg: #fef3c7;
-            --badge-amber-text: #92400e;
-            --badge-gray-bg: #f3f4f6;
-            --badge-gray-text: #6b7280;
-            --badge-orange-bg: #ffedd5;
-            --badge-orange-text: #9a3412;
-
-            --color-green-100: #dcfce7;
-            --color-green-700: #15803d;
-            --color-green-50: #f0fdf4;
-            --color-amber-50: #fffbeb;
-            --text-accent: #16a34a;
-
-            --spacing-1: 0.25rem;
-            --spacing-2: 0.5rem;
-            --spacing-3: 0.75rem;
-            --spacing-4: 1rem;
-            --spacing-6: 1.5rem;
-            --spacing-8: 2rem;
-            --spacing-12: 3rem;
-            --spacing-16: 4rem;
-
-            --font-size-xs: 0.75rem;
-            --font-size-sm: 0.875rem;
-            --font-size-base: 1rem;
-            --font-size-lg: 1.125rem;
-            --font-size-xl: 1.25rem;
-            --font-size-2xl: 1.5rem;
-            --font-size-3xl: 1.875rem;
-            --font-size-4xl: 2.25rem;
-            --font-size-5xl: 3rem;
-
-            --radius-lg: 0.5rem;
-            --radius-2xl: 1rem;
-            --font-weight-bold: 700;
-            --font-weight-semibold: 600;
-            --border-color: rgba(107, 94, 79, 0.15);
-        }
-
-        [data-theme="dark"] {
-            --color-green: #16a34a;
-            --color-green-dark: #15803d;
-            --color-green-light: #4ade80;
-            --color-amber: #fbbf24;
-            --color-sand: #d4c5a9;
-
-            --bg-primary: #1c1a16;
-            --bg-secondary: #2b281f;
-            --bg-card: #32291d;
-            --bg-accent: #1e2617;
-
-            --text-primary: #f5f1e8;
-            --text-secondary: #c9b898;
-            --text-muted: #9a8d7a;
-
-            --border-subtle: rgba(212, 197, 169, 0.15);
-            --border-green: rgba(34, 197, 94, 0.2);
-
-            --badge-green-bg: #14532d;
-            --badge-green-text: #86efac;
-            --badge-amber-bg: #78350f;
-            --badge-amber-text: #fcd34d;
-            --badge-gray-bg: #374151;
-            --badge-gray-text: #d1d5db;
-            --badge-orange-bg: #7c2d12;
-            --badge-orange-text: #fed7aa;
-
-            --color-green-100: #14532d;
-            --color-green-700: #4ade80;
-            --color-green-50: #14532d;
-            --color-amber-50: #78350f;
-            --text-accent: #4ade80;
-            --border-color: rgba(212, 197, 169, 0.15);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .nav {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 1.25rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-family: 'Crimson Pro', serif;
-            font-size: 1.75rem;
-            font-weight: 600;
-            color: var(--color-green);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Crimson Pro', serif;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--color-green);
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .theme-toggle {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-            background: var(--bg-card);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            color: var(--text-primary);
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--color-green);
-        }
-
-        .btn-primary {
-            background: var(--color-green);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary:hover {
-            background: var(--color-green-dark);
-            transform: translateY(-1px);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 5rem 0;
-            background: linear-gradient(135deg,
-                    var(--bg-primary) 0%,
-                    var(--bg-accent) 50%,
-                    var(--bg-primary) 100%);
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-green);
-            border-radius: 999px;
-            color: var(--color-green);
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero h1 {
-            font-family: 'Crimson Pro', serif;
-            font-size: 3.5rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .hero h1 .accent {
-            color: var(--color-green);
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            font-family: 'Crimson Pro', serif;
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 3rem;
-            text-align: center;
-            color: var(--text-primary);
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s;
-        }
-
-        .card:hover {
-            border-color: var(--color-green);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(34, 197, 94, 0.12);
-        }
-
-        .grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .grid-cols-1 {
-            grid-template-columns: 1fr;
-        }
-
-        .grid-md-2 {
-            grid-template-columns: 1fr;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .badge-green {
-            background: var(--badge-green-bg);
-            color: var(--badge-green-text);
-        }
-
-        .footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-subtle);
-            padding: 3rem 0 2rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: var(--color-green);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 1rem 2rem;
-            z-index: 99;
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-menu-list {
-            list-style: none;
-        }
-
-        .mobile-menu-list li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .mobile-menu-list a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        @media (min-width: 640px) {
-            .grid-md-2 {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .grid-md-2 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Font Size Accessibility Fixes */
-        html.font-large .nav-content,
-        html.font-xlarge .nav-content {
-            min-height: 70px;
-            padding: 0.75rem 0;
-        }
-
-        html.font-large .nav-links,
-        html.font-xlarge .nav-links {
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        html.font-large .logo,
-        html.font-xlarge .logo {
-            font-size: 1.25rem;
-        }
-
-        html.font-large .btn-primary,
-        html.font-xlarge .btn-primary {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-        }
-
-        /* High Contrast Mode */
-        [data-theme="high-contrast"] {
-            --bg-primary: #000000;
-            --bg-secondary: #1a1a1a;
-            --bg-accent: #0a0a0a;
-            --bg-card: #000000;
-            --text-primary: #ffffff;
-            --text-secondary: #ffff00;
-            --text-muted: #ffff00;
-            --text-accent: #ffff00;
-            --border-subtle: #ffffff;
-            --border-green: #ffff00;
-            --color-green: #ffff00;
-            --color-green-dark: #ffffff;
-            --color-green-light: #ffff00;
-        }
-
-        [data-theme="high-contrast"] .hero {
-            background: #000000 !important;
-        }
-
-        [data-theme="high-contrast"] .section {
-            background: #000000 !important;
-        }
-
-        [data-theme="high-contrast"] .card {
-            background: #000000 !important;
-            border: 2px solid #ffffff;
-        }
-
-        [data-theme="high-contrast"] .btn-primary {
-            background: #ffff00 !important;
-            color: #000000 !important;
-            border: 2px solid #ffffff;
-        }
-
-        [data-theme="high-contrast"] a {
-            color: #ffff00;
-            text-decoration: underline;
-        }
-
-        [data-theme="high-contrast"] .nav {
-            background: #000000 !important;
-            border-bottom: 2px solid #ffffff;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 1rem;
-            }
-
-            .hero {
-                padding: 3rem 0;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-            }
-
-            .btn-primary {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .section {
-                padding: 3rem 0;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -570,16 +36,25 @@
     <nav class="nav">
         <div class="container">
             <div class="nav-content">
-                <a href="../index.html" class="logo">
-                    <i data-lucide="atom" style="width: 28px; height: 28px;"></i>
-                    quantumstuff
+                <a href="../index.html" class="logo" style="display: flex; align-items: center; gap: 12px;">
+                    <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" stroke="#16a34a" stroke-width="4"/>
+                        <ellipse cx="50" cy="50" rx="45" ry="15" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 4" fill="none"/>
+                        <line x1="50" y1="95" x2="50" y2="5" stroke="#16a34a" stroke-width="3"/>
+                        <polygon points="50,2 46,12 54,12" fill="#16a34a"/>
+                        <line x1="50" y1="50" x2="75" y2="25" stroke="#f5b208" stroke-width="5" stroke-linecap="round"/>
+                        <polygon points="78,22 68,22 78,32" fill="#f5b208" transform="rotate(-45 78 22)"/>
+                    </svg>
+                    <div style="font-size: 24px; font-weight: 700; white-space: nowrap;">
+                        <span style="color: #16a34a;">Quantum</span> <span style="color: #f5b208;">Stuff</span>
+                    </div>
                 </a>
                 <ul class="nav-links">
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="index.html">Courses</a></li>
                     <li><a href="../playground.html">Playground</a></li>
-                    <li><a href="../resources.html">Resources</a></li>
-                    <li><a href="../community.html">Community</a></li>
+                    <!-- <li><a href="../resources.html">Resources</a></li> -->
+                    <!-- <li><a href="../community.html">Community</a></li> -->
                     <li><a href="../about.html">Our Mission</a></li>
                 </ul>
                 <div class="nav-actions">
@@ -589,7 +64,8 @@
                     </button>
                     <a href="index.html" class="btn-primary">Start Learning Free</a>
                     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-                        <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+                        <i data-lucide="menu" id="menuIcon" style="width: 24px; height: 24px;"></i>
+                        <i data-lucide="x" id="closeIcon" style="width: 24px; height: 24px; display: none;"></i>
                     </button>
                 </div>
             </div>
@@ -602,11 +78,11 @@
             <li><a href="../index.html">Home</a></li>
             <li><a href="index.html">Courses</a></li>
             <li><a href="../playground.html">Playground</a></li>
-            <li><a href="../resources.html">Resources</a></li>
-            <li><a href="../community.html">Community</a></li>
+            <!-- <li><a href="../resources.html">Resources</a></li> -->
+            <!-- <li><a href="../community.html">Community</a></li> -->
             <li><a href="../about.html">Our Mission</a></li>
         </ul>
-        <div style="padding: 1rem 0;">
+        <div style="padding: 1rem var(--spacing-4);">
             <a href="index.html" class="btn-primary" style="width: 100%; justify-content: center;">Start Learning Free</a>
         </div>
     </div>
@@ -1083,9 +559,31 @@
         // Mobile menu
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
+        function toggleMobileMenu() {
+            const isActive = mobileMenu.classList.toggle('active');
+
+            // Toggle icons
+            if (isActive) {
+                menuIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
+            } else {
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-menu-list a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
         });
     </script>
     <script src="../js/accessibility.js"></script>

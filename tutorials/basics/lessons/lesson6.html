@@ -49,12 +49,29 @@
                 <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
                     <i data-lucide="sun" style="width:18px;height:18px"></i>
                 </button>
+                <button class="lesson-menu-btn" id="lessonMenuBtn" aria-label="Toggle lessons menu">
+                    <i data-lucide="menu" id="lessonMenuIcon" style="width:18px;height:18px"></i>
+                    <i data-lucide="x" id="lessonCloseIcon" style="width:18px;height:18px;display:none"></i>
+                </button>
             </div>
         </div>
     </header>
 
-    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
-    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div id="lessonDropdown" class="lesson-dropdown">
+        <div class="sidebar-section">
+            <div class="sidebar-title">Foundations</div>
+            <nav class="sidebar-nav">
+                <a href="lesson1.html" class="sidebar-link">1. Welcome to Quantum Computing</a>
+                <a href="lesson2.html" class="sidebar-link">2. Classical Computing Foundations</a>
+                <a href="lesson3.html" class="sidebar-link">3. Qubits and Superposition</a>
+                <a href="lesson4.html" class="sidebar-link">4. The X Gate</a>
+                <a href="lesson5.html" class="sidebar-link">5. The Hadamard Gate</a>
+                <a href="lesson6.html" class="sidebar-link active">6. Multiple Qubits</a>
+                <a href="lesson7.html" class="sidebar-link">7. The CNOT Gate</a>
+                <a href="lesson8.html" class="sidebar-link">8. Entanglement and Quantum Power</a>
+            </nav>
+        </div>
+    </div>
 
     <div class="layout">
         <aside class="sidebar">
@@ -451,13 +468,32 @@
     <script src="../js/quantum-utils.js"></script>
     <script src="../js/lesson6.js"></script>
     <script>
-        function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('open');
-            document.querySelector('.sidebar-overlay').classList.toggle('open');
-        }
         lucide.createIcons();
+
+        // Lesson dropdown menu
+        const lessonMenuBtn = document.getElementById('lessonMenuBtn');
+        const lessonDropdown = document.getElementById('lessonDropdown');
+        const lessonMenuIcon = document.getElementById('lessonMenuIcon');
+        const lessonCloseIcon = document.getElementById('lessonCloseIcon');
+
+        if (lessonMenuBtn) {
+            lessonMenuBtn.addEventListener('click', () => {
+                const isActive = lessonDropdown.classList.toggle('active');
+                lessonMenuIcon.style.display = isActive ? 'none' : 'block';
+                lessonCloseIcon.style.display = isActive ? 'block' : 'none';
+            });
+
+            lessonDropdown.querySelectorAll('.sidebar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    lessonDropdown.classList.remove('active');
+                    lessonMenuIcon.style.display = 'block';
+                    lessonCloseIcon.style.display = 'none';
+                });
+            });
+        }
     </script>
     <script src="../../../js/main.js"></script>
+    <script src="../../../js/accessibility.js"></script>
 </body>
 
 </html>

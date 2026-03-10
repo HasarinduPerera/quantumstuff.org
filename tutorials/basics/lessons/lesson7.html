@@ -11,9 +11,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The CNOT Gate - quantumstuff.org</title>
+    <!-- Site styles first -->
     <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Q.js Library CSS (after site styles) -->
     <link rel="stylesheet" href="../../../libraries/q.js/Q/Q.css">
     <link rel="stylesheet" href="../../../libraries/q.js/Q/Q-Circuit-Editor.css">
+
+    <style>
+        /* White container for Q.js circuit */
+        .qjs-circuit {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem auto;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        /* Hide the JavaScript console reference text */
+        .Q-circuit > p {
+            display: none !important;
+        }
+
+        /* Ensure proper z-index stacking for cell highlights to be visible */
+        .Q-circuit-board-background {
+            z-index: 0;
+        }
+
+        .Q-circuit-board-foreground {
+            z-index: 1;
+        }
+
+        /* Fix stacking context for palette */
+        .Q-circuit-palette {
+            position: relative;
+            isolation: isolate;
+        }
+
+        /* Remove scrollbars and center circuit */
+        .Q-circuit-board-container {
+            overflow: visible !important;
+            max-height: none !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+    </style>
+
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
@@ -52,12 +96,29 @@
                 <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
                     <i data-lucide="sun" style="width:18px;height:18px"></i>
                 </button>
+                <button class="lesson-menu-btn" id="lessonMenuBtn" aria-label="Toggle lessons menu">
+                    <i data-lucide="menu" id="lessonMenuIcon" style="width:18px;height:18px"></i>
+                    <i data-lucide="x" id="lessonCloseIcon" style="width:18px;height:18px;display:none"></i>
+                </button>
             </div>
         </div>
     </header>
 
-    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
-    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div id="lessonDropdown" class="lesson-dropdown">
+        <div class="sidebar-section">
+            <div class="sidebar-title">Foundations</div>
+            <nav class="sidebar-nav">
+                <a href="lesson1.html" class="sidebar-link">1. Welcome to Quantum Computing</a>
+                <a href="lesson2.html" class="sidebar-link">2. Classical Computing Foundations</a>
+                <a href="lesson3.html" class="sidebar-link">3. Qubits and Superposition</a>
+                <a href="lesson4.html" class="sidebar-link">4. The X Gate</a>
+                <a href="lesson5.html" class="sidebar-link">5. The Hadamard Gate</a>
+                <a href="lesson6.html" class="sidebar-link">6. Multiple Qubits</a>
+                <a href="lesson7.html" class="sidebar-link active">7. The CNOT Gate</a>
+                <a href="lesson8.html" class="sidebar-link">8. Entanglement and Quantum Power</a>
+            </nav>
+        </div>
+    </div>
 
     <div class="layout">
         <aside class="sidebar">
@@ -528,13 +589,32 @@
     </script>
 
     <script>
-        function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('open');
-            document.querySelector('.sidebar-overlay').classList.toggle('open');
-        }
         lucide.createIcons();
+
+        // Lesson dropdown menu
+        const lessonMenuBtn = document.getElementById('lessonMenuBtn');
+        const lessonDropdown = document.getElementById('lessonDropdown');
+        const lessonMenuIcon = document.getElementById('lessonMenuIcon');
+        const lessonCloseIcon = document.getElementById('lessonCloseIcon');
+
+        if (lessonMenuBtn) {
+            lessonMenuBtn.addEventListener('click', () => {
+                const isActive = lessonDropdown.classList.toggle('active');
+                lessonMenuIcon.style.display = isActive ? 'none' : 'block';
+                lessonCloseIcon.style.display = isActive ? 'block' : 'none';
+            });
+
+            lessonDropdown.querySelectorAll('.sidebar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    lessonDropdown.classList.remove('active');
+                    lessonMenuIcon.style.display = 'block';
+                    lessonCloseIcon.style.display = 'none';
+                });
+            });
+        }
     </script>
     <script src="../../../js/main.js"></script>
+    <script src="../../../js/accessibility.js"></script>
 </body>
 
 </html>

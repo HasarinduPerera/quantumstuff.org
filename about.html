@@ -67,9 +67,8 @@
                     </button>
                     <a href="sections/index.html" class="btn-primary">Start Learning Free</a>
                     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-                        <span class="hamburger-line"></span>
-                        <span class="hamburger-line"></span>
-                        <span class="hamburger-line"></span>
+                        <i data-lucide="menu" id="menuIcon" style="width: 24px; height: 24px;"></i>
+                        <i data-lucide="x" id="closeIcon" style="width: 24px; height: 24px; display: none;"></i>
                     </button>
                 </div>
             </div>
@@ -78,47 +77,14 @@
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="mobile-menu">
-        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-        <div class="mobile-menu-content">
-            <div class="mobile-menu-header">
-                <h3 class="mobile-menu-title">Menu</h3>
-                <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
-                    <i data-lucide="x" style="width: 18px; height: 18px;"></i>
-                </button>
-            </div>
-            <ul class="mobile-menu-list">
-                <li>
-                    <a href="index.html">
-                        <i data-lucide="home" style="width: 20px; height: 20px;"></i>
-                        <span>Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="sections/index.html">
-                        <i data-lucide="book-open" style="width: 20px; height: 20px;"></i>
-                        <span>Courses</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="playground.html">
-                        <i data-lucide="code" style="width: 20px; height: 20px;"></i>
-                        <span>Playground</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="about.html">
-                        <i data-lucide="info" style="width: 20px; height: 20px;"></i>
-                        <span>Our Mission</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="mobile-menu-divider"></div>
-            <div class="mobile-menu-cta">
-                <a href="sections/index.html" class="btn-primary mobile-menu-btn-primary">
-                    <span>Start Learning Free</span>
-                    <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
-                </a>
-            </div>
+        <ul class="mobile-menu-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sections/index.html">Courses</a></li>
+            <li><a href="playground.html">Playground</a></li>
+            <li><a href="about.html">Our Mission</a></li>
+        </ul>
+        <div style="padding: 0.25rem 1.25rem 1rem;">
+            <a href="sections/index.html" class="btn-primary" style="width: 100%; justify-content: center;">Start Learning Free</a>
         </div>
     </div>
 
@@ -353,32 +319,22 @@
         // Mobile menu
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
 
         function toggleMobileMenu() {
             const isActive = mobileMenu.classList.toggle('active');
-            mobileMenuBtn.classList.toggle('active');
 
             if (isActive) {
-                document.body.style.overflow = 'hidden';
-                setTimeout(() => lucide.createIcons(), 100);
+                menuIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
             } else {
-                document.body.style.overflow = '';
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
             }
         }
 
         mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-
-        // Close button
-        if (mobileMenuClose) {
-            mobileMenuClose.addEventListener('click', toggleMobileMenu);
-        }
-
-        // Close menu when clicking overlay
-        if (mobileMenuOverlay) {
-            mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
-        }
 
         // Close menu when clicking a link
         document.querySelectorAll('.mobile-menu-list a').forEach(link => {

@@ -162,15 +162,14 @@
                         <span class="demo-title">Interactive: Two-Qubit State Explorer</span>
                     </div>
                     <div class="demo-content">
-                        <div class="button-group"
-                            style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;margin:1rem 0">
-                            <button class="btn-secondary" onclick="showTwoQubitState('00')">|00⟩</button>
-                            <button class="btn-secondary" onclick="showTwoQubitState('01')">|01⟩</button>
-                            <button class="btn-secondary" onclick="showTwoQubitState('10')">|10⟩</button>
-                            <button class="btn-secondary" onclick="showTwoQubitState('11')">|11⟩</button>
+                        <p style="text-align:center;color:var(--text-secondary);margin-bottom:1.25rem;font-size:0.9375rem;">Select a basis state to explore how two qubits combine:</p>
+                        <div style="display:flex;gap:0.625rem;margin-bottom:1.5rem;">
+                            <button id="q-btn-00" onclick="showTwoQubitState('00')" style="flex:1;padding:0.875rem 0.5rem;border-radius:10px;border:2px solid #16a34a;background:#16a34a;color:white;font-size:1.2rem;font-weight:700;cursor:pointer;transition:all 0.2s;">|00⟩</button>
+                            <button id="q-btn-01" onclick="showTwoQubitState('01')" style="flex:1;padding:0.875rem 0.5rem;border-radius:10px;border:2px solid #22c55e;background:var(--bg-card);color:#22c55e;font-size:1.2rem;font-weight:700;cursor:pointer;transition:all 0.2s;">|01⟩</button>
+                            <button id="q-btn-10" onclick="showTwoQubitState('10')" style="flex:1;padding:0.875rem 0.5rem;border-radius:10px;border:2px solid #f59e0b;background:var(--bg-card);color:#f59e0b;font-size:1.2rem;font-weight:700;cursor:pointer;transition:all 0.2s;">|10⟩</button>
+                            <button id="q-btn-11" onclick="showTwoQubitState('11')" style="flex:1;padding:0.875rem 0.5rem;border-radius:10px;border:2px solid #d97706;background:var(--bg-card);color:#d97706;font-size:1.2rem;font-weight:700;cursor:pointer;transition:all 0.2s;">|11⟩</button>
                         </div>
-                        <div id="two-qubit-visualization" class="two-qubit-display"></div>
-                        <div id="two-qubit-explanation" class="result-text"></div>
+                        <div id="two-qubit-visualization"></div>
                     </div>
                 </div>
 
@@ -231,22 +230,40 @@
                         <span class="demo-title">Interactive: H ⊗ H Circuit</span>
                     </div>
                     <div class="demo-content">
-                        <div class="circuit-display">
-                            <div class="qubit-wire">
-                                <span class="state-label">q₀: |0⟩</span>
-                                <div class="gate-box gate-h">H</div>
-                                <div class="measurement-box">📊</div>
+                        <!-- Circuit diagram with actual wires -->
+                        <div style="background:var(--bg-secondary);border-radius:12px;padding:1.75rem 2rem;margin-bottom:1.25rem;">
+                            <div style="font-size:0.75rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1.25rem;">H ⊗ H Circuit</div>
+                            <!-- q₀ row -->
+                            <div style="display:flex;align-items:center;margin-bottom:1.25rem;">
+                                <div style="font-family:monospace;font-weight:700;font-size:0.9375rem;color:var(--color-green);min-width:72px;flex-shrink:0;">q₀: |0⟩</div>
+                                <div style="height:2px;background:var(--text-secondary);opacity:0.35;flex:1;"></div>
+                                <div style="width:44px;height:44px;background:#3b82f6;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:white;flex-shrink:0;box-shadow:0 2px 8px #3b82f644;">H</div>
+                                <div style="height:2px;background:var(--text-secondary);opacity:0.35;flex:1;"></div>
+                                <div style="width:44px;height:44px;border:2px solid var(--color-green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;background:var(--bg-card);">M</div>
                             </div>
-                            <div class="qubit-wire">
-                                <span class="state-label">q₁: |0⟩</span>
-                                <div class="gate-box gate-h">H</div>
-                                <div class="measurement-box">📊</div>
+                            <!-- q₁ row -->
+                            <div style="display:flex;align-items:center;">
+                                <div style="font-family:monospace;font-weight:700;font-size:0.9375rem;color:var(--color-green);min-width:72px;flex-shrink:0;">q₁: |0⟩</div>
+                                <div style="height:2px;background:var(--text-secondary);opacity:0.35;flex:1;"></div>
+                                <div style="width:44px;height:44px;background:#3b82f6;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:white;flex-shrink:0;box-shadow:0 2px 8px #3b82f644;">H</div>
+                                <div style="height:2px;background:var(--text-secondary);opacity:0.35;flex:1;"></div>
+                                <div style="width:44px;height:44px;border:2px solid var(--color-green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;background:var(--bg-card);">M</div>
+                            </div>
+                            <!-- output label -->
+                            <div style="margin-top:1.25rem;padding:0.75rem 1rem;background:rgba(22,163,74,0.08);border-radius:8px;font-size:0.875rem;color:var(--text-secondary);text-align:center;">
+                                Output: <strong style="color:var(--color-green);">(1/2)(|00⟩ + |01⟩ + |10⟩ + |11⟩)</strong> — equal superposition of all 4 states
                             </div>
                         </div>
-                        <button class="btn-primary" onclick="applyDoubleHadamard()">Apply H ⊗ H & Measure 40
-                            Times</button>
-                        <div id="double-h-results" class="results-grid"></div>
-                        <div id="double-h-histogram"></div>
+                        <div style="text-align:center;margin:1.25rem 0;">
+                            <p style="font-size:0.9375rem;color:var(--text-secondary);margin-bottom:1rem;">H on both qubits creates equal superposition of all 4 states — each appears ~25% of the time.</p>
+                            <button class="btn-primary" onclick="applyDoubleHadamard()">
+                                <i data-lucide="play" style="width:16px;height:16px;margin-right:0.5rem;vertical-align:middle"></i>
+                                Measure 40 Times
+                            </button>
+                        </div>
+                        <div id="hh-stats"></div>
+                        <div id="hh-bars"></div>
+                        <div id="hh-results"></div>
                     </div>
                 </div>
             </section>
@@ -259,27 +276,34 @@
                         <span class="demo-title">Comparison: State Space Growth</span>
                     </div>
                     <div class="demo-content">
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:1rem 0">
-                            <div class="card">
-                                <h4 style="text-align:center;margin-bottom:1rem">Classical System</h4>
-                                <p style="text-align:center;font-size:0.9rem">n bits store ONE of 2<sup>n</sup> values
-                                </p>
-                                <div id="classical-scale" style="text-align:center;font-size:1.1rem;margin-top:1rem">
-                                </div>
-                            </div>
-                            <div class="card" style="border:2px solid var(--color-green)">
-                                <h4 style="text-align:center;margin-bottom:1rem;color:var(--color-green)">Quantum System
-                                </h4>
-                                <p style="text-align:center;font-size:0.9rem">n qubits in ALL 2<sup>n</sup> states!</p>
-                                <div id="quantum-scale" style="text-align:center;font-size:1.1rem;margin-top:1rem">
-                                </div>
-                            </div>
-                        </div>
-                        <div style="text-align:center;margin-top:1rem">
-                            <label>Number of bits/qubits: <strong id="scale-count">5</strong></label><br>
+                        <!-- Slider at top -->
+                        <div style="text-align:center;margin-bottom:1.5rem;">
+                            <div style="font-size:0.9375rem;color:var(--text-secondary);margin-bottom:0.75rem;">Drag to change the number of bits/qubits:</div>
                             <input type="range" id="scale-slider" min="1" max="10" value="5"
-                                style="width:80%;margin:1rem 0" oninput="updateScaleComparison(this.value)">
+                                style="width:90%;margin-bottom:0.75rem;" oninput="updateScaleComparison(this.value)">
+                            <div style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.25rem;background:linear-gradient(135deg,var(--color-green),var(--color-green-dark));color:white;border-radius:100px;font-weight:700;font-size:1rem;">
+                                <span id="scale-count">5</span> bits / qubits
+                            </div>
                         </div>
+                        <!-- Side-by-side cards -->
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+                            <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;padding:1.25rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;">
+                                    <div style="width:10px;height:10px;border-radius:50%;background:#6b7280;"></div>
+                                    <h4 style="margin:0;color:var(--text-secondary);font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em;">Classical</h4>
+                                </div>
+                                <div id="classical-scale"></div>
+                            </div>
+                            <div style="background:var(--bg-card);border:2px solid rgba(22,163,74,0.4);border-radius:12px;padding:1.25rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;">
+                                    <div style="width:10px;height:10px;border-radius:50%;background:var(--color-green);"></div>
+                                    <h4 style="margin:0;color:var(--color-green);font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em;">Quantum</h4>
+                                </div>
+                                <div id="quantum-scale"></div>
+                            </div>
+                        </div>
+                        <!-- Dot grid visualization -->
+                        <div id="scale-visual"></div>
                     </div>
                 </div>
             </section>

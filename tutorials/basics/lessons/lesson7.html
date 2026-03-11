@@ -214,12 +214,13 @@
                         <span class="demo-title">Interactive: H + CNOT Circuit (Bell State)</span>
                     </div>
                     <div class="demo-content">
-                        <div id="h-cnot-circuit" style="margin:2rem 0"></div>
-                        <div id="h-cnot-results">
-                            <p style="background:var(--bg-secondary);padding:1rem;border-radius:4px">
-                                <strong>Live Probability Results:</strong><br>
-                                Try modifying the circuit above! Drag gates and see real-time changes.
-                            </p>
+                        <div class="qjs-circuit">
+                            <div class='Q-circuit-palette'></div>
+                            <div id="h-cnot-circuit"></div>
+                            <div class="truth-table">
+                                <h4>Result probabilities</h4>
+                                <pre><samp id="h-cnot-circuit-report"></samp></pre>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -527,44 +528,19 @@
     <script src="../../../libraries/q.js/Q/Q-Circuit.js"></script>
     <script src="../../../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
 
-    <script>
-        window.addEventListener('load', function () {
-            try {
-                const bellCircuit = Q`
-                    H  X#0
-                    I  X#1
-                `.setName$('bell-state').toDom('h-cnot-circuit');
-                bellCircuit.circuit.evaluate$();
-                console.log('Bell state circuit created!');
-            } catch (error) {
-                console.error('Failed to create Bell circuit:', error);
-            }
-        });
-    </script>
-
     <script src="../js/quantum-utils.js"></script>
     <script src="../js/lesson7.js"></script>
 
-    <!-- Q.js Library -->
-    <script src="../../../libraries/q.js/Q/Q.js"></script>
-    <script src="../../../libraries/q.js/Q/Q-ComplexNumber.js"></script>
-    <script src="../../../libraries/q.js/Q/Q-Matrix.js"></script>
-    <script src="../../../libraries/q.js/Q/Q-Qubit.js"></script>
-    <script src="../../../libraries/q.js/Q/Q-Gate.js"></script>
-    <script src="../../../libraries/q.js/Q/Q-History.js"></script>
-    <script src="../../../libraries/q.js/Q/Q-Circuit.js"></script>
-    <script src="../../../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
-
     <script>
-        // Create gate palettes (EXACT copy from playground.html)
+        // Create gate palettes
         Array
             .from(document.querySelectorAll('.Q-circuit-palette'))
             .forEach(function (el) {
                 Q.Circuit.Editor.createPalette(el)
             })
 
-        // Initialize circuits on page load
         window.addEventListener('DOMContentLoaded', function () {
+
             // CNOT truth table circuit (2 qubits, 7 moments)
             const cnotTruthCircuit = new Q.Circuit(2, 7)
             cnotTruthCircuit.name = 'cnot-truth'
@@ -573,6 +549,18 @@
                 cnotTruthCircuit.sort$()
                 cnotTruthCircuit.toDom(cnotTruthDomEl)
                 cnotTruthCircuit.evaluate$()
+            }
+
+            // H + CNOT (Bell state) circuit — pre-populated with H on q0, CNOT at m2
+            const hCnotCircuit = new Q.Circuit(2, 7)
+                .set$(Q.Gate.HADAMARD, 1, 1)
+                .set$(Q.Gate.PAULI_X,  2, [1, 2])
+            hCnotCircuit.name = 'h-cnot-circuit'
+            const hCnotDomEl = document.getElementById('h-cnot-circuit')
+            if (hCnotDomEl) {
+                hCnotCircuit.sort$()
+                hCnotCircuit.toDom(hCnotDomEl)
+                hCnotCircuit.evaluate$()
             }
 
             // CNOT experiments circuit (2 qubits, 7 moments)
@@ -584,7 +572,18 @@
                 cnotExpCircuit.toDom(cnotExpDomEl)
                 cnotExpCircuit.evaluate$()
             }
+        })
 
+        // Update report when any circuit finishes evaluating
+        window.addEventListener('Q.Circuit.evaluate completed', function (event) {
+            const circuit = event.detail.circuit
+            const reportEl = document.getElementById(circuit.name + '-report')
+            if (reportEl) reportEl.innerText = circuit.report$()
+        })
+
+        // Re-evaluate when user drags gates
+        window.addEventListener('Q gui altered circuit', function (event) {
+            event.detail.circuit.evaluate$()
         })
     </script>
 

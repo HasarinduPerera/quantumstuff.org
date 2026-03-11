@@ -69,17 +69,24 @@ body {
 /* Skip Link */
 .skip-link {
     position: absolute;
-    top: -40px;
-    left: 0;
+    top: -9999px;
+    left: 50%;
+    transform: translateX(-50%);
     background: var(--color-green);
     color: white;
-    padding: 8px;
-    z-index: 1000;
+    padding: 8px 20px;
+    border-radius: 0 0 8px 8px;
+    z-index: 10000;
     text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    white-space: nowrap;
 }
 
 .skip-link:focus {
     top: 0;
+    outline: 3px solid white;
+    outline-offset: -3px;
 }
 
 /* =================== HEADER =================== */

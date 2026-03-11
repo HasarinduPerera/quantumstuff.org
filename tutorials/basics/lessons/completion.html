@@ -22,10 +22,21 @@
 
     <header class="header">
         <div class="header-content">
-            <a href="../../../index.html" class="logo">quantumstuff</a>
-            <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle theme">
-                <i data-lucide="sun" class="theme-icon light"></i>
-                <i data-lucide="moon" class="theme-icon dark"></i>
+            <a href="../../../index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="#16a34a" stroke-width="4" />
+                    <ellipse cx="50" cy="50" rx="45" ry="15" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 4" fill="none" />
+                    <line x1="50" y1="95" x2="50" y2="5" stroke="#16a34a" stroke-width="3" />
+                    <polygon points="50,2 46,12 54,12" fill="#16a34a" />
+                    <line x1="50" y1="50" x2="75" y2="25" stroke="#f5b208" stroke-width="5" stroke-linecap="round" />
+                    <polygon points="78,22 68,22 78,32" fill="#f5b208" transform="rotate(-45 78 22)" />
+                </svg>
+                <span style="font-size: 18px; font-weight: 700; white-space: nowrap;">
+                    <span style="color: #16a34a;">Quantum</span> <span style="color: #f5b208;">Stuff</span>
+                </span>
+            </a>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+                <i data-lucide="sun" style="width:18px;height:18px"></i>
             </button>
         </div>
     </header>
@@ -75,7 +86,7 @@
                     <p style="color: var(--text-secondary); margin-bottom: 1rem;">
                         Dive deeper into famous quantum algorithms like Grover's search and Shor's factoring algorithm.
                     </p>
-                    <a href="../../algorithms/lessons/lesson1.html" class="btn-primary">Start Quantum Algorithms →</a>
+                    <button class="btn-secondary" disabled style="opacity: 0.6;">Coming Soon</button>
                 </div>
 
                 <div class="next-step-card">
@@ -159,15 +170,6 @@
 
         // Start the fireworks
         fireworks.start();
-
-        // Theme toggle
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
 
         lucide.createIcons();
     </script>

@@ -199,7 +199,7 @@
                             |Ψ⁺⟩ (X+H+CNOT), |Ψ⁻⟩ (X+Z+H+CNOT)!</p>
                         <div class="qjs-circuit">
                             <div class='Q-circuit-palette'></div>
-                            <div id="bell-states"></div>
+                            <div id="bell-states-circuit"></div>
                             <div class="truth-table">
                                 <h4>Result probabilities</h4>
                                 <pre><samp id="bell-states-report"></samp></pre>
@@ -715,9 +715,6 @@
         </aside>
     </div>
 
-    <script src="../js/quantum-utils.js"></script>
-    <script src="../js/lesson8.js"></script>
-
     <!-- Q.js Library -->
     <script src="../../../libraries/q.js/Q/Q.js"></script>
     <script src="../../../libraries/q.js/Q/Q-ComplexNumber.js"></script>
@@ -728,28 +725,35 @@
     <script src="../../../libraries/q.js/Q/Q-Circuit.js"></script>
     <script src="../../../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
 
+    <script src="../js/quantum-utils.js"></script>
+    <script src="../js/lesson8.js"></script>
+
     <script>
-        // Create gate palettes (EXACT copy from playground.html)
+        // Create gate palettes
         Array
             .from(document.querySelectorAll('.Q-circuit-palette'))
             .forEach(function (el) {
                 Q.Circuit.Editor.createPalette(el)
             })
 
-        // Initialize circuits on page load
         window.addEventListener('DOMContentLoaded', function () {
-            // Bell states circuit (2 qubits, 7 moments)
+
+            // Bell State Creator — pre-populated with |Φ⁺⟩ (H on q0, CNOT at m2)
             const bellCircuit = new Q.Circuit(2, 7)
+                .set$(Q.Gate.HADAMARD, 1, 1)
+                .set$(Q.Gate.PAULI_X,  2, [1, 2])
             bellCircuit.name = 'bell-states'
-            const bellDomEl = document.getElementById('bell-states')
+            const bellDomEl = document.getElementById('bell-states-circuit')
             if (bellDomEl) {
                 bellCircuit.sort$()
                 bellCircuit.toDom(bellDomEl)
                 bellCircuit.evaluate$()
             }
 
-            // Entanglement measurement circuit (2 qubits, 7 moments)
+            // Entanglement Correlations — also pre-populated with Bell state
             const entMeasureCircuit = new Q.Circuit(2, 7)
+                .set$(Q.Gate.HADAMARD, 1, 1)
+                .set$(Q.Gate.PAULI_X,  2, [1, 2])
             entMeasureCircuit.name = 'entanglement-measure'
             const entMeasureDomEl = document.getElementById('entanglement-measure')
             if (entMeasureDomEl) {
@@ -757,7 +761,18 @@
                 entMeasureCircuit.toDom(entMeasureDomEl)
                 entMeasureCircuit.evaluate$()
             }
+        })
 
+        // Update report when any circuit finishes evaluating
+        window.addEventListener('Q.Circuit.evaluate completed', function (event) {
+            const circuit = event.detail.circuit
+            const reportEl = document.getElementById(circuit.name + '-report')
+            if (reportEl) reportEl.innerText = circuit.report$()
+        })
+
+        // Re-evaluate when user drags gates
+        window.addEventListener('Q gui altered circuit', function (event) {
+            event.detail.circuit.evaluate$()
         })
     </script>
 

@@ -97,189 +97,57 @@
             </div>
         </section>
 
-    <!-- Community Stats -->
-    <section class="section" style="background-color: var(--bg-primary);">
-        <div class="container">
-            <div class="grid grid-cols-2 grid-md-4">
-                <div class="card" style="text-align: center;">
-                    <i data-lucide="users"
-                        style="width: 2rem; height: 2rem; color: var(--color-green-700); margin: 0 auto var(--spacing-2);"></i>
-                    <div style="font-size: var(--font-size-3xl); margin-bottom: var(--spacing-1);">10,247</div>
-                    <div style="font-size: var(--font-size-sm); color: var(--text-secondary);">Active Members</div>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <i data-lucide="message-square"
-                        style="width: 2rem; height: 2rem; color: var(--color-green-700); margin: 0 auto var(--spacing-2);"></i>
-                    <div style="font-size: var(--font-size-3xl); margin-bottom: var(--spacing-1);">2,456</div>
-                    <div style="font-size: var(--font-size-sm); color: var(--text-secondary);">Forum Topics</div>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <i data-lucide="calendar"
-                        style="width: 2rem; height: 2rem; color: var(--color-green-700); margin: 0 auto var(--spacing-2);"></i>
-                    <div style="font-size: var(--font-size-3xl); margin-bottom: var(--spacing-1);">52</div>
-                    <div style="font-size: var(--font-size-sm); color: var(--text-secondary);">Events This Month</div>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <i data-lucide="trending-up"
-                        style="width: 2rem; height: 2rem; color: var(--color-green-700); margin: 0 auto var(--spacing-2);"></i>
-                    <div style="font-size: var(--font-size-3xl); margin-bottom: var(--spacing-1);">120+</div>
-                    <div style="font-size: var(--font-size-sm); color: var(--text-secondary);">Countries</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Main Content -->
     <section class="section" style="background-color: var(--bg-accent);">
         <div class="container">
             <div class="grid grid-cols-1 grid-lg-3">
-                <!-- Active Discussions -->
+                <!-- Getting Started -->
                 <div style="grid-column: span 2;">
                     <div class="card">
-                        <div
-                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-6);">
-                            <h2 style="font-size: var(--font-size-2xl);">Active Discussions</h2>
-                            <a href="https://github.com" style="color: var(--color-green-700);">View All</a>
+                        <div style="display: flex; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-4);">
+                            <i data-lucide="github" style="width: 1.5rem; height: 1.5rem; color: var(--color-green-700);"></i>
+                            <h2 style="font-size: var(--font-size-2xl);">Join the Conversation</h2>
                         </div>
-                        <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
-                            <div
-                                style="border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--spacing-4); cursor: pointer; transition: background-color 0.2s;">
-                                <div
-                                    style="display: flex; align-items: start; justify-content: space-between; margin-bottom: var(--spacing-2);">
-                                    <h3 style="font-size: var(--font-size-lg); flex: 1;">Understanding Quantum
-                                        Entanglement</h3>
-                                    <span class="badge badge-green" style="margin-left: var(--spacing-2);">Beginner
-                                        Questions</span>
+                        <p style="color: var(--text-secondary); margin-bottom: var(--spacing-6); line-height: 1.7;">
+                            We're a small open-source project just getting started. Right now, GitHub is our home for discussions — ask questions, report issues, share ideas, or contribute to the code.
+                        </p>
+                        <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+                            <a href="https://github.com/HasarinduPerera/quantumstuff.org/discussions"
+                                target="_blank" rel="noopener"
+                                style="display: flex; align-items: center; gap: var(--spacing-3); padding: var(--spacing-4); border: 1px solid var(--border-color); border-radius: var(--radius-lg); text-decoration: none; color: inherit;">
+                                <i data-lucide="message-square" style="width: 1.25rem; height: 1.25rem; color: var(--color-green-700); flex-shrink: 0;"></i>
+                                <div>
+                                    <div style="font-weight: 600;">GitHub Discussions</div>
+                                    <div style="font-size: var(--font-size-sm); color: var(--text-secondary);">Ask questions, share ideas, and connect with others</div>
                                 </div>
-                                <div
-                                    style="display: flex; align-items: center; gap: var(--spacing-4); font-size: var(--font-size-sm); color: var(--text-secondary);">
-                                    <span>by Sarah M.</span>
-                                    <span>23 replies</span>
-                                    <span>456 views</span>
-                                    <span style="margin-left: auto;">2 hours ago</span>
+                            </a>
+                            <a href="https://github.com/HasarinduPerera/quantumstuff.org/issues"
+                                target="_blank" rel="noopener"
+                                style="display: flex; align-items: center; gap: var(--spacing-3); padding: var(--spacing-4); border: 1px solid var(--border-color); border-radius: var(--radius-lg); text-decoration: none; color: inherit;">
+                                <i data-lucide="bug" style="width: 1.25rem; height: 1.25rem; color: var(--color-green-700); flex-shrink: 0;"></i>
+                                <div>
+                                    <div style="font-weight: 600;">Report an Issue</div>
+                                    <div style="font-size: var(--font-size-sm); color: var(--text-secondary);">Found a bug or something that doesn't make sense? Let us know</div>
                                 </div>
-                            </div>
-                            <div
-                                style="border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--spacing-4); cursor: pointer;">
-                                <div
-                                    style="display: flex; align-items: start; justify-content: space-between; margin-bottom: var(--spacing-2);">
-                                    <h3 style="font-size: var(--font-size-lg); flex: 1;">Help with Grover's Algorithm
-                                    </h3>
-                                    <span class="badge badge-amber"
-                                        style="margin-left: var(--spacing-2);">Algorithms</span>
+                            </a>
+                            <a href="https://github.com/HasarinduPerera/quantumstuff.org"
+                                target="_blank" rel="noopener"
+                                style="display: flex; align-items: center; gap: var(--spacing-3); padding: var(--spacing-4); border: 1px solid var(--border-color); border-radius: var(--radius-lg); text-decoration: none; color: inherit;">
+                                <i data-lucide="git-pull-request" style="width: 1.25rem; height: 1.25rem; color: var(--color-green-700); flex-shrink: 0;"></i>
+                                <div>
+                                    <div style="font-weight: 600;">Contribute</div>
+                                    <div style="font-size: var(--font-size-sm); color: var(--text-secondary);">Help improve lessons, fix bugs, or add new content</div>
                                 </div>
-                                <div
-                                    style="display: flex; align-items: center; gap: var(--spacing-4); font-size: var(--font-size-sm); color: var(--text-secondary);">
-                                    <span>by Alex K.</span>
-                                    <span>15 replies</span>
-                                    <span>289 views</span>
-                                    <span style="margin-left: auto;">5 hours ago</span>
-                                </div>
-                            </div>
-                            <div
-                                style="border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--spacing-4); cursor: pointer;">
-                                <div
-                                    style="display: flex; align-items: start; justify-content: space-between; margin-bottom: var(--spacing-2);">
-                                    <h3 style="font-size: var(--font-size-lg); flex: 1;">Best Resources for Learning
-                                        Qiskit?</h3>
-                                    <span class="badge badge-green"
-                                        style="margin-left: var(--spacing-2);">Resources</span>
-                                </div>
-                                <div
-                                    style="display: flex; align-items: center; gap: var(--spacing-4); font-size: var(--font-size-sm); color: var(--text-secondary);">
-                                    <span>by Michael R.</span>
-                                    <span>31 replies</span>
-                                    <span>678 views</span>
-                                    <span style="margin-left: auto;">1 day ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="https://github.com" class="btn btn-primary"
-                            style="width: 100%; margin-top: var(--spacing-6);">Start a New Discussion</a>
-                    </div>
-
-                    <!-- Upcoming Events -->
-                    <div class="card" style="margin-top: var(--spacing-8);">
-                        <div
-                            style="display: flex; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-6);">
-                            <i data-lucide="calendar"
-                                style="width: 1.5rem; height: 1.5rem; color: var(--color-green-700);"></i>
-                            <h2 style="font-size: var(--font-size-2xl);">Upcoming Events</h2>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
-                            <div
-                                style="border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--spacing-4);">
-                                <div style="margin-bottom: var(--spacing-2);">
-                                    <h3 style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-1);">
-                                        Introduction to Quantum Gates</h3>
-                                    <span class="badge badge-amber">Live Workshop</span>
-                                </div>
-                                <div
-                                    style="display: flex; align-items: center; gap: var(--spacing-4); font-size: var(--font-size-sm); color: var(--text-secondary); margin-top: var(--spacing-3);">
-                                    <span>Dec 15, 2025</span>
-                                    <span>2:00 PM EST</span>
-                                    <span style="margin-left: auto;">234 registered</span>
-                                </div>
-                                <button class="btn btn-outline"
-                                    style="width: 100%; margin-top: var(--spacing-3);">Register Free</button>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Sidebar -->
                 <div>
-                    <!-- Connect With Us -->
-                    <div class="card">
-                        <h3 style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-4);">Connect With Us
-                        </h3>
-                        <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
-                            <a href="https://github.com"
-                                style="display: flex; align-items: center; gap: var(--spacing-3); padding: var(--spacing-3); border: 1px solid var(--border-color); border-radius: var(--radius-lg); text-decoration: none; color: inherit; transition: background-color 0.2s;">
-                                <i data-lucide="message-square"
-                                    style="width: 1.25rem; height: 1.25rem; color: var(--color-green-700);"></i>
-                                <div>
-                                    <div style="font-size: var(--font-size-sm);">Discussion Forum</div>
-                                    <div style="font-size: var(--font-size-xs); color: var(--text-secondary);">2.5K
-                                        active topics</div>
-                                </div>
-                            </a>
-                            <a href="https://github.com"
-                                style="display: flex; align-items: center; gap: var(--spacing-3); padding: var(--spacing-3); border: 1px solid var(--border-color); border-radius: var(--radius-lg); text-decoration: none; color: inherit;">
-                                <i data-lucide="github"
-                                    style="width: 1.25rem; height: 1.25rem; color: var(--color-green-700);"></i>
-                                <div>
-                                    <div style="font-size: var(--font-size-sm);">GitHub</div>
-                                    <div style="font-size: var(--font-size-xs); color: var(--text-secondary);">
-                                        Contribute to code</div>
-                                </div>
-                            </a>
-                            <a href="https://twitter.com"
-                                style="display: flex; align-items: center; gap: var(--spacing-3); padding: var(--spacing-3); border: 1px solid var(--border-color); border-radius: var(--radius-lg); text-decoration: none; color: inherit;">
-                                <i data-lucide="twitter"
-                                    style="width: 1.25rem; height: 1.25rem; color: var(--color-green-700);"></i>
-                                <div>
-                                    <div style="font-size: var(--font-size-sm);">Twitter</div>
-                                    <div style="font-size: var(--font-size-xs); color: var(--text-secondary);">Follow
-                                        updates</div>
-                                </div>
-                            </a>
-                            <a href="https://youtube.com"
-                                style="display: flex; align-items: center; gap: var(--spacing-3); padding: var(--spacing-3); border: 1px solid var(--border-color); border-radius: var(--radius-lg); text-decoration: none; color: inherit;">
-                                <i data-lucide="youtube"
-                                    style="width: 1.25rem; height: 1.25rem; color: var(--color-green-700);"></i>
-                                <div>
-                                    <div style="font-size: var(--font-size-sm);">YouTube</div>
-                                    <div style="font-size: var(--font-size-xs); color: var(--text-secondary);">Watch
-                                        tutorials</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
                     <!-- Community Guidelines -->
                     <div class="card"
-                        style="margin-top: var(--spacing-6); background: linear-gradient(to bottom right, var(--color-green-50), var(--color-amber-50)); border: 1px solid var(--border-color);">
+                        style="background: linear-gradient(to bottom right, var(--color-green-50), var(--color-amber-50)); border: 1px solid var(--border-color);">
                         <h3 style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-3);">Community
                             Guidelines</h3>
                         <ul
@@ -299,55 +167,8 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h4>Learn</h4>
-                    <ul class="footer-links">
-                        <li><a href="sections/basic.html">Basic Quantum Computing</a></li>
-                        <li><a href="sections/index.html">All Courses</a></li>
-                        <li><a href="playground.html">Playground</a></li>
-                        <li><a href="resources.html">Resources</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Community</h4>
-                    <ul class="footer-links">
-                        <li><a href="community.html">Discord</a></li>
-                        <li><a href="https://github.com">GitHub</a></li>
-                        <li><a href="community.html">Forum</a></li>
-                        <li><a href="about.html">Contribute</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>About</h4>
-                    <ul class="footer-links">
-                        <li><a href="about.html">Our Mission</a></li>
-                        <li><a href="about.html">Team</a></li>
-                        <li><a href="about.html">Volunteer</a></li>
-                        <li><a href="about.html">Donate</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul class="footer-links">
-                        <li><a href="resources.html">Documentation</a></li>
-                        <li><a href="resources.html">API Reference</a></li>
-                        <li><a href="resources.html">External Links</a></li>
-                        <li><a href="resources.html">FAQ</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 quantumstuff.org - A Non-Profit Educational Initiative | Open Source | Free Forever</p>
-            </div>
-        </div>
-    </footer>
+    <footer class="footer" id="site-footer"></footer>
+    <script src="js/footer.js" data-root="./"></script>
 
     <!-- Scripts -->
     <script>

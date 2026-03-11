@@ -129,7 +129,7 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.15);
       }
     </style>
-    <script src="../bloch-viz/lib/math.min.js"></script>
+    <script src="/libraries/bloch-viz/lib/math.min.js"></script>
     <script src="../js/math_support.js"></script>
     <script src="../js/ports.js"></script>
   </head>
@@ -155,8 +155,8 @@
     </div>
 
     <script type="module">
-      import * as THREE from '../bloch-viz/lib/three.module.js';
-      import { OrbitControls } from '../bloch-viz/lib/OrbitControls.js';
+      import * as THREE from '/libraries/bloch-viz/lib/three.module.js';
+      import { OrbitControls } from '/libraries/bloch-viz/lib/OrbitControls.js';
 
       var group, camera, scene, renderer, doDraw = true;
       var arrow, orbit;
@@ -274,8 +274,8 @@
 
         var loader = new THREE.TextureLoader();
 
-        var ket0t = loader.load('../assets/ket 0.png', requestDraw);
-        var ket1t = loader.load('../assets/ket 1.png', requestDraw);
+        var ket0t = loader.load('/libraries/bloch-viz/assets/ket 0.png', requestDraw);
+        var ket1t = loader.load('/libraries/bloch-viz/assets/ket 1.png', requestDraw);
         var ket0m = new THREE.SpriteMaterial({ map: ket0t, alphaTest: 0.1, sizeAttenuation: false });
         var ket1m = new THREE.SpriteMaterial({ map: ket1t, alphaTest: 0.1, sizeAttenuation: false });
         var ket0s = new THREE.Sprite(ket0m);
@@ -357,6 +357,13 @@
       }
 
       function animate() {
+        // Auto-resize: correct canvas dimensions on every frame until they match
+        var container = document.getElementById('canvas-container');
+        var w = container.clientWidth, h = container.clientHeight;
+        if (w > 0 && h > 0 && (renderer.domElement.clientWidth !== w || renderer.domElement.clientHeight !== h)) {
+          onWindowResize();
+        }
+
         orbit.update();
         tmpVec.set(...stateToBloch(qubitState));
         arrow.setDirection(tmpVec);

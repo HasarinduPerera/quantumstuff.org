@@ -19,6 +19,7 @@
                     <h4>Project</h4>
                     <ul class="footer-links">
                         <li><a href="${root}about.html">About</a></li>
+                        <li><a href="${root}accessibility.html">Accessibility</a></li>
                         <li><a href="https://github.com/HasarinduPerera/quantumstuff.org" target="_blank" rel="noopener">GitHub</a></li>
                     </ul>
                 </div>

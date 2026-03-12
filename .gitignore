@@ -72,10 +72,9 @@ dump/
 
 
 # Progress files
-CHANGELOG.md
-Issues.md
+
 
 # Internal docs (not for public repo)
-docs/
+claude-docs/
 
 

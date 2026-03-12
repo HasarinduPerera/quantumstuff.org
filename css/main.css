@@ -826,6 +826,7 @@ a:hover {
 
 .btn-primary:hover {
     background-color: var(--color-green-800);
+    color: var(--color-white);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
 }
@@ -2657,7 +2658,7 @@ h3 {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    cursor: not-allowed;
+    cursor: pointer;
 }
 
 /* Hero Section */

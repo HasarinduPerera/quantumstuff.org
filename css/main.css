@@ -1101,9 +1101,12 @@ a:hover {
         gap: 0.5rem;
     }
 
-    .stats-grid,
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .cards-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .footer-grid {
@@ -1118,9 +1121,12 @@ a:hover {
         font-size: 2rem;
     }
 
-    .grid-md-2,
-    .grid-md-4 {
+    .grid-md-2 {
         grid-template-columns: 1fr;
+    }
+
+    .grid-md-4 {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -1789,7 +1795,7 @@ a:hover {
 
     .grid-cols-2,
     .cards-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .grid-cols-3,
@@ -1803,6 +1809,32 @@ a:hover {
 
     .section-title {
         font-size: 2rem;
+    }
+}
+
+/* Intermediate Devices (600px - 767px) - Large phones / small tablets */
+@media (min-width: 600px) and (max-width: 767px) {
+
+    .grid-md-2,
+    .grid-md-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .container,
+    .nav-content {
+        padding: 0 1.5rem;
+    }
+
+    .section {
+        padding: 3.5rem 0;
+    }
+
+    .hero h1 {
+        font-size: 2.75rem !important;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 

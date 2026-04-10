@@ -91,7 +91,7 @@ function createTwoQubitHistogram(counts, containerId, maxHeight) {
         var percent = total > 0 ? Math.round((count / total) * 100) : 0;
 
         html += '<div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">';
-        html += '<div style="width: 60px; height: ' + height + 'px; background: linear-gradient(to top, var(--primary-color), var(--secondary-color)); border-radius: 4px 4px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem; color: white; font-weight: 700; transition: height 0.5s ease;\">' + count + '</div>';
+        html += '<div style="width: 60px; height: ' + height + 'px; background: linear-gradient(to top, var(--color-green), var(--color-amber)); border-radius: 4px 4px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem; color: white; font-weight: 700; transition: height 0.5s ease;\">' + count + '</div>';
         html += '<div style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary);\">|' + state + '⟩</div>';
         html += '<div style="font-size: 0.9rem; color: var(--text-secondary);\">' + percent + '%</div>';
         html += '</div>';
@@ -105,67 +105,7 @@ function createTwoQubitHistogram(counts, containerId, maxHeight) {
 // INTERACTIVE 1: CNOT TRUTH TABLE EXPLORER
 // ============================================================================
 
-function exploreCNOTState(inputState) {
-    var outputState = applyCNOT(inputState);
 
-    var visualization = document.getElementById('cnot-truth-visualization');
-    var explanation = document.getElementById('cnot-truth-explanation');
-
-    if (!visualization || !explanation) return;
-
-    // Build visualization showing input → CNOT → output
-    var html = '<div style="display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 2rem; background: var(--bg-secondary); border-radius: 8px;">';
-
-    // Input state
-    html += '<div style="text-align: center;">';
-    html += '<div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary);">Input</div>';
-    html += '<div style="font-size: 2.5rem; font-weight: 700; color: var(--text-primary);\">|' + inputState + '⟩</div>';
-    html += '</div>';
-
-    // CNOT gate representation
-    html += '<div style="text-align: center;">';
-    html += '<div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary);">CNOT</div>';
-    html += '<div style="position: relative; width: 80px; height: 80px;">';
-    html += '<div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--primary-color); border: 2px solid white;\"></div>';
-    html += '<div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 3px; height: 40px; background: var(--primary-color);\"></div>';
-    html += '<div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border-radius: 50%; border: 3px solid var(--primary-color); display: flex; align-items: center; justify-content: center; background: white; font-size: 1.2rem; font-weight: 700; color: var(--primary-color);\">⊕</div>';
-    html += '</div>';
-    html += '</div>';
-
-    // Arrow
-    html += '<div style="font-size: 2rem; color: var(--text-secondary);\">→</div>';
-
-    // Output state
-    html += '<div style="text-align: center;">';
-    html += '<div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary);">Output</div>';
-    html += '<div style="font-size: 2.5rem; font-weight: 700; color: var(--secondary-color);\">|' + outputState + '⟩</div>';
-    html += '</div>';
-
-    html += '</div>';
-    visualization.innerHTML = html;
-
-    // Explanation
-    var control = inputState[0];
-    var target = inputState[1];
-    var newTarget = outputState[1];
-
-    var explanationText = 'Input: |' + inputState + '⟩ → Control qubit: |' + control + '⟩, Target qubit: |' + target + '⟩. ';
-
-    if (control === '0') {
-        explanationText += 'Control is |0⟩, so target stays |' + target + '⟩. ';
-    } else {
-        explanationText += 'Control is |1⟩, so target flips: |' + target + '⟩ → |' + newTarget + '⟩. ';
-    }
-
-    explanationText += 'Output: |' + outputState + '⟩';
-
-    explanation.textContent = explanationText;
-    explanation.style.background = '#e8f5e0';
-    explanation.style.border = '1px solid var(--primary-color)';
-    explanation.style.padding = '1rem';
-    explanation.style.marginTop = '1rem';
-    explanation.style.borderRadius = '6px';
-}
 
 // ============================================================================
 // INTERACTIVE 2: H + CNOT CIRCUIT (BELL STATE CREATION)
@@ -190,7 +130,7 @@ function applyHCNOT() {
         var html = '';
         for (var i = 0; i < measurements.results.length; i++) {
             var state = measurements.results[i];
-            html += '<span style="display: inline-block; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 0.5rem 0.75rem; border-radius: 6px; font-weight: 700; font-size: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2); white-space: nowrap; margin: 0.25rem;">|' + state + '⟩</span>';
+            html += '<span style="display: inline-block; background: linear-gradient(135deg, var(--color-green), var(--color-amber)); color: white; padding: 0.5rem 0.75rem; border-radius: 6px; font-weight: 700; font-size: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2); white-space: nowrap; margin: 0.25rem;">|' + state + '⟩</span>';
         }
         resultsDiv.innerHTML = html;
     }
@@ -212,7 +152,7 @@ function applyHCNOT() {
 
         explanationDiv.textContent = text;
         explanationDiv.style.background = '#e8f5e0';
-        explanationDiv.style.border = '1px solid var(--primary-color)';
+        explanationDiv.style.border = '1px solid var(--color-green)';
         explanationDiv.style.padding = '1rem';
         explanationDiv.style.marginTop = '1rem';
         explanationDiv.style.borderRadius = '6px';
@@ -333,7 +273,7 @@ function runCNOTCircuit() {
 
         explanation.textContent = text;
         explanation.style.background = '#e8f5e0';
-        explanation.style.border = '1px solid var(--primary-color)';
+        explanation.style.border = '1px solid var(--color-green)';
         explanation.style.padding = '1rem';
         explanation.style.marginTop = '1rem';
         explanation.style.borderRadius = '6px';

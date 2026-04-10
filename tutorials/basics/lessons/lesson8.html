@@ -177,6 +177,52 @@
                     <p><strong>Entangled (<span class="term" data-tooltip="Maximally entangled two-qubit state">Bell
                                 state</span>):</strong> |Φ⁺⟩ = (1/√2)(|00⟩ + |11⟩) (cannot separate!)</p>
                 </div>
+
+                <div class="callout" style="background: var(--bg-highlight); border-left: 4px solid var(--color-purple); margin-top: 1.5rem;">
+                    <div class="callout-title">
+                        <i data-lucide="lightbulb" style="width:16px;height:16px"></i>
+                        Analogy: The Quantum Gloves
+                    </div>
+                    <p>Imagine someone puts a pair of gloves (one left-handed, one right-handed) into two boxes and sends one to the Moon and one to Mars. If you open the Moon box and find the left glove, you instantly know the Mars box has the right glove.</p>
+                    <p><strong>But quantum entanglement is weirder:</strong> The quantum gloves don't even <em>have</em> a handedness until you open a box! They exist in a superposition of both left and right simultaneously. Opening one box forces that glove to randomly "choose" a state, and instantly forces the other glove lightyears away to become the opposite! Einstein called this "spooky action at a distance."</p>
+                </div>
+
+                <div class="demo" style="margin-top: 1.5rem;">
+                    <div class="demo-header">
+                        <div class="demo-icon"><i data-lucide="box" style="width:18px;height:18px"></i></div>
+                        <span class="demo-title">Interactive: The Quantum Boxes</span>
+                    </div>
+                    <div class="demo-content" style="text-align: center;">
+                        <p style="margin-bottom: 1.5rem;">These boxes contain entangled quantum gloves. Open one to see what happens!</p>
+                        
+                        <div style="display: flex; justify-content: center; gap: 3rem; margin-bottom: 1.5rem; position: relative;">
+                            <!-- Connection line -->
+                            <div id="entanglement-line" style="position: absolute; top: 50%; left: 25%; right: 25%; height: 4px; background: repeating-linear-gradient(90deg, var(--color-purple), var(--color-purple) 10px, transparent 10px, transparent 20px); z-index: 0; opacity: 0.5; transition: opacity 0.3s;"></div>
+
+                            <!-- Box A -->
+                            <div style="z-index: 1; position: relative;">
+                                <div id="boxA" style="width: 120px; height: 120px; background: var(--color-green); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 3rem; cursor: pointer; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 0 auto; user-select: none;" onclick="openBox('A')">
+                                    📦
+                                </div>
+                                <div style="margin-top: 1rem; font-weight: bold; font-size: 1.2rem;">Earth Box</div>
+                            </div>
+
+                            <!-- Box B -->
+                            <div style="z-index: 1; position: relative;">
+                                <div id="boxB" style="width: 120px; height: 120px; background: var(--color-amber); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 3rem; cursor: pointer; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 0 auto; user-select: none;" onclick="openBox('B')">
+                                    📦
+                                </div>
+                                <div style="margin-top: 1rem; font-weight: bold; font-size: 1.2rem;">Mars Box</div>
+                            </div>
+                        </div>
+
+                        <div id="box-explanation" style="min-height: 3rem; font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                            The gloves are in superposition. Neither is Left or Right yet.
+                        </div>
+
+                        <button class="btn-primary" onclick="resetBoxes()">Pack New Box Pair</button>
+                    </div>
+                </div>
             </section>
 
             <section class="section" id="bell-states">
@@ -690,6 +736,26 @@
                     <div class="feedback" id="feedback-3"></div>
                 </div>
 
+                <div class="quiz-question" data-question="4">
+                    <p class="question-text"><strong>Q4:</strong> In the Bell state |Φ⁺⟩, if you measure the first qubit as |0⟩, what is the state of the second qubit?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q4" value="a"><span>Always |0⟩</span></label>
+                        <label class="option"><input type="radio" name="q4" value="b"><span>Always |1⟩</span></label>
+                        <label class="option"><input type="radio" name="q4" value="c"><span>50% |0⟩ and 50% |1⟩</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-4"></div>
+                </div>
+
+                <div class="quiz-question" data-question="5">
+                    <p class="question-text"><strong>Q5:</strong> Roughly how many qubits are needed to represent more states than there are atoms in the observable universe (approx 10^80)?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q5" value="a"><span>~10,000 qubits</span></label>
+                        <label class="option"><input type="radio" name="q5" value="b"><span>~270 qubits</span></label>
+                        <label class="option"><input type="radio" name="q5" value="c"><span>~1,000,000 qubits</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-5"></div>
+                </div>
+
                 <button class="btn-primary" onclick="checkAnswersL8(this)">Check Answers</button>
                 <div id="quiz-score" class="quiz-result"></div>
             </section>
@@ -726,7 +792,7 @@
     <script src="../../../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
 
     <script src="../js/quantum-utils.js"></script>
-    <script src="../js/lesson8.js"></script>
+    <script src="../js/lesson8.js?v=3"></script>
 
     <script>
         // Create gate palettes

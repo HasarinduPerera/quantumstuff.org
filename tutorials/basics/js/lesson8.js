@@ -351,6 +351,103 @@ function checkAnswersL8(btn) {
 }
 
 // ============================================================================
+// INTERACTIVE: QUANTUM BOXES ANALOGY
+// ============================================================================
+
+var boxesState = {
+    openedA: false,
+    openedB: false,
+    contentA: null,
+    contentB: null
+};
+
+function openBox(boxId) {
+    if (boxesState.openedA && boxesState.openedB) return; // both open
+    
+    var elA = document.getElementById('boxA');
+    var elB = document.getElementById('boxB');
+    var explanation = document.getElementById('box-explanation');
+    var line = document.getElementById('entanglement-line');
+    
+    if (boxId === 'A' && !boxesState.openedA) {
+        boxesState.openedA = true;
+        // Determine state now
+        if (boxesState.contentA === null) {
+            boxesState.contentA = Math.random() > 0.5 ? 'Left' : 'Right';
+            boxesState.contentB = boxesState.contentA === 'Left' ? 'Right' : 'Left';
+        }
+        elA.textContent = boxesState.contentA;
+        elA.style.background = 'var(--bg-secondary)';
+        elA.style.color = 'var(--text-primary)';
+        elA.style.border = '2px solid var(--color-green)';
+        elA.style.fontSize = '1.5rem';
+        
+        if (!boxesState.openedB) {
+            explanation.innerHTML = 'Earth Box randomly collapsed to <strong>' + boxesState.contentA + '</strong>.<br>The entanglement ensures the Mars Box is instantly set to the opposite!';
+            if (line) line.style.opacity = '1';
+        } else {
+            explanation.innerHTML = 'Both boxes are now open. The correlation is perfect!';
+            if (line) line.style.opacity = '0.1';
+        }
+    }
+    
+    if (boxId === 'B' && !boxesState.openedB) {
+        boxesState.openedB = true;
+        // Determine state now
+        if (boxesState.contentB === null) {
+            boxesState.contentB = Math.random() > 0.5 ? 'Left' : 'Right';
+            boxesState.contentA = boxesState.contentB === 'Left' ? 'Right' : 'Left';
+        }
+        elB.textContent = boxesState.contentB;
+        elB.style.background = 'var(--bg-secondary)';
+        elB.style.color = 'var(--text-primary)';
+        elB.style.border = '2px solid var(--color-amber)';
+        elB.style.fontSize = '1.5rem';
+        
+        if (!boxesState.openedA) {
+            explanation.innerHTML = 'Mars Box randomly collapsed to <strong>' + boxesState.contentB + '</strong>.<br>The entanglement ensures the Earth Box is instantly set to the opposite!';
+            if (line) line.style.opacity = '1';
+        } else {
+            explanation.innerHTML = 'Both boxes are now open. The correlation is perfect!';
+            if (line) line.style.opacity = '0.1';
+        }
+    }
+}
+
+function resetBoxes() {
+    boxesState = {
+        openedA: false,
+        openedB: false,
+        contentA: null,
+        contentB: null
+    };
+    
+    var elA = document.getElementById('boxA');
+    var elB = document.getElementById('boxB');
+    var explanation = document.getElementById('box-explanation');
+    var line = document.getElementById('entanglement-line');
+    
+    if (elA) {
+        elA.textContent = '📦';
+        elA.style.background = 'var(--color-green)';
+        elA.style.color = 'white';
+        elA.style.border = 'none';
+        elA.style.fontSize = '3rem';
+    }
+    
+    if (elB) {
+        elB.textContent = '📦';
+        elB.style.background = 'var(--color-amber)';
+        elB.style.color = 'white';
+        elB.style.border = 'none';
+        elB.style.fontSize = '3rem';
+    }
+    
+    if (explanation) explanation.textContent = 'The gloves are in superposition. Neither is Left or Right yet.';
+    if (line) line.style.opacity = '0.5';
+}
+
+// ============================================================================
 // INITIALIZATION
 // ============================================================================
 
@@ -360,6 +457,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize Interactive 2: Reset state
     resetCorrelation();
+
+    // Initialize boxes analogy
+    resetBoxes();
 
     console.log('Lesson 8: Entanglement and Quantum Power - All interactives loaded!');
 });

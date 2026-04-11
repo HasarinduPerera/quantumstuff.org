@@ -37,6 +37,11 @@
     --color-gray-800: #3d3730;
     --color-gray-900: #2b281f;
 
+    /* Base Application Colors */
+    --color-green: #16a34a;
+    --color-amber: #fbbf24;
+    --color-purple: #8b5cf6;
+
     /* Additional theme variables */
     --color-sand: #d4c5a9;
 
@@ -148,6 +153,7 @@
     --color-green-100: #14532d;
     --color-green-700: #4ade80;
     --color-amber: #fbbf24;
+    --color-purple: #a78bfa;
     --color-amber-50: #422006;
     --color-amber-100: #78350f;
     --color-sand: #d4c5a9;

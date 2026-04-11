@@ -448,6 +448,99 @@ function resetBoxes() {
 }
 
 // ============================================================================
+// INTERACTIVE: THE TWIN CAFE (COFFEE VS TEA)
+// ============================================================================
+
+let isTwinsEntangled = false;
+let twinIsOrdering = false;
+
+function toggleTwinMode() {
+    var toggle = document.getElementById('entangled-twins-toggle');
+    isTwinsEntangled = toggle.checked;
+
+    var label = document.getElementById('entangled-label-text');
+    var explanation = document.getElementById('twins-explanation');
+    var line = document.getElementById('twin-connection-line');
+    
+    // Reset bubbles visually
+    document.getElementById('bubbleA').style.opacity = '0';
+    document.getElementById('bubbleB').style.opacity = '0';
+    
+    // Remove old animation classes to be ready for next click
+    document.getElementById('bubbleA').classList.remove('animate-pop');
+    document.getElementById('bubbleB').classList.remove('animate-pop');
+
+    if (isTwinsEntangled) {
+        label.style.opacity = '1';
+        explanation.innerHTML = 'They are now <strong>Quantum Entangled!</strong> Their random choices will inexplicably sync up perfectly. Click Order!';
+        line.style.opacity = '0.5';
+    } else {
+        label.style.opacity = '0.3';
+        explanation.innerHTML = 'They are currently acting completely independently. Click Order to see their random daily choices.';
+        line.style.opacity = '0';
+    }
+}
+
+function orderDrinks() {
+    if (twinIsOrdering) return;
+    twinIsOrdering = true;
+    
+    var bubbleA = document.getElementById('bubbleA');
+    var bubbleB = document.getElementById('bubbleB');
+    var explanation = document.getElementById('twins-explanation');
+    var btn = document.getElementById('order-drinks-btn');
+    var line = document.getElementById('twin-connection-line');
+
+    // Reset visually
+    bubbleA.style.opacity = '0';
+    bubbleB.style.opacity = '0';
+    bubbleA.classList.remove('animate-pop');
+    bubbleB.classList.remove('animate-pop');
+    btn.disabled = true;
+    btn.innerText = 'Thinking...';
+    
+    // Give it a small "thinking delay"
+    setTimeout(function() {
+        var choiceA = Math.random() > 0.5 ? '☕ Coffee' : '🍵 Tea';
+        var choiceB = Math.random() > 0.5 ? '☕ Coffee' : '🍵 Tea';
+        
+        if (isTwinsEntangled) {
+            // Force perfect matching
+            choiceB = choiceA;
+        }
+        
+        bubbleA.innerHTML = choiceA;
+        bubbleB.innerHTML = choiceB;
+        
+        // Trigger presentation animations
+        bubbleA.classList.add('animate-pop');
+        bubbleB.classList.add('animate-pop');
+        // Force opacity in case class doesn't override correctly depending on browser
+        bubbleA.style.opacity = '1';
+        bubbleB.style.opacity = '1';
+        
+        if (isTwinsEntangled) {
+            explanation.innerHTML = '<span style="color:var(--color-green)"><strong>They BOTH ordered ' + choiceA + '!</strong></span> The entanglement perfectly matched their random choices instantly.';
+            line.style.opacity = '1';
+        } else {
+            if (choiceA === choiceB) {
+                explanation.innerHTML = 'Coincidence! They randomly both wanted ' + choiceA + ' today.';
+            } else {
+                explanation.innerHTML = 'Independent choices. Twin A wants ' + choiceA + ', Twin B wants ' + choiceB + '.';
+            }
+        }
+        
+        btn.disabled = false;
+        btn.innerText = 'Order Morning Drink!';
+        twinIsOrdering = false;
+        
+        if (isTwinsEntangled) {
+            setTimeout(function() { line.style.opacity = '0.5'; }, 1000);
+        }
+    }, 600);
+}
+
+// ============================================================================
 // INITIALIZATION
 // ============================================================================
 

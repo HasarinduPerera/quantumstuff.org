@@ -246,7 +246,7 @@ function getCombinedCircuitExplanation(circuitType, result) {
 // MAIN LESSON QUIZ
 // ============================================================================
 
-function checkAnswersL5() {
+function checkAnswersL5(btn) {
     var answers = {
         q1: 'c',  // H creates equal superposition |+⟩
         q2: 'a',  // H-H returns to |0⟩
@@ -279,7 +279,7 @@ function checkAnswersL5() {
     };
 
     // Use the shared quiz utility
-    checkQuiz(answers, feedback, 'quiz-score');
+    checkQuiz(answers, feedback, 'quiz-score', btn);
 }
 
 // ============================================================================

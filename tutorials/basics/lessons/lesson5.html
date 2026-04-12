@@ -769,6 +769,26 @@
                     <div class="feedback" id="feedback-3"></div>
                 </div>
 
+                <div class="quiz-question" data-question="4">
+                    <p class="question-text"><strong>Q4:</strong> On the Bloch Sphere, what happens to |0⟩ when H is applied?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q4" value="a"><span>Stays at the North Pole</span></label>
+                        <label class="option"><input type="radio" name="q4" value="b"><span>Moves to the equator (superposition)</span></label>
+                        <label class="option"><input type="radio" name="q4" value="c"><span>Moves to the South Pole</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-4"></div>
+                </div>
+
+                <div class="quiz-question" data-question="5">
+                    <p class="question-text"><strong>Q5:</strong> What is the key difference between H|0⟩ and H|1⟩?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q5" value="a"><span>They are completely identical</span></label>
+                        <label class="option"><input type="radio" name="q5" value="b"><span>Both are superpositions but with opposite phases: |+⟩ vs |−⟩</span></label>
+                        <label class="option"><input type="radio" name="q5" value="c"><span>H|1⟩ always collapses to |0⟩</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-5"></div>
+                </div>
+
                 <button class="btn-primary" onclick="checkAnswersL5(this)">Check Answers</button>
                 <div id="quiz-score" class="quiz-result"></div>
             </section>
@@ -807,7 +827,29 @@
     <script src="../../../libraries/q.js/Q/Q-Circuit-Editor.js"></script>
 
     <script>
-        // Create gate palettes (EXACT copy from playground.html)
+        // ── shared helper: make all .Q-circuit-input cells in a circuit clickable ──
+        function makeQubitsClickable(circuit, domEl) {
+            var inputEls = Array.from(domEl.querySelectorAll('.Q-circuit-input'));
+            inputEls.forEach(function (inputEl, index) {
+                inputEl.style.cursor = 'pointer';
+                inputEl.style.userSelect = 'none';
+                inputEl.title = 'Click to toggle |0⟩ / |1⟩';
+                inputEl.addEventListener('click', function () {
+                    var isBeta1 = Math.abs(circuit.qubits[index].beta.real) > 0.5;
+                    circuit.qubits[index] = isBeta1
+                        ? new Q.Qubit(1, 0, 'H', 'Horizontal')
+                        : new Q.Qubit(0, 1, 'V', 'Vertical');
+                    circuit.evaluate$();
+                    // Refresh label text
+                    Array.from(domEl.querySelectorAll('.Q-circuit-input'))
+                        .forEach(function (el, i) {
+                            el.innerText = circuit.qubits[i].beta.toText();
+                        });
+                });
+            });
+        }
+
+        // Create gate palettes
         Array
             .from(document.querySelectorAll('.Q-circuit-palette'))
             .forEach(function (el) {
@@ -824,8 +866,7 @@
                 hCircuit.sort$()
                 hCircuit.toDom(hDomEl)
                 hCircuit.evaluate$()
-                const hReportEl = document.getElementById('h-superposition-report')
-                if (hReportEl) hReportEl.innerText = hCircuit.report$()
+                makeQubitsClickable(hCircuit, hDomEl)
             }
 
             // H-H identity circuit (1 qubit, 7 moments)
@@ -836,42 +877,7 @@
                 hhCircuit.sort$()
                 hhCircuit.toDom(hhDomEl)
                 hhCircuit.evaluate$()
-                const hhReportEl = document.getElementById('hh-identity-report')
-                if (hhReportEl) hhReportEl.innerText = hhCircuit.report$()
-
-                // Make input qubit clickable to toggle between |0⟩ and |1⟩
-                const inputEl = hhDomEl.querySelector('.Q-circuit-input')
-                if (inputEl) {
-                    inputEl.style.cursor = 'pointer'
-                    inputEl.style.userSelect = 'none'
-                    inputEl.setAttribute('title', 'Qubit #0 starting value (click to toggle between |0⟩ and |1⟩)')
-
-                    inputEl.addEventListener('click', function () {
-                        // Toggle between |0⟩ and |1⟩
-                        // Q.js now properly reads initial state from circuit.qubits
-                        const currentBeta = hhCircuit.qubits[0].beta.real
-
-                        if (Math.abs(currentBeta) < 0.5) {
-                            // Currently |0⟩, switch to |1⟩
-                            hhCircuit.qubits[0] = new Q.Qubit(0, 1, 'V', 'Vertical')
-                        } else {
-                            // Currently |1⟩, switch to |0⟩
-                            hhCircuit.qubits[0] = new Q.Qubit(1, 0, 'H', 'Horizontal')
-                        }
-
-                        hhCircuit.evaluate$()
-
-                        const currentInputEl = hhDomEl.querySelector('.Q-circuit-input')
-                        if (currentInputEl) {
-                            currentInputEl.innerText = hhCircuit.qubits[0].beta.toText()
-                        }
-
-                        const reportEl = document.getElementById('hh-identity-report')
-                        if (reportEl) {
-                            reportEl.innerText = hhCircuit.report$()
-                        }
-                    })
-                }
+                makeQubitsClickable(hhCircuit, hhDomEl)
             }
 
             // H and X combinations circuit (1 qubit, 7 moments)
@@ -882,10 +888,8 @@
                 hxCircuit.sort$()
                 hxCircuit.toDom(hxDomEl)
                 hxCircuit.evaluate$()
-                const hxReportEl = document.getElementById('hx-combinations-report')
-                if (hxReportEl) hxReportEl.innerText = hxCircuit.report$()
+                makeQubitsClickable(hxCircuit, hxDomEl)
             }
-
         })
 
         // Re-evaluate when user modifies the circuit via GUI

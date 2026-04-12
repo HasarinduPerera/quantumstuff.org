@@ -681,6 +681,16 @@
                     <div class="feedback" id="feedback-3"></div>
                 </div>
 
+                <div class="quiz-question" data-question="4">
+                    <p class="question-text"><strong>Q4:</strong> What happens when you apply X to a qubit in equal superposition |+⟩ = (1/√2)(|0⟩ + |1⟩)?</p>
+                    <div class="quiz-options">
+                        <label class="option"><input type="radio" name="q4" value="a"><span>Collapses it to |0⟩ or |1⟩ at random</span></label>
+                        <label class="option"><input type="radio" name="q4" value="b"><span>Stays in equal superposition (amplitudes are swapped, but probabilities are unchanged)</span></label>
+                        <label class="option"><input type="radio" name="q4" value="c"><span>Destroys the state entirely</span></label>
+                    </div>
+                    <div class="feedback" id="feedback-4"></div>
+                </div>
+
                 <button class="btn-primary" onclick="checkAnswersL4(this)">Check Answers</button>
                 <div id="quiz-score" class="quiz-result"></div>
             </section>
@@ -724,6 +734,33 @@
                 Q.Circuit.Editor.createPalette(el)
             })
 
+        // Helper: make qubit input labels clickable to toggle |0⟩ ↔ |1⟩
+        function makeQubitsClickable(circuit, domEl) {
+            if (!domEl) return;
+            const inputEls = domEl.querySelectorAll('.Q-circuit-input');
+            inputEls.forEach((inputEl, index) => {
+                inputEl.style.cursor = 'pointer';
+                inputEl.style.userSelect = 'none';
+                inputEl.setAttribute('title', `Qubit #${index} — click to toggle between |0⟩ and |1⟩`);
+
+                inputEl.addEventListener('click', function () {
+                    const currentBeta = circuit.qubits[index].beta.real;
+                    if (Math.abs(currentBeta) < 0.5) {
+                        circuit.qubits[index] = new Q.Qubit(0, 1, 'V', 'Vertical');
+                    } else {
+                        circuit.qubits[index] = new Q.Qubit(1, 0, 'H', 'Horizontal');
+                    }
+                    circuit.evaluate$();
+                    const refreshedInputs = domEl.querySelectorAll('.Q-circuit-input');
+                    if (refreshedInputs[index]) {
+                        refreshedInputs[index].innerText = circuit.qubits[index].beta.toText();
+                    }
+                    const reportEl = document.getElementById(circuit.name + '-report');
+                    if (reportEl) reportEl.innerText = circuit.report$();
+                });
+            });
+        }
+
         // Initialize circuits on page load
         window.addEventListener('DOMContentLoaded', function () {
             // X gate on basis states circuit (1 qubit, 7 moments)
@@ -734,6 +771,7 @@
                 xBasisCircuit.sort$()
                 xBasisCircuit.toDom(xBasisDomEl)
                 xBasisCircuit.evaluate$()
+                makeQubitsClickable(xBasisCircuit, xBasisDomEl)
             }
 
             // X gate on superposition circuit (1 qubit, 7 moments)
@@ -744,6 +782,7 @@
                 xSuperCircuit.sort$()
                 xSuperCircuit.toDom(xSuperDomEl)
                 xSuperCircuit.evaluate$()
+                makeQubitsClickable(xSuperCircuit, xSuperDomEl)
             }
 
             // X gate experiments circuit (1 qubit, 7 moments)
@@ -754,6 +793,7 @@
                 xExpCircuit.sort$()
                 xExpCircuit.toDom(xExpDomEl)
                 xExpCircuit.evaluate$()
+                makeQubitsClickable(xExpCircuit, xExpDomEl)
             }
 
             // X gate reversibility circuit (1 qubit, 7 moments for multiple X gates)
@@ -764,9 +804,11 @@
                 xRevCircuit.sort$()
                 xRevCircuit.toDom(xRevDomEl)
                 xRevCircuit.evaluate$()
+                makeQubitsClickable(xRevCircuit, xRevDomEl)
             }
 
             // Main playground circuit (3 qubits, 7 moments)
+            // Input toggles are intentionally disabled for the multi-qubit playground.
             const circuit = new Q.Circuit(3, 7)
             circuit.name = 'playground'
             const domEl = document.getElementById('playground')

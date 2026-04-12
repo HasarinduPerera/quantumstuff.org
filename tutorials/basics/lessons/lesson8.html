@@ -918,6 +918,41 @@
 
         window.addEventListener('DOMContentLoaded', function () {
 
+            function makeQubitsClickable(circuit, domEl) {
+                if (!domEl) return;
+                const inputEls = domEl.querySelectorAll('.Q-circuit-input');
+                inputEls.forEach((inputEl, index) => {
+                    inputEl.style.cursor = 'pointer';
+                    inputEl.style.userSelect = 'none';
+                    inputEl.setAttribute('title', `Qubit #${index} starting value (click to toggle between |0⟩ and |1⟩)`);
+
+                    inputEl.addEventListener('click', function () {
+                        // Toggle between |0⟩ and |1⟩
+                        const currentBeta = circuit.qubits[index].beta.real;
+
+                        if (Math.abs(currentBeta) < 0.5) {
+                            circuit.qubits[index] = new Q.Qubit(0, 1, 'V', 'Vertical');
+                        } else {
+                            circuit.qubits[index] = new Q.Qubit(1, 0, 'H', 'Horizontal');
+                        }
+
+                        circuit.evaluate$();
+
+                        // Update the text in the DOM for this specific input
+                        const currentInputEls = domEl.querySelectorAll('.Q-circuit-input');
+                        if (currentInputEls[index]) {
+                            currentInputEls[index].innerText = circuit.qubits[index].beta.toText();
+                        }
+
+                        // Update report
+                        const reportEl = document.getElementById(circuit.name + '-report');
+                        if (reportEl) {
+                            reportEl.innerText = circuit.report$();
+                        }
+                    });
+                });
+            }
+
             // Bell State Creator — pre-populated with |Φ⁺⟩ (H on q0, CNOT at m2)
             const bellCircuit = new Q.Circuit(2, 7)
                 .set$(Q.Gate.HADAMARD, 1, 1)
@@ -928,6 +963,7 @@
                 bellCircuit.sort$()
                 bellCircuit.toDom(bellDomEl)
                 bellCircuit.evaluate$()
+                makeQubitsClickable(bellCircuit, bellDomEl)
             }
 
             // Entanglement Correlations — also pre-populated with Bell state
@@ -940,6 +976,7 @@
                 entMeasureCircuit.sort$()
                 entMeasureCircuit.toDom(entMeasureDomEl)
                 entMeasureCircuit.evaluate$()
+                makeQubitsClickable(entMeasureCircuit, entMeasureDomEl)
             }
         })
 

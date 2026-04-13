@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | quantumstuff.org</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+        .error-page {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .error-content {
+            max-width: 560px;
+        }
+
+        .error-code {
+            font-family: 'Crimson Pro', serif;
+            font-size: 8rem;
+            font-weight: 600;
+            line-height: 1;
+            color: var(--color-green, #16a34a);
+            margin-bottom: 0.5rem;
+        }
+
+        .error-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary, #111);
+        }
+
+        .error-pun {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.125rem;
+            color: var(--text-secondary, #555);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .error-sub {
+            font-size: 0.95rem;
+            color: var(--text-secondary, #555);
+            margin-bottom: 2.5rem;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-green, #16a34a);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.15s;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.85;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border-subtle, #ddd);
+            color: var(--text-primary, #111);
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary, #f5f5f5);
+        }
+
+        .orbit-graphic {
+            margin: 0 auto 2rem;
+            opacity: 0.15;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="/index.html" class="logo" style="display: flex; align-items: center; gap: 12px;">
+                    <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" stroke="#16a34a" stroke-width="4" />
+                        <ellipse cx="50" cy="50" rx="45" ry="15" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 4" fill="none" />
+                        <line x1="50" y1="95" x2="50" y2="5" stroke="#16a34a" stroke-width="3" />
+                        <polygon points="50,2 46,12 54,12" fill="#16a34a" />
+                        <line x1="50" y1="50" x2="75" y2="25" stroke="#f5b208" stroke-width="5" stroke-linecap="round" />
+                        <polygon points="78,22 68,22 78,32" fill="#f5b208" transform="rotate(-45 78 22)" />
+                    </svg>
+                    <div style="font-size: 24px; font-weight: 700; white-space: nowrap;">
+                        <span style="color: #16a34a;">Quantum</span> <span style="color: #f5b208;">Stuff</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content" class="error-page">
+        <div class="error-content">
+            <svg class="orbit-graphic" width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" stroke="#16a34a" stroke-width="4" />
+                <ellipse cx="50" cy="50" rx="45" ry="15" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 4" fill="none" />
+                <line x1="50" y1="95" x2="50" y2="5" stroke="#16a34a" stroke-width="3" />
+                <polygon points="50,2 46,12 54,12" fill="#16a34a" />
+                <line x1="50" y1="50" x2="75" y2="25" stroke="#f5b208" stroke-width="5" stroke-linecap="round" />
+                <polygon points="78,22 68,22 78,32" fill="#f5b208" transform="rotate(-45 78 22)" />
+            </svg>
+
+            <div class="error-code">404</div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-pun">This page exists in superposition — it's neither here nor there.</p>
+            <p class="error-sub">The URL you followed may be broken, or the page may have collapsed into an unobservable state.</p>
+
+            <div class="error-actions">
+                <a href="/index.html" class="btn-primary">Back to Home</a>
+                <a href="/sections/index.html" class="btn-secondary">Browse Courses</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    </script>
+</body>
+
+</html>

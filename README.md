@@ -5,6 +5,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/HasarinduPerera/quantumstuff.org)](https://github.com/HasarinduPerera/quantumstuff.org/commits/main)
 [![GitHub stars](https://img.shields.io/github/stars/HasarinduPerera/quantumstuff.org?style=social)](https://github.com/HasarinduPerera/quantumstuff.org/stargazers)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Accessibility](https://github.com/HasarinduPerera/quantumstuff.org/actions/workflows/accessibility.yml/badge.svg)](https://github.com/HasarinduPerera/quantumstuff.org/actions/workflows/accessibility.yml)
 
 **QuantumStuff** is an open-source platform dedicated to making quantum computing and quantum physics accessible to everyone. This repository contains beginner-friendly tutorials, interactive activities, and community-driven content ranging from basic qubits to advanced quantum algorithms.
 

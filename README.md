@@ -1,124 +1,93 @@
-# 🌌 QuantumStuff — Open-Source Quantum Learning Platform
+# QuantumStuff — Open-Source Quantum Learning Platform
 
-Welcome to **QuantumStuff**, an open-source project dedicated to making **quantum computing and quantum physics accessible to everyone**.
-This repo contains beginner-friendly tutorials, interactive activities, and community-driven content on everything from basic qubits to advanced quantum algorithms.
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fquantumstuff.org&label=quantumstuff.org)](https://quantumstuff.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/HasarinduPerera/quantumstuff.org)](https://github.com/HasarinduPerera/quantumstuff.org/commits/main)
+[![GitHub stars](https://img.shields.io/github/stars/HasarinduPerera/quantumstuff.org?style=social)](https://github.com/HasarinduPerera/quantumstuff.org/stargazers)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-**Live at: [quantumstuff.org](https://quantumstuff.org)** 🚀
+**QuantumStuff** is an open-source platform dedicated to making quantum computing and quantum physics accessible to everyone. This repository contains beginner-friendly tutorials, interactive activities, and community-driven content ranging from basic qubits to advanced quantum algorithms.
+
+**Live at: [quantumstuff.org](https://quantumstuff.org)**
 
 ---
 
-## ✨ What You'll Find Here
+## Contents
 
-### 📘 Beginner Tutorials
-- Qubits, states, Bloch sphere
+### Beginner Tutorials
+- Qubits, states, and the Bloch sphere
 - Single- and multi-qubit gates
 - Measurement basics
-- Superposition & entanglement
+- Superposition and entanglement
 - Simple quantum circuits
-- Intro to Qiskit / Cirq / PennyLane
+- Introduction to Qiskit, Cirq, and PennyLane
 
-### ⚙️ Interactive Activities
+### Interactive Activities
 - Bloch sphere explorer
-- Mini quantum circuit simulator
+- Quantum circuit simulator
 - Qubit state animations
 
-### 🧪 Advanced "Quantum Stuff"
+### Advanced Topics
 - Quantum tunneling
 - Variational algorithms
-- Grover's & Shor's
+- Grover's and Shor's algorithms
 - Quantum error correction
 - Foundations of quantum physics
 - Quantum machine learning
 
-All contributions are welcome — big or small.
-
 ---
 
-# 🚀 Getting Started
+## Getting Started
 
-### 1. Clone the repo
+### 1. Clone the repository
 ```bash
-git clone https://github.com/<your-username>/quantumstuff.git
-cd quantumstuff
+git clone https://github.com/HasarinduPerera/quantumstuff.org.git
+cd quantumstuff.org
 ```
 
 ### 2. Run locally
-Just open any HTML file in your browser - no build step required!
+No build step required. Open any HTML file directly in a browser, or serve with Python:
 
 ```bash
-# Quick start - Python server
-cd quantumstuff.org
 python3 -m http.server 8000
-
-# Then visit http://localhost:8000
+# Visit http://localhost:8000
 ```
 
 ---
 
-# 🌐 Deployment
+## Deployment
 
-This site is deployed on **GitHub Pages** with a custom domain from Porkbun.
+The site is deployed on **GitHub Pages** with a custom domain via Porkbun.
 
-### Automatic Deployment
-- Push to `master` branch triggers automatic deployment
-- Site goes live at [quantumstuff.org](https://quantumstuff.org)
-- No build process required - pure HTML/CSS/JS
-
-### Custom Domain Setup
-The `CNAME` file configures the custom domain. DNS is configured with:
-- A records pointing to GitHub Pages IPs
-- HTTPS enforced via GitHub Pages
+- Pushing to `main` triggers automatic deployment
+- No build process — pure HTML, CSS, and JavaScript
+- Custom domain configured via `CNAME`; DNS uses A records pointing to GitHub Pages IPs with HTTPS enforced
 
 ---
 
-# 🧩 Contributing
-
-We welcome contributions from:
-
-- students
-- researchers
-- developers
-- educators
-- hobbyists
-
-### You can contribute by:
-- Adding tutorials
-- Improving explanations
-- Adding images/diagrams
-- Contributing interactive demos
-- Writing advanced sections
-- Fixing typos
-- Translating content
-- Suggesting new topics
-
-### How to contribute:
-1. Fork the repo
-2. Make changes in a new branch
-3. Submit a pull request
-
-We'll review and collaborate!
-
----
-
-# 📁 Project Structure
+## Project Structure
 
 ```
 quantumstuff.org/
 │
 ├── index.html              # Main landing page
+├── about.html              # About page
+├── community.html          # Community page
+├── resources.html          # Resources page
+├── playground.html         # Quantum playground
 ├── CNAME                   # Custom domain configuration
+├── CONTRIBUTING.md         # Contribution guidelines
 │
 ├── css/                    # Global styles
 ├── js/                     # Global scripts
 ├── images/                 # Site images
-├── sections/               # Page sections
+├── sections/               # Reusable page sections
 │
 ├── tutorials/
 │   └── basics/             # Quantum computing fundamentals (8 lessons)
-│       ├── lessons/        # HTML lesson files
+│       ├── lessons/        # HTML lesson files (lesson1–8)
 │       ├── js/             # Interactive lesson scripts
-│       ├── css/            # Styling
-│       └── visualizations/ # Bloch sphere and other visualizations
+│       └── css/            # Lesson styles
 │
 ├── libraries/
 │   ├── q.js/               # Quantum circuit library
@@ -130,27 +99,42 @@ quantumstuff.org/
 │   ├── bloch-sphere-explorer.html
 │   └── quantum-visualization-playground.html
 │
-└── docs/                   # Documentation
+└── examples/               # Example circuits and demos
 ```
 
 ---
 
-# 🌍 Community
+## Contributing
 
-Open issues, ask questions, propose ideas — or add your own quantum "stuff."
+Contributions are welcome from students, researchers, developers, educators, and hobbyists alike. You can help by:
+
+- Adding or improving tutorials
+- Contributing interactive demos or diagrams
+- Fixing typos or clarifying explanations
+- Translating content
+- Suggesting new topics
+
+**How to contribute:**
+1. Fork the repository
+2. Create a new branch for your changes
+3. Submit a pull request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
-# 🛸 License
+## Community
+
+Open issues, ask questions, and propose ideas on the [GitHub Issues](https://github.com/HasarinduPerera/quantumstuff.org/issues) page.
+
+---
+
+## License
+
 MIT License — free to use, modify, and share.
 
 ---
 
-# 💡 Vision
+## Vision
 
-Quantum learning shouldn't be intimidating.
-Our goal is to create **the most accessible, community-driven quantum learning resource** on the web — one piece of "quantum stuff" at a time.
-
----
-
-**🚀 Explore. Learn. Contribute. Build quantum stuff.**
+Quantum learning shouldn't be intimidating. The goal of QuantumStuff is to build the most accessible, community-driven quantum learning resource on the web.

@@ -1,0 +1,25 @@
+name: Accessibility
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pa11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start local server
+        run: python3 -m http.server 8000 &
+
+      - name: Wait for server
+        run: sleep 2
+
+      - name: Install pa11y-ci
+        run: npm install -g pa11y-ci
+
+      - name: Run accessibility checks
+        run: pa11y-ci --config .pa11yci.json

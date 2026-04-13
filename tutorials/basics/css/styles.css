@@ -56,7 +56,7 @@
 }
 
 html {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 body {
@@ -64,7 +64,7 @@ body {
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.7;
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
 }
 
@@ -182,8 +182,10 @@ body {
 /* =================== LEFT SIDEBAR =================== */
 .sidebar {
     position: sticky;
-    top: 100px;
-    height: fit-content;
+    top: 104px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    align-self: start;
 }
 
 .sidebar-section {
@@ -427,8 +429,10 @@ code {
 /* =================== RIGHT SIDEBAR (TOC) =================== */
 .toc {
     position: sticky;
-    top: 100px;
-    height: fit-content;
+    top: 104px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    align-self: start;
 }
 
 .toc-title {

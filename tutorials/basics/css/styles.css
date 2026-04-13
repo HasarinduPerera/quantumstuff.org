@@ -11,6 +11,7 @@
     --color-green: #16a34a;
     --color-green-dark: #15803d;
     --color-amber: #fbbf24;
+    --color-amber-text: #92400e;
     --color-rust: #c2410c;
     --color-sand: #d4c5a9;
     --bg-primary: #faf8f3;
@@ -27,6 +28,7 @@
     --color-green: #16a34a;
     --color-green-dark: #16a34a;
     --color-amber: #fbbf24;
+    --color-amber-text: #fbbf24;
     --color-rust: #e26a45;
     --color-sand: #d4c5a9;
     --bg-primary: #1c1a16;
@@ -1932,7 +1934,7 @@ code {
 }
 
 .state-part.one {
-    color: var(--color-amber);
+    color: var(--color-amber-text);
 }
 
 .state-label {
@@ -2130,7 +2132,7 @@ code {
     text-align: center;
     font-size: 1.5rem;
     font-family: 'Crimson Pro', serif;
-    color: var(--color-green);
+    color: var(--text-primary);
     margin: 1.5rem 0;
 }
 
@@ -2411,7 +2413,7 @@ code {
 
 .state-label {
     font-weight: 600;
-    color: var(--color-green);
+    color: var(--color-green-dark);
     min-width: 40px;
     text-align: center;
 }

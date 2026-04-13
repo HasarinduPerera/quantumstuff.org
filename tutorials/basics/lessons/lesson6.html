@@ -147,7 +147,7 @@
                             <label>Number of qubits:</label>
                             <input type="range" id="qubit-count-slider" min="1" max="20" value="1"
                                 style="width:100%;margin:1rem 0" oninput="updateQubitCount(this.value)">
-                            <div style="font-size:1.5rem;font-weight:700;color:var(--color-green);margin:1rem 0">
+                            <div style="font-size:1.5rem;font-weight:700;color:var(--color-green-dark);margin:1rem 0">
                                 <span id="qubit-count-display">1</span> qubits
                             </div>
                         </div>
@@ -189,7 +189,7 @@
                             (⊗) to build the combined state space. This mathematical operation is what gives quantum
                             computing its exponential power.</p>
 
-                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Tensor
+                        <h4 style="color: var(--color-green-dark); margin-top: 1.5rem; margin-bottom: 0.75rem;">Tensor
                             Product Basics</h4>
                         <p>For two qubits, each qubit lives in a 2-dimensional space. The combined system lives in a 2 ⊗
                             2 = 4-dimensional space:</p>
@@ -203,7 +203,7 @@
                         <p>For n qubits, the state space has dimensions 2ⁿ. This is why 300 qubits would have more
                             states than atoms in the universe (2³⁰⁰ ≈ 10⁹⁰)!</p>
 
-                        <h4 style="color: var(--color-green); margin-top: 1.5rem; margin-bottom: 0.75rem;">Hilbert
+                        <h4 style="color: var(--color-green-dark); margin-top: 1.5rem; margin-bottom: 0.75rem;">Hilbert
                             Spaces</h4>
                         <p>The <strong>Hilbert space</strong> is the mathematical framework where quantum states live.
                             For n qubits:</p>
@@ -243,7 +243,7 @@
                             <div style="font-size:0.75rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1.25rem;">H ⊗ H Circuit</div>
                             <!-- q₀ row -->
                             <div style="display:flex;align-items:center;margin-bottom:1.25rem;">
-                                <div style="font-family:monospace;font-weight:700;font-size:0.9375rem;color:var(--color-green);min-width:72px;flex-shrink:0;">q₀: |0⟩</div>
+                                <div style="font-family:monospace;font-weight:700;font-size:0.9375rem;color:var(--color-green-dark);min-width:72px;flex-shrink:0;">q₀: |0⟩</div>
                                 <div style="height:2px;background:var(--text-secondary);opacity:0.35;flex:1;"></div>
                                 <div style="width:44px;height:44px;background:#3b82f6;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:white;flex-shrink:0;box-shadow:0 2px 8px #3b82f644;">H</div>
                                 <div style="height:2px;background:var(--text-secondary);opacity:0.35;flex:1;"></div>
@@ -251,7 +251,7 @@
                             </div>
                             <!-- q₁ row -->
                             <div style="display:flex;align-items:center;">
-                                <div style="font-family:monospace;font-weight:700;font-size:0.9375rem;color:var(--color-green);min-width:72px;flex-shrink:0;">q₁: |0⟩</div>
+                                <div style="font-family:monospace;font-weight:700;font-size:0.9375rem;color:var(--color-green-dark);min-width:72px;flex-shrink:0;">q₁: |0⟩</div>
                                 <div style="height:2px;background:var(--text-secondary);opacity:0.35;flex:1;"></div>
                                 <div style="width:44px;height:44px;background:#3b82f6;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:white;flex-shrink:0;box-shadow:0 2px 8px #3b82f644;">H</div>
                                 <div style="height:2px;background:var(--text-secondary);opacity:0.35;flex:1;"></div>
@@ -259,7 +259,7 @@
                             </div>
                             <!-- output label -->
                             <div style="margin-top:1.25rem;padding:0.75rem 1rem;background:rgba(22,163,74,0.08);border-radius:8px;font-size:0.875rem;color:var(--text-secondary);text-align:center;">
-                                Output: <strong style="color:var(--color-green);">(1/2)(|00⟩ + |01⟩ + |10⟩ + |11⟩)</strong> — equal superposition of all 4 states
+                                Output: <strong style="color:var(--color-green-dark);">(1/2)(|00⟩ + |01⟩ + |10⟩ + |11⟩)</strong> — equal superposition of all 4 states
                             </div>
                         </div>
                         <div style="text-align:center;margin:1.25rem 0;">
@@ -305,7 +305,7 @@
                             <div style="background:var(--bg-card);border:2px solid rgba(22,163,74,0.4);border-radius:12px;padding:1.25rem;">
                                 <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;">
                                     <div style="width:10px;height:10px;border-radius:50%;background:var(--color-green);"></div>
-                                    <h4 style="margin:0;color:var(--color-green);font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em;">Quantum</h4>
+                                    <h4 style="margin:0;color:var(--color-green-dark);font-size:0.875rem;text-transform:uppercase;letter-spacing:0.05em;">Quantum</h4>
                                 </div>
                                 <div id="quantum-scale"></div>
                             </div>
@@ -355,11 +355,11 @@
                 <h2 class="section-title">📋 Quick Reference Card</h2>
                 <div
                     style="background: var(--bg-card); border: 2px solid var(--color-green); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
-                    <h3 style="color: var(--color-green); margin-bottom: 1.5rem;">Multiple Qubits Cheat Sheet</h3>
+                    <h3 style="color: var(--color-green-dark); margin-bottom: 1.5rem;">Multiple Qubits Cheat Sheet</h3>
 
                     <div style="display: grid; gap: 1.5rem;">
                         <div>
-                            <h4 style="color: var(--color-amber); margin-bottom: 0.5rem;">State Space Scaling</h4>
+                            <h4 style="color: var(--color-amber-text); margin-bottom: 0.5rem;">State Space Scaling</h4>
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr style="background: var(--bg-secondary);">
                                     <th

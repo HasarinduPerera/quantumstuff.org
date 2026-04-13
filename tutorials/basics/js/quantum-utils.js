@@ -389,13 +389,24 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// ============================================================================
+// MOBILE CIRCUIT SCROLL HINT
+// ============================================================================
+
 /**
- * Delays execution (useful for animations)
- * @param {number} ms - Milliseconds to wait
- * @returns {Promise} - Promise that resolves after delay
+ * On mobile, attach scroll listeners to Q.js circuits so the right-edge
+ * gradient fade (scroll hint) disappears once the user has scrolled to the end.
  */
-function delay(ms) {
-    return new Promise(function(resolve) {
-        setTimeout(resolve, ms);
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.innerWidth > 768) return; // desktop — no-op
+
+    document.querySelectorAll('.Q-circuit').forEach(function (el) {
+        function updateFade() {
+            var atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+            el.classList.toggle('scrolled-end', atEnd);
+        }
+        el.addEventListener('scroll', updateFade, { passive: true });
+        // Check on load in case circuit already fits
+        updateFade();
     });
-}
+});

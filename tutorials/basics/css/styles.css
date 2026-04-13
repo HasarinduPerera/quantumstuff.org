@@ -2589,11 +2589,25 @@ code {
         gap: 1rem;
     }
 
-    /* Allow circuit containers to scroll horizontally */
+    /* Q.js circuit horizontal scroll on mobile */
     .cjs-circuit,
     .qjs-circuit {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+    }
+
+    /* Make the Q.js circuit itself scrollable and give it a scroll hint */
+    .Q-circuit {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* right-edge fade signals more content to scroll */
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    }
+    /* Remove the fade once the user has scrolled to the end */
+    .Q-circuit.scrolled-end {
+        -webkit-mask-image: none;
+        mask-image: none;
     }
 
     /* Force inline grids to stack on mobile */
@@ -2613,12 +2627,14 @@ code {
     /* Prevent demo content from overflowing */
     .demo {
         max-width: 100%;
-        overflow-x: auto;
+        overflow-x: hidden;
     }
 
     .demo-content {
         max-width: 100%;
+        padding: 1rem;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
@@ -4016,18 +4032,18 @@ code {
         min-width: max-content;
     }
 
-    /* Smaller circuit on mobile */
-    .cjs-circuit-small {
-        transform: scale(0.85);
-        transform-origin: left center;
+    /* Fix cjs-circuit width: content-box + padding causes the white box to bleed
+       past the demo card. Switch to border-box so width:100% includes padding. */
+    .cjs-circuit {
+        box-sizing: border-box !important;
+        width: 100%;
+        max-width: 100%;
+        margin: 0.5rem 0;
+        zoom: 0.8;
+        overflow-x: auto;
     }
 }
 
-@media (max-width: 480px) {
-    .cjs-circuit-small {
-        transform: scale(0.7);
-    }
-}
 
 /* === lesson3 === */
 

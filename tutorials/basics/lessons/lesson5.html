@@ -49,12 +49,24 @@
             isolation: isolate;
         }
 
-        /* Remove scrollbars and center circuit */
-        .Q-circuit-board-container {
-            overflow: visible !important;
-            max-height: none !important;
-            display: flex !important;
-            justify-content: center !important;
+        /* Remove scrollbars and center circuit — desktop */
+        @media (min-width: 769px) {
+            .Q-circuit-board-container {
+                overflow: visible !important;
+                max-height: none !important;
+                display: flex !important;
+                justify-content: center !important;
+            }
+        }
+        /* Mobile: make circuit horizontally scrollable */
+        @media (max-width: 768px) {
+            .Q-circuit-board-container {
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                max-height: none !important;
+                display: block !important;
+                -webkit-overflow-scrolling: touch;
+            }
         }
     </style>
 

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script defer src="https://stats.syncure.app/script.js" data-website-id="e5fca0f0-8b69-497a-8c22-609ff5073f6b"></script>
 </head>
 
 <body>
@@ -114,9 +115,15 @@
 
             <section class="section" id="scaling">
                 <h2 class="section-title">The Power of Exponential Scaling</h2>
-                <p>Classical computers scale linearly: 2 bits can be in <em>one</em> of 4 states at a time. Quantum
-                    computers scale <strong>exponentially</strong>: 2 qubits can be in a superposition of all 4 states
-                    <em>simultaneously</em>!
+                <p>A classical 2-bit register can only hold <em>one</em> value at a time — for example, <code>01</code>.
+                    To check all four possibilities (00, 01, 10, 11) a classical computer must run
+                    <strong>four separate computations</strong>, one after another.
+                </p>
+                <p style="margin-top:0.75rem">Two qubits in superposition, however, can exist in <em>all four states
+                    simultaneously</em>. A quantum computer can operate on all possibilities
+                    <strong>in a single step</strong>. And this advantage grows
+                    <strong>exponentially</strong>: every extra qubit <em>doubles</em> the number of states — N
+                    qubits hold 2<sup>N</sup> states at once.
                 </p>
 
                 <div class="callout">
@@ -311,7 +318,7 @@
             <div class="callout" style="margin: 2rem 0;">
                 <div class="callout-title">
                     <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
-                    What's Next: Multi-Qubit Gates
+                    What's Next: The CNOT Gate
                 </div>
                 <p>So far, we've applied <strong>single-qubit gates</strong> (H, X, Z) to multiple qubits
                     <strong>independently</strong>. Each qubit was manipulated separately.</p>

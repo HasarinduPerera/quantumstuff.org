@@ -6,7 +6,10 @@
     "ignore": [
       "notice",
       "warning"
-    ]
+    ],
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    }
   },
   "urls": [
     "http://localhost:8000/index.html",
